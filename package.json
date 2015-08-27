@@ -1,0 +1,27 @@
+{
+  "name": "p5.serialserver",
+  "version": "0.0.1",
+  "description": "An serial server for p5.js works with p5.serialport",
+  "author": "Shawn Van Every <Shawn.Van.Every@nyu.edu>",
+  "main": "p5.serialserver.js",
+  "scripts": {
+    "start":"node startserver.js"
+    },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vanevery/p5.serialport"
+  },
+  "bugs": {
+    "url": "https://github.com/vanevery/p5.serialport/issues"
+  },
+  "keywords": [
+    "serial",
+    "p5.js"
+  ],
+  "dependencies": {
+    "ws": "*",
+    "serialport": "*"
+  },
+  "license": "LGPL"
+}
+  
