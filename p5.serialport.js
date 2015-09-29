@@ -204,6 +204,12 @@ serialPort.open("/dev/tty-usbserial1", {
   p5.SerialPort.prototype.readChar = function() {
     //Returns the next byte in the buffer as a char. Returns -1 or 0xffff if nothing is there.
     if (this.serialBuffer.length > 0) {
+      /*var currentByte = this.serialBuffer.shift();
+      console.log("p5.serialport.js: " + currentByte);
+      var currentChar = String.fromCharCode(currentByte);
+      console.log("p5.serialport.js: " + currentChar);
+      return currentChar;
+      */
       return String.fromCharCode(this.serialBuffer.shift());
     } else {
       return -1;
@@ -251,19 +257,23 @@ serialPort.open("/dev/tty-usbserial1", {
     return stringBuffer.join("");
   };
 
-  p5.SerialPort.prototype.readStringUntil = function(charToFind) {
-    //Combination of readBytesUntil() and readString(). Returns null if it doesn't find what you're looking for.
-    var returnBuffer = this.readBytesUntil(charToFind);
-    if (returnBuffer !== -1) {
-      var stringBuffer = [];
-      for (var i = 0; i < this.serialBuffer.length; i++) {  
-        stringBuffer.push(String.fromCharCode(returnBuffer[i]));
-      }
-      return stringBuffer.join("");
+  p5.SerialPort.prototype.readStringUntil = function(stringToFind) {
+
+    var stringBuffer = [];
+    //console.log("serialBuffer Length: " + this.serialBuffer.length);
+    for (var i = 0; i < this.serialBuffer.length; i++) {
+      //console.log("push: " + String.fromCharCode(this.serialBuffer[i]));
+      stringBuffer.push(String.fromCharCode(this.serialBuffer[i]));
     }
-    else {
-      return returnBuffer;
+    var returnString = "";
+    var foundIndex = stringBuffer.indexOf(stringToFind);
+    console.log("found index: " + foundIndex);
+    if (foundIndex > -1) {
+      returnString = stringBuffer.substr(foundIndex,stringToFind.length);
+      this.serialBuffer = serialBuffer.slice(foundIndex+stringToFind.length);
     }
+    console.log("Sending: " + returnString);
+    return returnString;
   };
 
   // TODO
