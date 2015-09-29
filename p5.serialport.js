@@ -45,8 +45,10 @@ serialPort.open("/dev/tty-usbserial1", {
 
     var self = this;
 
-    this.bufferSize = 512;
+    this.bufferSize = 16; // How much to buffer before sending data event
+    // server already does 8
     this.serialBuffer = [];
+    //this.maxBufferSize = 1024;
 
     this.serialConnected = false;  // Is serial connected?
 
@@ -107,7 +109,22 @@ serialPort.open("/dev/tty-usbserial1", {
           // Add to buffer, assuming this comes byte by byte
           //console.log("data: " + messageObject.data);
           for (var i = 0; i < messageObject.data.length; i++) {
-            self.serialBuffer.push(messageObject.data[i]);
+           
+            if (typeof messageObject.data[i] == 'object') {
+              //console.log("concating " + messageObject.data[i]);
+              self.serialBuffer = self.serialBuffer.concat(messageObject.data[i]);
+            }
+            else {
+              //console.log("pushing " + messageObject.data[i]);
+              self.serialBuffer.push(messageObject.data[i]);
+            }
+
+            /*
+            if (self.serialBuffer.length > self.maxBufferSize) {
+              self.serialBuffer = self.serialBuffer.slice(0,self.serialBuffer.length-self.maxBufferSize);
+            }
+            */
+            //console.log(self.serialBuffer.length);
           }
 
           if (typeof self.dataCallback !== "undefined") {
@@ -115,10 +132,11 @@ serialPort.open("/dev/tty-usbserial1", {
             if (self.serialBuffer.length >= self.bufferSize) {
               self.dataCallback();
             }
-            console.log(self.serialBuffer.length);
+            //console.log(self.serialBuffer.length);
+          }
 
-            // Do we want direct data callback?
-            //self.dataCallback(messageObject.data);
+          if (typeof self.rawDataCallback !== "undefined") {
+            self.rawDataCallback(messageObject.data);
           }
         } else if (messageObject.method === 'list') {
           if (typeof self.listCallback !== "undefined") {
@@ -237,6 +255,7 @@ serialPort.open("/dev/tty-usbserial1", {
   };
 
   p5.SerialPort.prototype.readBytesUntil = function(charToFind) {
+    console.log("Looking for: " + charToFind.charCodeAt(0));
     //Reads from the port into a buffer of bytes up to and including a particular character. If the character isn't in the buffer, 'null' is returned. The version with without the byteBuffer parameter returns a byte array of all data up to and including the interesting byte. This is not efficient, but is easy to use. The version with the byteBuffer parameter is more memory and time efficient. It grabs the data in the buffer and puts it into the byte array passed in and returns an int value for the number of bytes read. If the byte buffer is not large enough, -1 is returned and an error is printed to the message area. If nothing is in the buffer, 0 is returned.
     var index = this.serialBuffer.indexOf(charToFind.charCodeAt(0));
     if (index !== -1) {
@@ -272,12 +291,15 @@ serialPort.open("/dev/tty-usbserial1", {
       //console.log("push: " + String.fromCharCode(this.serialBuffer[i]));
       stringBuffer.push(String.fromCharCode(this.serialBuffer[i]));
     }
+    stringBuffer = stringBuffer.join("");
+    console.log("stringBuffer: " + stringBuffer);
+
     var returnString = "";
     var foundIndex = stringBuffer.indexOf(stringToFind);
     console.log("found index: " + foundIndex);
     if (foundIndex > -1) {
-      returnString = stringBuffer.substr(foundIndex,stringToFind.length);
-      this.serialBuffer = serialBuffer.slice(foundIndex+stringToFind.length);
+      returnString = stringBuffer.substr(0,foundIndex);
+      this.serialBuffer = this.serialBuffer.slice(foundIndex+stringToFind.length);
     }
     console.log("Sending: " + returnString);
     return returnString;
@@ -334,6 +356,8 @@ serialPort.open("/dev/tty-usbserial1", {
       this.listCallback = _callback;
     } else if (_event == 'connected') {
       this.connectedCallback = _callback;
+    } else if (_event == 'rawdata') {
+      this.rawDataCallback = _callback;
     }
   };
 }));

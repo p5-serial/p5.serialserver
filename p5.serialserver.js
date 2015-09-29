@@ -12,6 +12,9 @@ var start = function () {
 	var SerialPort = require("serialport");
 	var serialPort = null;
 
+	var serialBuffer = [];
+	var bufferSize = 8;
+
 	wss.on('connection', function(ws) {
 		// We have a connection
 		console.log("New Connection");
@@ -61,7 +64,20 @@ var start = function () {
 									ws.sendit({method:'openserial',data:{}});
 
 									serialPort.on('data', function(data) {
-										ws.sendit({method:'data',data:data});
+										ws.sendit({method:'data',data:data});	
+
+										/*
+										if (typeof data == 'object') {
+											serialBuffer = serialBuffer.concat(data);
+										} else {
+											serialBuffer.push(data);											
+										}
+	
+										if (serialBuffer.length > bufferSize) {
+											ws.sendit({method:'data',data:serialBuffer});	
+											serialBuffer.length = 0;
+										}
+										*/
 									});
 
 									serialPort.on('close', function(data) {
@@ -115,4 +131,4 @@ var start = function () {
 
 module.exports.start = start;
 
-start();
+//start();
