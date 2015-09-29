@@ -45,6 +45,7 @@ serialPort.open("/dev/tty-usbserial1", {
 
     var self = this;
 
+    this.bufferSize = 512;
     this.serialBuffer = [];
 
     this.serialConnected = false;  // Is serial connected?
@@ -111,7 +112,13 @@ serialPort.open("/dev/tty-usbserial1", {
 
           if (typeof self.dataCallback !== "undefined") {
             // Hand it to sketch
-            self.dataCallback(messageObject.data);
+            if (self.serialBuffer.length >= self.bufferSize) {
+              self.dataCallback();
+            }
+            console.log(self.serialBuffer.length);
+
+            // Do we want direct data callback?
+            //self.dataCallback(messageObject.data);
           }
         } else if (messageObject.method === 'list') {
           if (typeof self.listCallback !== "undefined") {
