@@ -47,7 +47,7 @@
 
     var self = this;
 
-    this.bufferSize = 16; // How much to buffer before sending data event
+    this.bufferSize = 1; // How much to buffer before sending data event
     this.serialBuffer = [];
     //this.maxBufferSize = 1024;
 
@@ -92,6 +92,7 @@
       
       if (self.emitQueue.length > 0) {
         for (var i = 0; i < self.emitQueue.length; i ++){
+          console.log("queue: " + self.emitQueue[i]);
           self.emit(self.emitQueue[i]);
         }
         self.emitQueue = [];
@@ -127,25 +128,11 @@
             self.openCallback();
           }
         } else if (messageObject.method === "data") {
-          // Add to buffer, assuming this comes byte by byte
-          //console.log("data: " + messageObject.data);
-          for (var i = 0; i < messageObject.data.length; i++) {
-
-            if (typeof messageObject.data[i] == 'object') {
-              //console.log("concating " + messageObject.data[i]);
-              self.serialBuffer = self.serialBuffer.concat(messageObject.data[i]);
-            } else {
-              //console.log("pushing " + messageObject.data[i]);
-              self.serialBuffer.push(messageObject.data[i]);
-            }
-
-            /*
-            if (self.serialBuffer.length > self.maxBufferSize) {
-              self.serialBuffer = self.serialBuffer.slice(0,self.serialBuffer.length-self.maxBufferSize);
-            }
-            */
-            //console.log(self.serialBuffer.length);
-          }
+          // Add to buffer, assuming this comes in byte by byte
+          //console.log("data: " +  JSON.stringify(messageObject.data));
+          self.serialBuffer.push(messageObject.data);
+          
+          //console.log(self.serialBuffer.length);
 
           if (typeof self.dataCallback !== "undefined") {
             // Hand it to sketch
@@ -201,7 +188,6 @@
   };
 
   p5.SerialPort.prototype.emit = function(data) {
-    //console.log(data);
     if (this.socket.readyState == WebSocket.OPEN) {
       this.socket.send(JSON.stringify(data));
     } else {
@@ -240,16 +226,15 @@
       this.serialoptions = {};
     }
 
-    // If our socket is connected, we'll do this now, otherwise it will happen in the socket.onopen callback
-    if (this.socket.readyState == WebSocket.OPEN) {
-      this.emit({
-        method: 'openserial',
-        data: {
-          serialport: this.serialport,
-          serialoptions: this.serialoptions
-        }
-      });
-    }
+    // If our socket is connected, we'll do this now, 
+    // otherwise it will happen in the socket.onopen callback
+    this.emit({
+      method: 'openserial',
+      data: {
+        serialport: this.serialport,
+        serialoptions: this.serialoptions
+      }
+    });
   };
 
   p5.SerialPort.prototype.write = function(data) {
@@ -338,16 +323,16 @@
       stringBuffer.push(String.fromCharCode(this.serialBuffer[i]));
     }
     stringBuffer = stringBuffer.join("");
-    console.log("stringBuffer: " + stringBuffer);
+    //console.log("stringBuffer: " + stringBuffer);
 
     var returnString = "";
     var foundIndex = stringBuffer.indexOf(stringToFind);
-    console.log("found index: " + foundIndex);
+    //console.log("found index: " + foundIndex);
     if (foundIndex > -1) {
       returnString = stringBuffer.substr(0, foundIndex);
       this.serialBuffer = this.serialBuffer.slice(foundIndex + stringToFind.length);
     }
-    console.log("Sending: " + returnString);
+    //console.log("Sending: " + returnString);
     return returnString;
   };
 
@@ -363,7 +348,9 @@
   // TODO: This doesn't seem to be shortening the array
   p5.SerialPort.prototype.last = function() {
     //Returns last byte received
-    return this.serialBuffer.pop();
+    var last = this.serialBuffer.pop();
+    this.serialBuffer.length = 0;
+    return last;
   };
 
   // TODO: This doesn't seem to be shortening the array

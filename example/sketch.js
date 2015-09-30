@@ -7,6 +7,10 @@ function setup() {
   // Instantiate our SerialPort object
   serial = new p5.SerialPort();
 
+  // Let's list the ports available
+  // You should have a callback defined to see the results
+  serial.list();
+
   // Assuming our Arduino is connected, let's open the connection to it
   // Change this to the name of your arduino's serial port
   serial.open("/dev/cu.usbmodem1421");
@@ -59,15 +63,8 @@ function gotError(theerror) {
 
 // There is data available to work with from the serial port
 function gotData() {
-	// Callback method
-  //while(serial.available() > 0) {
-    var currentString = serial.readStringUntil("\r\n");
-    //var currentString = serial.readString();
-    //console.log(currentString);
-    //var currentString = serial.readBytesUntil('\n');
-    //var currentString = serial.read();
-    console.log(currentString);
-  //}
+  var currentString = serial.readStringUntil("\r\n");
+  console.log(currentString);
 }
 
 // We got raw from the serial port
@@ -87,57 +84,14 @@ function gotRawData(thedata) {
 // serial.clear() clears the underlying serial buffer
 // serial.available() returns the number of bytes available in the buffer
 
-
-// Here is a silly test suite
-/*
-var counter = 0;
 function mousePressed() {
-  counter++;
-  var mod = counter%9;
-  console.log(serial.available() + " bytes avialable");
-  var somedata = "";
-  if (mod == 0) {
-    console.log("read");
-    somedata = serial.read();
-  } else if (mod == 1) {
-    console.log("readChar");
-    somedata = serial.readChar();
-  } else if (mod == 2) {
-    console.log("readBytes");
-    somedata = serial.readBytes();
-  } else if (mod == 3) {
-    console.log("readBytesUntil");
-    somedata = serial.readBytesUntil('\n');
-  } else if (mod == 4) {    
-    console.log("readString");
-    somedata = serial.readString();
-  } else if (mod == 5) {
-    console.log("readStringUntil");
-    somedata = serial.readStringUntil(',');
-  } else if (mod == 6) {
-    console.log("last");
-    somedata = serial.last();
-  } else if (mod == 7) {
-    console.log("lastChar");
-    somedata = serial.lastChar();
-  } else if (mod == 8) {
-    console.log("clear");
-    somedata = serial.clear();
-  }
-  console.log(somedata);
-  console.log(serial.available() + " bytes avialable");
+  serial.close();
 }
-*/
 
 function draw() {
-  if (serial.isConnected()) {
-    background(0,0,255);
-  } else {
-    background(255,0,0);
-  }
   // Polling method
   /*
-  while (serial.available() > 0) {
+  if (serial.available() > 0) {
     var data = serial.read();
     ellipse(50,50,data,data);
   }

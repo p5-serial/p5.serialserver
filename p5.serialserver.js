@@ -83,12 +83,17 @@ var start = function () {
 										} else {
 											ws.sendit({method:'openserial',data:{}});
 
-											serialPort.on('data', function(data) {
-												ws.sendit({method:'data',data:data});	
+											serialPort.on('data', function(incoming) {
+												//{"type":"Buffer","data":[10]}
+												
+												for (var i = 0; i < incoming.length; i++) {
+													ws.sendit({method:'data',data:incoming[i]});	
+												}
 											});
 
 											serialPort.on('close', function(data) {
 												ws.sendit({method: 'close', data:data});
+												serialPort = null;
 											});
 
 											serialPort.on('error', function(data) {
@@ -113,7 +118,6 @@ var start = function () {
 
 					} else if (message.method === "close") {
 						
-						console.log("close");
 						if (serialPort.isOpen()) {
 							existingConnection = false;
 							serialPort.close(
@@ -121,7 +125,6 @@ var start = function () {
 									ws.sendit({method:'error', data:error});
 								}
 							);
-							ws.sendit({method: 'close', data:{}});
 						}
 					}
 			}
@@ -131,16 +134,13 @@ var start = function () {
 		});
 
 		ws.on('close', function() {
-			
-			if (serialPort !== null && serialPort.isOpen()) {
-				serialPort.close(
-					function(error) {
-						console.log("Close Error: " + error);
-						ws.sendit({method:'error', data:error});
-					}
-				);
-			}		
-			ws.sendit({method: 'close', data:{}});		
+			for (var c = 0; c < clients.length; c++) {
+				if (clients[c] === ws) {
+					console.log("found client to remove");
+					clients.splice(c,1);
+					break;
+				}
+			}
 		});
 	});
 };
