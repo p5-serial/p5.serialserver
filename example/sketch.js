@@ -63,8 +63,10 @@ function gotError(theerror) {
 
 // There is data available to work with from the serial port
 function gotData() {
+  /*
   var currentString = serial.readStringUntil("\r\n");
   console.log(currentString);
+  */
 }
 
 // We got raw from the serial port
@@ -84,16 +86,10 @@ function gotRawData(thedata) {
 // serial.clear() clears the underlying serial buffer
 // serial.available() returns the number of bytes available in the buffer
 
-function mousePressed() {
-  serial.close();
-}
-
 function draw() {
   // Polling method
-  /*
   if (serial.available() > 0) {
     var data = serial.read();
     ellipse(50,50,data,data);
   }
-  */
 }
