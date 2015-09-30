@@ -1,6 +1,6 @@
 {
   "name": "p5.serialserver",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An serial server for p5.js works with p5.serialport",
   "author": "Shawn Van Every <Shawn.Van.Every@nyu.edu>",
   "main": "p5.serialserver.js",
