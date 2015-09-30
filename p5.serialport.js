@@ -14,26 +14,28 @@
  *  https://github.com/vanevery/p5.serialport
  *
  */
-(function (root, factory) {
+(function(root, factory) {
   if (typeof define === 'function' && define.amd)
-    define('p5.serialport', ['p5'], function (p5) { (factory(p5));});
+    define('p5.serialport', ['p5'], function(p5) {
+      (factory(p5));
+    });
   else if (typeof exports === 'object')
     factory(require('../p5'));
   else
     factory(root['p5']);
-}(this, function (p5) {
+}(this, function(p5) {
 
-// =============================================================================
-//                         p5.SerialPort
-// =============================================================================
+  // =============================================================================
+  //                         p5.SerialPort
+  // =============================================================================
 
 
-/*
-var serialPort = new SerialPort();
-serialPort.open("/dev/tty-usbserial1", {
-  baudrate: 57600
-});
-*/
+  /*
+  var serialPort = new SerialPort();
+  serialPort.open("/dev/tty-usbserial1", {
+    baudrate: 57600
+  });
+  */
 
   /**
    * Base class for a Serial Port
@@ -46,14 +48,15 @@ serialPort.open("/dev/tty-usbserial1", {
     var self = this;
 
     this.bufferSize = 16; // How much to buffer before sending data event
-    // server already does 8
     this.serialBuffer = [];
     //this.maxBufferSize = 1024;
 
-    this.serialConnected = false;  // Is serial connected?
+    this.serialConnected = false; // Is serial connected?
 
     this.serialport = null;
     this.serialoptions = null;
+    
+    this.emitQueue = [];
 
     if (typeof _hostname === 'string') {
       this.hostname = _hostname;
@@ -71,24 +74,42 @@ serialPort.open("/dev/tty-usbserial1", {
 
     try {
       this.socket = new WebSocket("ws://" + this.hostname + ":" + this.serverport);
-    }
-    catch(err) {
+      console.log(("ws://" + this.hostname + ":" + this.serverport));
+    } catch (err) {
       //console.log(err + "\n" + "Is the p5.serialserver running?");
       if (typeof self.errorCallback !== "undefined") {
         self.errorCallback("Couldn't connect to the server, is it running?");
       }
     }
-    
+
     this.socket.onopen = function(event) {
+      console.log('opened socket');
+      serialConnected = true;
+
       if (typeof self.connectedCallback !== "undefined") {
         self.connectedCallback();
       }
-
-      if (typeof self.serialport !== "undefined" && typeof self.serialoptions !== "undefined") {
+      
+      if (self.emitQueue.length > 0) {
+        for (var i = 0; i < self.emitQueue.length; i ++){
+          self.emit(self.emitQueue[i]);
+        }
+        self.emitQueue = [];
+      }
+      
+      /* Now handled by the queue
+      if (self.serialport && self.serialoptions) {
         // If they have asked for a connect, these won't be null and we should try the connect now
         // Trying to hide the async nature of the server connection and just deal with the async nature of serial for the end user
-        self.emit({method:'openserial',data:{serialport:self.serialport,serialoptions:self.serialoptions}});
+        self.emit({
+          method: 'openserial',
+          data: {
+            serialport: self.serialport,
+            serialoptions: self.serialoptions
+          }
+        });
       }
+      */
     };
 
     this.socket.onmessage = function(event) {
@@ -109,12 +130,11 @@ serialPort.open("/dev/tty-usbserial1", {
           // Add to buffer, assuming this comes byte by byte
           //console.log("data: " + messageObject.data);
           for (var i = 0; i < messageObject.data.length; i++) {
-           
+
             if (typeof messageObject.data[i] == 'object') {
               //console.log("concating " + messageObject.data[i]);
               self.serialBuffer = self.serialBuffer.concat(messageObject.data[i]);
-            }
-            else {
+            } else {
               //console.log("pushing " + messageObject.data[i]);
               self.serialBuffer.push(messageObject.data[i]);
             }
@@ -152,8 +172,8 @@ serialPort.open("/dev/tty-usbserial1", {
             self.errorCallback(messageObject.data);
           }
         } else {
-            // Got message from server without known method
-            console.log("Unknown Method: " + messageObject);
+          // Got message from server without known method
+          console.log("Unknown Method: " + messageObject);
         }
       } else {
         console.log("Method Undefined: " + messageObject);
@@ -176,45 +196,71 @@ serialPort.open("/dev/tty-usbserial1", {
       if (typeof self.errorCallback !== "undefined") {
         self.errorCallback();
       }
-    };    
+    };
 
   };
 
   p5.SerialPort.prototype.emit = function(data) {
-    this.socket.send(JSON.stringify(data));
+    //console.log(data);
+    if (this.socket.readyState == WebSocket.OPEN) {
+      this.socket.send(JSON.stringify(data));
+    } else {
+      this.emitQueue.push(data);
+    }
+  };
+
+  p5.SerialPort.prototype.isConnected = function() {
+    if (self.serialConnected) { return true; }
+    else { return false; }
   };
 
   // list() - list serial ports available to the server
-  p5.SerialPort.prototype.list = function() {
-    //console.log("p5.SerialPort.list");
-    this.emit({method:'list',data:{}});
+  p5.SerialPort.prototype.list = function(cb) {
+    if (typeof cb === 'function') {
+      this.listCallback = cb;
+    }
+    this.emit({
+      method: 'list',
+      data: {}
+    });
   };
 
-  p5.SerialPort.prototype.open = function(_serialport, _serialoptions) {
-    var self = this;
+  p5.SerialPort.prototype.open = function(_serialport, _serialoptions, cb) {
+
+    if (typeof cb === 'function') {
+      this.openCallback = cb;
+    }
 
     this.serialport = _serialport;
 
     if (typeof _serialoptions === 'object') {
       this.serialoptions = _serialoptions;
-    }
-    else {
+    } else {
       //console.log("typeof _serialoptions " + typeof _serialoptions + " setting to {}");
       this.serialoptions = {};
     }
 
     // If our socket is connected, we'll do this now, otherwise it will happen in the socket.onopen callback
     if (this.socket.readyState == WebSocket.OPEN) {
-      this.emit({method:'openserial',data:{serialport:this.serialport,serialoptions:this.serialoptions}});
+      this.emit({
+        method: 'openserial',
+        data: {
+          serialport: this.serialport,
+          serialoptions: this.serialoptions
+        }
+      });
     }
   };
 
   p5.SerialPort.prototype.write = function(data) {
-      //Writes bytes, chars, ints, bytes[], Strings to the serial port
-      
-      this.emit({method:'write',data:data});
-      //this.socket.send({method:'writeByte',data:data});  ? 
-      //this.socket.send({method:'writeString',data:data})  ?
+    //Writes bytes, chars, ints, bytes[], Strings to the serial port
+
+    this.emit({
+      method: 'write',
+      data: data
+    });
+    //this.socket.send({method:'writeByte',data:data});  ? 
+    //this.socket.send({method:'writeString',data:data})  ?
   };
 
   p5.SerialPort.prototype.read = function() {
@@ -260,9 +306,9 @@ serialPort.open("/dev/tty-usbserial1", {
     var index = this.serialBuffer.indexOf(charToFind.charCodeAt(0));
     if (index !== -1) {
       // What to return
-      var returnBuffer = this.serialBuffer.slice(0,index+1);
+      var returnBuffer = this.serialBuffer.slice(0, index + 1);
       // Clear out what was returned
-      this.serialBuffer = this.serialBuffer.slice(index,this.serialBuffer.length + index);
+      this.serialBuffer = this.serialBuffer.slice(index, this.serialBuffer.length + index);
       return returnBuffer;
     } else {
       return -1;
@@ -298,8 +344,8 @@ serialPort.open("/dev/tty-usbserial1", {
     var foundIndex = stringBuffer.indexOf(stringToFind);
     console.log("found index: " + foundIndex);
     if (foundIndex > -1) {
-      returnString = stringBuffer.substr(0,foundIndex);
-      this.serialBuffer = this.serialBuffer.slice(foundIndex+stringToFind.length);
+      returnString = stringBuffer.substr(0, foundIndex);
+      this.serialBuffer = this.serialBuffer.slice(foundIndex + stringToFind.length);
     }
     console.log("Sending: " + returnString);
     return returnString;
@@ -337,9 +383,15 @@ serialPort.open("/dev/tty-usbserial1", {
     // TODO
   };
 
-  p5.SerialPort.prototype.close = function() {
+  p5.SerialPort.prototype.close = function(cb) {
     // Tell server to close port
-    this.emit({method:'close',data:{}});
+    if (typeof cb === 'function') {
+      this.closeCallback = cb;
+    }
+    this.emit({
+      method: 'close',
+      data: {}
+    });
   };
 
   // Register callback methods from sketch
@@ -363,5 +415,3 @@ serialPort.open("/dev/tty-usbserial1", {
 }));
 
 // EOF
-
-

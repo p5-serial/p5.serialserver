@@ -1,7 +1,8 @@
+https://nodejs.org/dist/v0.12.7/
 
 Running the server
 npm install 
-npm start
+p5serial
 
 requires https://www.npmjs.com/package/serialport
-hopefully not issues building
+(https://nodejs.org/dist/v0.12.7/)

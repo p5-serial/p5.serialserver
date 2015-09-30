@@ -8,7 +8,7 @@ function setup() {
 
   // Assuming our Arduino is connected, let's open the connection to it
   // Change this to the name of your arduino's serial port
-  serial.open("/dev/cu.usbmodem1411");
+  serial.open("/dev/cu.usbmodem1421");
 
   // Here are the callbacks that you can register
 
@@ -60,11 +60,11 @@ function gotError(theerror) {
 function gotData() {
 	// Callback method
   //while(serial.available() > 0) {
-    //var currentString = serial.readStringUntil("\r\n");
+    var currentString = serial.readStringUntil("\r\n");
     //var currentString = serial.readString();
     //console.log(currentString);
     //var currentString = serial.readBytesUntil('\n');
-    var currentString = serial.read();
+    //var currentString = serial.read();
     console.log(currentString);
   //}
 }
