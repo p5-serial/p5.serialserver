@@ -381,6 +381,34 @@
     });
   };
 
+  p5.SerialPort.prototype.onData = function(_callback) {
+    this.on('data',_callback);
+  };
+
+  p5.SerialPort.prototype.onOpen = function(_callback) {
+    this.on('open',_callback);
+  };
+
+  p5.SerialPort.prototype.onClose = function(_callback) {
+    this.on('close',_callback);
+  };
+
+  p5.SerialPort.prototype.onError = function(_callback) {
+    this.on('error',_callback);
+  };
+
+  p5.SerialPort.prototype.onList = function(_callback) {
+    this.on('list',_callback);
+  };
+
+  p5.SerialPort.prototype.onConnected = function(_callback) {
+    this.on('connected',_callback);
+  };
+
+  p5.SerialPort.prototype.onRawData = function(_callback) {
+    this.on('rawdata',_callback);
+  };
+
   // Register callback methods from sketch
   p5.SerialPort.prototype.on = function(_event, _callback) {
     if (_event == 'open') {
