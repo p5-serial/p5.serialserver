@@ -13,7 +13,7 @@ function setup() {
 
   // Assuming our Arduino is connected, let's open the connection to it
   // Change this to the name of your arduino's serial port
-  serial.open("/dev/cu.usbmodem1421");
+  serial.open("/dev/cu.usbmodem1411");
 
   // Here are the callbacks that you can register
 
@@ -21,7 +21,8 @@ function setup() {
   serial.on('connected', serverConnected);
 
   // When we get a list of serial ports that are available
-  serial.on('list', gotList);
+  //serial.on('list', gotList);
+  serial.onList(gotList);
 
   // When we some data from the serial port
   serial.on('data', gotData);
