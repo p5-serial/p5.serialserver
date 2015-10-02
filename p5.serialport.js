@@ -88,15 +88,13 @@
       console.log('opened socket');
       serialConnected = true;
 
-      this.list();
-
       if (typeof self.connectedCallback !== "undefined") {
         self.connectedCallback();
       }
       
       if (self.emitQueue.length > 0) {
         for (var i = 0; i < self.emitQueue.length; i ++){
-          console.log("queue: " + self.emitQueue[i]);
+          //console.log("queue: " + self.emitQueue[i]);
           self.emit(self.emitQueue[i]);
         }
         self.emitQueue = [];
@@ -267,10 +265,6 @@
   }
   */
 
-  p5.SerialPort.prototype.readLine = function() {
-
-  };
-
   p5.SerialPort.prototype.read = function() {
     //Returns a number between 0 and 255 for the next byte that's waiting in the buffer. Returns -1 if there is no byte, although this should be avoided by first cheacking available() to see if data is available.
     if (this.serialBuffer.length > 0) {
@@ -361,7 +355,7 @@
 
   // readStringUntil("\r\n");
   p5.SerialPort.prototype.readLine = function() {
-    this.readStringUntil("\r\n");
+    return this.readStringUntil("\r\n");
   }; 
 
   // TODO
