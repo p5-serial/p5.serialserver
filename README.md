@@ -1,25 +1,14 @@
-Here is the deal:
+p5.serialport 
 
-1: Install node 0.12.7: https://nodejs.org/dist/v0.12.7/
-2: Make directory, put attached files in it
-3: in terminal:
-    3A: npm install serialport
-    3B: npm install ws
-    3C: node startserver.js
+A p5.js library that more or less clones the Processing Serial Library API.  As JavaScript in a browser can not interact directly with a serial port, it includes a simple Node.js based WebSocket server that does the actual serial communication.
 
-OR
+Currently requires Node Version 0.12.7
 
-1: Install node 0.12.7: https://nodejs.org/dist/v0.12.7/
-2: Make directory, and in terminal from within directory type: npm install p5.serialport
-3: go into node_modules/p5.serialport
-4: node startserver.js
+Start the server with: node startserver.js
 
--- ABOVE TAKEN CARE OF BY FORTHCOMING IDE RELEASE --
+Run the example index.html from example.
 
-4: Load index.html (from "example") in a browser (locally is fine)
-5: Edit sketch.js till your heart is content and reload index.html to test.
-
-The server now supports multiple client connections.  serial.readStringUntil now works.  Lots of other bugs fixed and niceties added to the front end API.
+example/sketch.js shows most of the features.
 
 The basics:
 
@@ -30,8 +19,7 @@ function setup() {
   serial = new p5.SerialPort();
 
   // Let's list the ports available
-  // You should have a callback defined to see the results
-  serial.list();
+  var portlist = serial.list();
 
   // Assuming our Arduino is connected, let's open the connection to it
   // Change this to the name of your arduino's serial port
