@@ -35,6 +35,18 @@ var start = function () {
 			}
 		}
 
+		SerialPort.list(function (err, ports) {
+							var portNames = [];
+							ports.forEach(function(port) {
+								//console.log(port.comName);
+								portNames.push(port.comName);
+								//console.log(port.pnpId);
+								//console.log(port.manufacturer);
+							});
+
+							ws.sendit({method:'list', data:portNames});
+						});
+
 		ws.on('message', function(inmessage) {
 			var message = JSON.parse(inmessage);
 			console.log("on message: " + JSON.stringify(message));
