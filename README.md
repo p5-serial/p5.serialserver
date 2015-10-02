@@ -1,17 +1,15 @@
 p5.serialport 
 
-A p5.js library that more or less clones the Processing Serial Library API.  As JavaScript in a browser can not interact directly with a serial port, it includes a simple Node.js based WebSocket server that does the actual serial communication.
+A [p5.js](http://p5js.org/) library that more or less clones the [Processing Serial Library API](https://processing.org/reference/libraries/serial/index.html).  As JavaScript in a browser can not interact directly with a serial port, it includes a simple Node.js based WebSocket server that performs the actual serial communication.
 
 Currently requires Node Version 0.12.7
 
-Start the server with: node startserver.js
+Start the server with: ```node startserver.js```
 
-Run the example index.html from example.
-
-example/sketch.js shows most of the features.
+[example/sketch.js](tree/master/example/sketch.js) shows most of the features.
 
 The basics:
-
+```javascript
 var serial;
 
 function setup() {
@@ -94,3 +92,4 @@ function draw() {
   }
 */
 }
+```
