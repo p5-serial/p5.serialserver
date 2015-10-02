@@ -58,6 +58,8 @@
     
     this.emitQueue = [];
 
+    this.serialportList = [];
+
     if (typeof _hostname === 'string') {
       this.hostname = _hostname;
     } else {
@@ -85,6 +87,8 @@
     this.socket.onopen = function(event) {
       console.log('opened socket');
       serialConnected = true;
+
+      this.list();
 
       if (typeof self.connectedCallback !== "undefined") {
         self.connectedCallback();
@@ -146,6 +150,9 @@
             self.rawDataCallback(messageObject.data);
           }
         } else if (messageObject.method === 'list') {
+          
+          self.serialportList = messageObject.data;
+
           if (typeof self.listCallback !== "undefined") {
             self.listCallback(messageObject.data);
           }
@@ -201,6 +208,7 @@
   };
 
   // list() - list serial ports available to the server
+  // synchronously returns cached list, asynchronously returns updated list via callback
   p5.SerialPort.prototype.list = function(cb) {
     if (typeof cb === 'function') {
       this.listCallback = cb;
@@ -209,6 +217,8 @@
       method: 'list',
       data: {}
     });
+
+    return this.serialportList;
   };
 
   p5.SerialPort.prototype.open = function(_serialport, _serialoptions, cb) {
@@ -246,6 +256,19 @@
     });
     //this.socket.send({method:'writeByte',data:data});  ? 
     //this.socket.send({method:'writeString',data:data})  ?
+  };
+
+  /* Not Yet Implemented
+  p5.SerialPort.prototype.writeLine = function(data) {
+    this.emit({
+      method: 'writeln',
+      data: data;
+    });
+  }
+  */
+
+  p5.SerialPort.prototype.readLine = function() {
+
   };
 
   p5.SerialPort.prototype.read = function() {
@@ -336,6 +359,11 @@
     return returnString;
   };
 
+  // readStringUntil("\r\n");
+  p5.SerialPort.prototype.readLine = function() {
+    this.readStringUntil("\r\n");
+  }; 
+
   // TODO
   //p5.SerialPort.prototype.bufferUntil
   //p5.SerialPort.prototype.buffer
@@ -381,6 +409,8 @@
     });
   };
 
+  // Register callback methods from sketch
+
   p5.SerialPort.prototype.onData = function(_callback) {
     this.on('data',_callback);
   };
@@ -409,7 +439,7 @@
     this.on('rawdata',_callback);
   };
 
-  // Register callback methods from sketch
+  // Version 2
   p5.SerialPort.prototype.on = function(_event, _callback) {
     if (_event == 'open') {
       this.openCallback = _callback;
