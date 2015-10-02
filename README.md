@@ -4,9 +4,11 @@ A [p5.js](http://p5js.org/) library that more or less clones the [Processing Ser
 
 Currently requires Node Version 0.12.7
 
+Connect an Arduino or other serial device to your computuer.
+
 Start the server with: ```node startserver.js```
 
-[example/sketch.js](tree/master/example/sketch.js) shows most of the features.
+Load one of the [examples/](tree/master/examples/) in your browser to see it in action.  (You'll likely have to change the name of the serial port that is opened.)
 
 The basics:
 ```javascript
