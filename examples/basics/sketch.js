@@ -1,5 +1,6 @@
 // Declare a "SerialPort" object
 var serial;
+var latestData = "waiting for data";  // you'll use this to write incoming data to the canvas
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -13,7 +14,7 @@ function setup() {
 
   // Assuming our Arduino is connected, let's open the connection to it
   // Change this to the name of your arduino's serial port
-  serial.open("/dev/cu.usbmodem1421");
+  serial.open("/dev/cu.usbmodem1411");
 
   // Here are the callbacks that you can register
 
@@ -73,8 +74,11 @@ function gotError(theerror) {
 
 // There is data available to work with from the serial port
 function gotData() {
-  var currentString = serial.readLine();  
-  console.log(currentString);
+  var currentString = serial.readLine();  // read the incoming string
+  trim(currentString);                    // remove any trailing whitespace
+  if (!currentString) return;             // if the string is empty, do no more
+  console.log(currentString);             // println the string
+  latestData = currentString;            // save it for the draw method
 }
 
 // We got raw from the serial port
@@ -97,11 +101,14 @@ function gotRawData(thedata) {
 // serial.write(somevar) writes out the value of somevar to the serial device
 
 function draw() {
+  background(255,255,255);
+  fill(0,0,0);
+  text(latestData, 10, 10);
   // Polling method
   /*
   if (serial.available() > 0) {
-    var data = serial.read();
-    ellipse(50,50,data,data);
-  }
-  */
+  var data = serial.read();
+  ellipse(50,50,data,data);
+}
+*/
 }
