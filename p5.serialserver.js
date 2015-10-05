@@ -18,13 +18,13 @@ var start = function () {
 
 	wss.on('connection', function(ws) {
 		// We have a connection
-		console.log("New Connection");
+		//console.log("New Connection");
 		clients.push(ws);
 
 		ws.sendit = function(toSend) {
 
 			var dataToSend = JSON.stringify(toSend);
-			console.log("sendit: " + dataToSend);
+			//console.log("sendit: " + dataToSend + " to " + clients.length + " clients");
 
 			try {
 				for (var c = 0; c < clients.length; c++) {
@@ -49,17 +49,17 @@ var start = function () {
 
 		ws.on('message', function(inmessage) {
 			var message = JSON.parse(inmessage);
-			console.log("on message: " + JSON.stringify(message));
+			//console.log("on message: " + JSON.stringify(message));
 
 			if (typeof message !== "undefined" && typeof message.method !== "undefined" && typeof message.data !== "undefined") {
 					if (message.method === "echo") {
-						console.log("echo " + message.data);
+						//console.log("echo " + message.data);
 						ws.sendit({method:'echo', data:message.data});
 					} else if (message.method === "list") {
 						SerialPort.list(function (err, ports) {
 							var portNames = [];
 							ports.forEach(function(port) {
-								console.log(port.comName);
+								//console.log(port.comName);
 								portNames.push(port.comName);
 								//console.log(port.pnpId);
 								//console.log(port.manufacturer);
@@ -73,6 +73,8 @@ var start = function () {
 
 								// If we are already open, don't open again
 								ws.sendit({method:'error', data:"Already open, to open again, close first, here comes an open event so you can pretend you opened it"});
+								
+								console.log("Already open");
 
 								// Send the open event
 								ws.sendit({method:'openserial',data:{}});
@@ -109,6 +111,7 @@ var start = function () {
 											});
 
 											serialPort.on('error', function(data) {
+												console.log(data);
 												ws.sendit({method: 'error', data:data});
 											});	
 										}
@@ -135,6 +138,7 @@ var start = function () {
 							serialPort.close(
 								function(error) {
 									ws.sendit({method:'error', data:error});
+									console.logo(error);
 								}
 							);
 						}
@@ -152,6 +156,15 @@ var start = function () {
 					clients.splice(c,1);
 					break;
 				}
+			}
+			if (clients.length == 0) {
+				// Should close serial port
+				serialPort.close( 
+					function(error) {
+						console.log(error);		
+					}
+				);
+				serialPort = null;
 			}
 		});
 	});
