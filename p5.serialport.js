@@ -247,10 +247,21 @@
 
   p5.SerialPort.prototype.write = function(data) {
     //Writes bytes, chars, ints, bytes[], Strings to the serial port
+    var toWrite = null;
+    if (typeof data == "number") {
+      // This is the only one I am treating differently, the rest of the clauses are meaningless
+      toWrite = [data];
+    } else if (typeof data == "string") {
+      toWrite = data;
+    } else if (Array.isArray(data)) {
+      toWrite = data;
+    } else {
+      toWrite = data;
+    }
 
     this.emit({
       method: 'write',
-      data: data
+      data: toWrite
     });
     //this.socket.send({method:'writeByte',data:data});  ? 
     //this.socket.send({method:'writeString',data:data})  ?
@@ -347,7 +358,7 @@
     //console.log("found index: " + foundIndex);
     if (foundIndex > -1) {
       returnString = stringBuffer.substr(0, foundIndex);
-      this.serialBuffer = this.serialBuffer.slice(foundIndex + stringToFind.length);
+      this.serialBuffer = this.serialBuffer.slice(foundIndex + stringToFind);
     }
     //console.log("Sending: " + returnString);
     return returnString;
