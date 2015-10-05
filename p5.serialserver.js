@@ -193,6 +193,9 @@ var stop = function() {
 		console.log("Error Closing: " + e);
 	}
 
+	if (wss != null) {
+		wss.close();
+	}
 	//console.log("Stopping");
 }
 
