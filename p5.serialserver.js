@@ -24,7 +24,7 @@ var start = function () {
 		ws.sendit = function(toSend) {
 
 			var dataToSend = JSON.stringify(toSend);
-			//console.log("sendit: " + dataToSend + " to " + clients.length + " clients");
+			console.log("sendit: " + dataToSend + " to " + clients.length + " clients");
 
 			try {
 				for (var c = 0; c < clients.length; c++) {
@@ -85,7 +85,10 @@ var start = function () {
 								if (typeof message.data.serialport === 'string') {
 									serialPort = new SerialPort.SerialPort(message.data.serialport, message.data.serialoptions, false, 
 										function(err) {
-											console.log("Special Error: " + err);
+											if (err) {
+												console.log(err);
+												ws.sendit({method:'error', data: err});
+											}
 										}
 									);
 
@@ -107,7 +110,7 @@ var start = function () {
 
 											serialPort.on('close', function(data) {
 												ws.sendit({method: 'close', data:data});
-												serialPort = null;
+												//serialPort = null;
 											});
 
 											serialPort.on('error', function(data) {
@@ -137,8 +140,10 @@ var start = function () {
 							existingConnection = false;
 							serialPort.close(
 								function(error) {
-									ws.sendit({method:'error', data:error});
-									console.logo(error);
+									if (error) {
+										ws.sendit({method:'error', data:error});
+										console.logo(error);
+									}
 								}
 							);
 						}
@@ -159,13 +164,14 @@ var start = function () {
 			}
 			if (clients.length == 0) {
 				// Should close serial port
-				if (serialPort !== null && serialPort.isOpen()) {
+				if (serialPort != null && serialPort.isOpen()) {
 					serialPort.close( 
 						function(error) {
-							console.log(error);		
+							if (error) {
+								console.log(error);		
+							}
 						}
 					);
-					serialPort = null;
 				}
 			}
 		});
@@ -175,10 +181,15 @@ var start = function () {
 };
 
 var stop = function() {
-	if (serialPort !== null && serialPort.isOpen()) {
+	if (serialPort != null && serialPort.isOpen()) {
+		console.log("Closing Serial Port");
+		serialPort.flush();
+		serialPort.drain();
 		serialPort.close(
 			function(error) {
-				console.log("Close Error: " + error);
+				if (error) {
+					console.log("Close Error: " + error);
+				}
 			}
 		);
 	}		
@@ -196,7 +207,11 @@ var stop = function() {
 	if (wss != null) {
 		wss.close();
 	}
-	//console.log("Stopping");
+	
+	// Let's try to close a different way
+	if (serialPort != null && serialPort.isOpen()) {
+		serialPort = null;
+	}
 }
 
 module.exports.start = start;
