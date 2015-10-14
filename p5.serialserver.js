@@ -24,7 +24,7 @@ var start = function () {
 		ws.sendit = function(toSend) {
 
 			var dataToSend = JSON.stringify(toSend);
-			console.log("sendit: " + dataToSend + " to " + clients.length + " clients");
+			//console.log("sendit: " + dataToSend + " to " + clients.length + " clients");
 
 			try {
 				for (var c = 0; c < clients.length; c++) {
