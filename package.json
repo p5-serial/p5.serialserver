@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "ws": "0.8.0",
-    "serialport": "2.0.0"
+    "serialport": "*"
   },
   "license": "LGPL"
 }
