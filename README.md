@@ -2,7 +2,7 @@ p5.serialport
 
 A [p5.js](http://p5js.org/) library that more or less clones the [Processing Serial Library API](https://processing.org/reference/libraries/serial/index.html).  As JavaScript in a browser can not interact directly with a serial port, it includes a simple Node.js based WebSocket server that performs the actual serial communication.
 
-Currently requires Node Version 0.12.7
+Currently requires [Node Version 0.12.7](https://nodejs.org/en/blog/release/v0.12.7/)
 
 Connect an Arduino or other serial device to your computuer.
 
