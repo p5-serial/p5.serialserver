@@ -2,11 +2,21 @@
 	p5.serialserver.js
 */
 
+var LOGGING = false;
+
 var wss = null;
 var serialPort = null;
+var serialPortName = "";
 var clients = [];
 
+var logit = function(mess) {
+	if (LOGGING) {
+		console.log(mess);
+	}
+};
+
 var start = function () { 
+	logit("start()");
 
 	var SERVER_PORT = 8081;
 
@@ -16,36 +26,128 @@ var start = function () {
 	var SerialPort = require("serialport");
 	//var serialPort = null;
 
+	var openSerial = function(serialport, serialoptions) {
+		logit("openSerial: " + serialport);
+
+		if (serialPort == null || serialPort.isOpen() == false) {
+			logit("serialPort == null || !serialPort.isOpen()");
+
+			serialPortName = serialport;
+
+			serialPort = new SerialPort.SerialPort(serialport, serialoptions, false, 
+				function(err) {
+					if (err) {
+						console.log(err);
+						sendit({method:'error', data: err});
+					}
+				}
+			);
+
+			serialPort.on('data', function(incoming) {
+				//{"type":"Buffer","data":[10]}
+				for (var i = 0; i < incoming.length; i++) {
+					sendit({method:'data',data:incoming[i]});	
+				}
+			});
+
+			serialPort.on('close', function(data) {
+				logit("serialPort.on close " + data);
+				sendit({method: 'close', data:data});
+			});
+
+			serialPort.on('error', function(data) {
+				logit("serialPort.on error " + data, true);
+				sendit({method: 'error', data:data});
+			});				
+
+			serialPort.open(function (err) {
+				logit("serialPort.open");
+
+				if ( err ) {
+					console.log(err);
+					sendit({method:'error', data:"Couldn't open port: " + serialport});
+				} else {
+					sendit({method:'openserial',data:{}});
+				}
+		    });
+
+		} else {
+
+			if (serialport == serialPortName) {
+
+				sendit({method:'error', data:"Already open"});
+				logit("serialPort is already open");
+				sendit({method:'openserial',data:{}});
+
+			} else {
+
+				// Trying to open a second port
+				sendit({method:'error', data:"Unsupported operation, "+serialPortName+" is already open. You will receive data from that port."});
+				logit("Unsupported operation, "+serialPortName+" is already open.");
+			}
+		}
+	};
+
+	var closeSerial = function() {
+		logit("closeSerial");
+		if (serialPort != null && serialPort.isOpen()) {
+			logit("serialPort != null && serialPort.isOpen so close");
+			logit("serialPort.flush, drain, close");
+
+			serialPort.flush();
+			serialPort.drain();
+			serialPort.close(
+				function(error) {
+					if (error) {
+						sendit({method:'error', data:error});
+						console.log(error);
+					}
+				}
+			);
+		}
+
+		// Let's try to close a different way
+		if (serialPort != null && serialPort.isOpen()) {
+			logit("serialPort != null && serialPort.isOpen() is true so serialPort = null");
+
+			serialPort = null;
+		}
+
+	};
+
+
+	var sendit = function(toSend) {
+
+		var dataToSend = JSON.stringify(toSend);
+		//console.log("sendit: " + dataToSend + " to " + clients.length + " clients");
+
+		try {
+			for (var c = 0; c < clients.length; c++) {
+				clients[c].send(dataToSend);
+			}
+		} catch (e) {
+			//console.log("Error Sending: " + e);
+		}
+	};
+
 	wss.on('connection', function(ws) {
+		logit("connection");
+
 		// We have a connection
 		//console.log("New Connection");
 		clients.push(ws);
 
-		ws.sendit = function(toSend) {
-
-			var dataToSend = JSON.stringify(toSend);
-			//console.log("sendit: " + dataToSend + " to " + clients.length + " clients");
-
-			try {
-				for (var c = 0; c < clients.length; c++) {
-					clients[c].send(dataToSend);
-				}
-			} catch (e) {
-				//console.log("Error Sending: " + e);
-			}
-		}
-
 		SerialPort.list(function (err, ports) {
-							var portNames = [];
-							ports.forEach(function(port) {
-								//console.log(port.comName);
-								portNames.push(port.comName);
-								//console.log(port.pnpId);
-								//console.log(port.manufacturer);
-							});
+			var portNames = [];
+			ports.forEach(function(port) {
+				//console.log(port.comName);
+				portNames.push(port.comName);
+				//console.log(port.pnpId);
+				//console.log(port.manufacturer);
+			});
 
-							ws.sendit({method:'list', data:portNames});
-						});
+			sendit({method:'list', data:portNames});
+		});
 
 		ws.on('message', function(inmessage) {
 			var message = JSON.parse(inmessage);
@@ -54,7 +156,7 @@ var start = function () {
 			if (typeof message !== "undefined" && typeof message.method !== "undefined" && typeof message.data !== "undefined") {
 					if (message.method === "echo") {
 						//console.log("echo " + message.data);
-						ws.sendit({method:'echo', data:message.data});
+						sendit({method:'echo', data:message.data});
 					} else if (message.method === "list") {
 						SerialPort.list(function (err, ports) {
 							var portNames = [];
@@ -65,88 +167,30 @@ var start = function () {
 								//console.log(port.manufacturer);
 							});
 
-							ws.sendit({method:'list', data:portNames});
+							sendit({method:'list', data:portNames});
 						});
-					} else if (message.method === "openserial") {							
-						//try {
-							if (serialPort != null && serialPort.isOpen()) {
+					} else if (message.method === "openserial") {	
 
-								// If we are already open, don't open again
-								ws.sendit({method:'error', data:"Already open, to open again, close first, here comes an open event so you can pretend you opened it"});
-								
-								//console.log("Already open");
-
-								// Send the open event
-								ws.sendit({method:'openserial',data:{}});
-
-							} else {
+						logit("message.method === openserial");
 							
-								// Open up
-								if (typeof message.data.serialport === 'string') {
-									serialPort = new SerialPort.SerialPort(message.data.serialport, message.data.serialoptions, false, 
-										function(err) {
-											if (err) {
-												console.log(err);
-												ws.sendit({method:'error', data: err});
-											}
-										}
-									);
+						// Open up
+						if (typeof message.data.serialport === 'string') {
+							logit("new SerialPort.SerialPort");
 
-									serialPort.open(function (err) {
-										if ( err ) {
-											console.log(err);
-											ws.sendit({method:'error', data:"Couldn't open port: " + message.data.serialport});
+							openSerial(message.data.serialport, message.data.serialoptions);
 
-										} else {
-											ws.sendit({method:'openserial',data:{}});
+						} else {
+							logit("User didn't specify a port to open");
+							sendit({method: 'error', data:"You must specify a serial port to open"});
+						}
 
-											serialPort.on('data', function(incoming) {
-												//{"type":"Buffer","data":[10]}
-												
-												for (var i = 0; i < incoming.length; i++) {
-													ws.sendit({method:'data',data:incoming[i]});	
-												}
-											});
-
-											serialPort.on('close', function(data) {
-												ws.sendit({method: 'close', data:data});
-												//serialPort = null;
-											});
-
-											serialPort.on('error', function(data) {
-												console.log(data);
-												ws.sendit({method: 'error', data:data});
-											});	
-										}
-								    });	
-								} else {
-									ws.sendit({method: 'error', data:"You must specify a serial port to open"});
-								}
-
-								
-						    }				
-						//} catch (err) {
-						 //	console.log(err);
-						 //	ws.sendit({method: 'error', data:err});
-						//}
-						//ws.send() // Send confirmation back
 					} else if (message.method === "write") {
 						
 						serialPort.write(message.data);
 
 					} else if (message.method === "close") {
-						
-						if (serialPort.isOpen()) {
-							existingConnection = false;
-							serialPort.close(
-								function(error) {
-									if (error) {
-										ws.sendit({method:'error', data:error});
-										console.log(error);
-									}
-								}
-							);
-						}
+						logit("message.method === close");
+						closeSerial();
 					}
 			}
 			else {
@@ -155,34 +199,41 @@ var start = function () {
 		});
 
 		ws.on('close', function() {
+			logit("ws.on close - client left");
+
 			for (var c = 0; c < clients.length; c++) {
 				if (clients[c] === ws) {
-					//console.log("found client to remove");
+					logit("removing client from array");
+
 					clients.splice(c,1);
+
+					logit(clients.length + " clients left");
 					break;
 				}
 			}
+
+			/*
 			if (clients.length == 0) {
+				logit("clients.length == 0 checking to see if we should close serial port")
 				// Should close serial port
-				if (serialPort != null && serialPort.isOpen()) {
-					serialPort.close( 
-						function(error) {
-							if (error) {
-								console.log(error);		
-							}
-						}
-					);
-				}
+				closeSerial();
 			}
+			*/
 		});
 	});
+
+
 
 	//console.log("Starting");
 };
 
 var stop = function() {
+	logit("stop()");
+
 	if (serialPort != null && serialPort.isOpen()) {
-		console.log("Closing Serial Port");
+		logit("serialPort != null && serialPort.isOpen() is true");
+		logit("serialPort.flush, drain, close");
+
 		serialPort.flush();
 		serialPort.drain();
 		serialPort.close(
@@ -197,6 +248,8 @@ var stop = function() {
 	try {
 		for (var c = 0; c < clients.length; c++) {
 			if (clients[c] != null) {
+				logit("clients[" + c + "] != null, close");
+
 				clients[c].close();
 			}
 		}
@@ -205,11 +258,15 @@ var stop = function() {
 	}
 
 	if (wss != null) {
+		logit("wss != null so wss.close()");
+
 		wss.close();
 	}
 	
 	// Let's try to close a different way
 	if (serialPort != null && serialPort.isOpen()) {
+		logit("serialPort != null && serialPort.isOpen() is true so serialPort = null");
+
 		serialPort = null;
 	}
 }
