@@ -142,7 +142,7 @@ var start = function () {
 								function(error) {
 									if (error) {
 										ws.sendit({method:'error', data:error});
-										console.logo(error);
+										console.log(error);
 									}
 								}
 							);
