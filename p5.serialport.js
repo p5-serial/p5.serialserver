@@ -38,10 +38,22 @@
   */
 
   /**
-   * Base class for a Serial Port
+   * Base class for a serial port. Creates an instance of the serial library and prints "hostname":"serverPort" in the console.
    *
    * @class p5.SerialPort
    * @constructor
+   * @param {String} [hostname] Name of the host. Defaults to 'localhost'.
+   * @param {Number} [serverPort] Port number. Defaults to 8081.
+   * @example
+   * <div class='norender'><code>
+   * var portName = '/dev/cu.usbmodem1411'; //enter your portName
+   *
+   * function setup() {
+   * createCanvas(400, 300);
+   * serial = new p5.SerialPort()
+   * serial.open(portName);
+   * }
+   * </code></div>
    */
   p5.SerialPort = function(_hostname, _serverport) {
 
@@ -192,6 +204,14 @@
 
   };
 
+/** 
+ *
+ * @method emit
+ * @private
+ * @return
+ * @example
+ * 
+ */
   p5.SerialPort.prototype.emit = function(data) {
     if (this.socket.readyState == WebSocket.OPEN) {
       this.socket.send(JSON.stringify(data));
@@ -200,13 +220,60 @@
     }
   };
 
+/**
+ * Tells you whether p5 is connected to the serial port. 
+ *
+ * @method isConnected
+ * @return {Boolean} 
+ * @example
+ * <div class='norender'><code>
+ * var serial; // variable to hold an instance of the serialport library
+ * var portName = '/dev/cu.usbmodem1411';
+ * 
+ * function setup() {
+ * createCanvas(400, 300);
+ * serial = new p5.SerialPort();
+ * serial.open(portName);
+ * println(serial.isConnected());
+ * }
+ * </code></div>
+ */
   p5.SerialPort.prototype.isConnected = function() {
     if (self.serialConnected) { return true; }
     else { return false; }
   };
 
-  // list() - list serial ports available to the server
-  // synchronously returns cached list, asynchronously returns updated list via callback
+/**
+ * Lists serial ports available to the server.
+ * Synchronously returns cached list, asynchronously returns updated list via callback.
+ * Must be called within the p5 setup() function.
+ * Doesn't work with the p5 editor's "Run in Browser" mode.
+ *
+ * @method list
+ * @return {Array} array of available serial ports
+ * @example
+ * <div class='norender'><code>
+ * function setup() {
+ * createCanvas(windowWidth, windowHeight);
+ * serial = new p5.SerialPort();
+ * serial.list();
+ * serial.open("/dev/cu.usbmodem1411");
+ * }
+ * </code>
+ * </div>
+ *
+ * For full example: <a href="https://itp.nyu.edu/physcomp/labs/labs-serial-communication/two-way-duplex-serial-communication-using-p5js/">Link</a>
+ * <div class='norender'><code>
+ * function printList(portList) {
+ *   // portList is an array of serial port names
+ *   for (var i = 0; i < portList.length; i++) {
+ *     // Display the list the console:
+ *     println(i + " " + portList[i]);
+ *   }
+ * }
+ * </code>
+ * </div>
+ */
   p5.SerialPort.prototype.list = function(cb) {
     if (typeof cb === 'function') {
       this.listCallback = cb;
@@ -219,6 +286,34 @@
     return this.serialportList;
   };
 
+/**
+ * Opens the serial port to enable data flow.
+ * Use the {[serialOptions]} parameter to set the baudrate if it's different from the p5 default, 9600.
+ * 
+ * @method open
+ * @param  {String} serialPort Name of the serial port, something like '/dev/cu.usbmodem1411'
+ * @param  {Object} [serialOptions] Object with optional options as {key: value} pairs.
+ *                                Options include 'baudrate'.
+ * @param  {Function} [serialCallback] Callback function when open completes
+ * @example
+ * 
+ * <div class='norender'>
+ * <code>
+ * // Change this to the name of your arduino's serial port
+ * serial.open("/dev/cu.usbmodem1411");
+ * </code></div>
+ * <div class='norender'>
+ * <code>
+ * // All of the following are valid:
+ * serial.open(portName);
+ * serial.open(portName, {}, onOpen);
+ * serial.open(portName, {baudrate: 9600}, onOpen)
+ *
+ * function onOpen() {
+ *   print('opened the serial port!');
+ * }
+ * </code></div>
+ */
   p5.SerialPort.prototype.open = function(_serialport, _serialoptions, cb) {
 
     if (typeof cb === 'function') {
@@ -233,7 +328,6 @@
       //console.log("typeof _serialoptions " + typeof _serialoptions + " setting to {}");
       this.serialoptions = {};
     }
-
     // If our socket is connected, we'll do this now, 
     // otherwise it will happen in the socket.onopen callback
     this.emit({
@@ -245,6 +339,41 @@
     });
   };
 
+/**
+ * Sends a byte to a webSocket server which sends the same byte out through a serial port.
+ * @method write
+ * @param  {String, Number, Array} data Writes bytes, chars, ints, bytes[], and strings to the serial port.
+ * @example
+ * For full example: <a href="https://github.com/vanevery/p5.serialport/tree/master/examples/writeExample">Link</a>
+ * You can use this with the included Arduino example called PhysicalPixel.
+ * Works with P5 editor as the socket/serial server, version 0.5.5 or later.
+ * written 2 Oct 2015
+ * by Tom Igoe
+ * <div class='norender'><code>
+ * function mouseReleased() {
+ *   serial.write(outMessage);
+ *   if (outMessage === 'H') {
+ *     outMessage = 'L';
+ *   } else {
+ *     outMessage = 'H';
+ *   }
+ * }
+ * </code>
+ * </div>
+ *
+ * For full example: <a href="https://itp.nyu.edu/physcomp/labs/labs-serial-communication/lab-serial-output-from-p5-js/">Link</a>
+ * <div class='norender'><code>
+ * <code>
+ * function mouseDragged() {
+ *   // map the mouseY to a range from 0 to 255:
+ *   outByte = int(map(mouseY, 0, height, 0, 255));
+ *   // send it out the serial port:
+ *   serial.write(outByte);
+ * }
+ * </code>
+ * </div>
+ * 
+ */
   p5.SerialPort.prototype.write = function(data) {
     //Writes bytes, chars, ints, bytes[], Strings to the serial port
     var toWrite = null;
@@ -263,7 +392,7 @@
       method: 'write',
       data: toWrite
     });
-    //this.socket.send({method:'writeByte',data:data});  ? 
+        //this.socket.send({method:'writeByte',data:data});  ? 
     //this.socket.send({method:'writeString',data:data})  ?
   };
 
@@ -275,9 +404,34 @@
     });
   }
   */
+  };
 
+/**
+ * Returns a number between 0 and 255 for the next byte that's waiting in the buffer. 
+ * Returns -1 if there is no byte, although this should be avoided by first checking available() to see if data is available.
+ *
+ * @method read
+ * @return {Number} Value of the byte waiting in the buffer. Returns -1 if there is no byte.
+ * @example
+ * <div class='norender'><code>
+ * function serialEvent() {
+ * inByte = int(serial.read());
+ * byteCount++;
+ * }
+ * </code>
+ * </div>
+ * 
+ * <div class='norender'><code>
+ * function serialEvent() {
+ *   // read a byte from the serial port:
+ *   var inByte = serial.read();
+ *   // store it in a global variable:
+ *   inData = inByte;
+ * }
+ * </code>
+ * </div>
+ */
   p5.SerialPort.prototype.read = function() {
-    //Returns a number between 0 and 255 for the next byte that's waiting in the buffer. Returns -1 if there is no byte, although this should be avoided by first cheacking available() to see if data is available.
     if (this.serialBuffer.length > 0) {
       return this.serialBuffer.shift();
     } else {
@@ -285,8 +439,28 @@
     }
   };
 
+/**
+ * Returns the next byte in the buffer as a char. 
+ * 
+ * @method readChar
+ * @return {String} Value of the Unicode-code unit character byte waiting in the buffer, converted from bytes. Returns -1 or 0xffff if there is no byte.
+ * @example
+ * <div class='norender'><code>
+ * var inData;
+ * 
+ * function setup() {
+ *   // callback for when new data arrives
+ *   serial.on('data', serialEvent); 
+ *   
+ * function serialEvent() {
+ *   // read a char from the serial port:
+ *   inData = serial.readChar();
+ * }
+ * </code>
+ * </div>
+ */
+ */
   p5.SerialPort.prototype.readChar = function() {
-    //Returns the next byte in the buffer as a char. Returns -1 or 0xffff if nothing is there.
     if (this.serialBuffer.length > 0) {
       /*var currentByte = this.serialBuffer.shift();
       console.log("p5.serialport.js: " + currentByte);
@@ -300,6 +474,27 @@
     }
   };
 
+/**
+ * Returns a number between 0 and 255 for the next byte that's waiting in the buffer, and then clears the buffer of data.
+ * If there's no data in the buffer initially, returns -1, although this should be avoided by first checking available() to see if data is available.
+ *
+ * @method read
+ * @return {Number} Value of the byte waiting in the buffer. Returns -1 if there is no byte.
+ * @example
+ * <div class='norender'><code>
+ * var inData;
+ * 
+ * function setup() {
+ *   // callback for when new data arrives
+ *   serial.on('data', serialEvent); 
+ *   
+ * function serialEvent() {
+ *   // read bytes from the serial port:
+ *   inData = serial.readBytes();
+ * }
+ * </code>
+ * </div>
+ */
   p5.SerialPort.prototype.readBytes = function() {
     if (this.serialBuffer.length > 0) {
       var returnBuffer = this.serialBuffer.slice();
@@ -313,9 +508,30 @@
     }
   };
 
+/**
+ * Returns all of the data available, up to and including a particular character.
+ * If the character isn't in the buffer, 'null' is returned. 
+ * The version without the byteBuffer parameter returns a byte array of all data up to and including the interesting byte. 
+ * This is not efficient, but is easy to use. 
+ * 
+ * The version with the byteBuffer parameter is more efficient in terms of time and memory. 
+ * It grabs the data in the buffer and puts it into the byte array passed in and returns an integer value for the number of bytes read. 
+ * If the byte buffer is not large enough, -1 is returned and an error is printed to the message area. 
+ * If nothing is in the buffer, 0 is returned.
+ *
+ * @method readBytesUntil
+ * @param {[byteBuffer]} 
+ * @return {[Number]} [Number of bytes read]
+ * @example
+ * <div class='norender'><code>
+ * // All of the following are valid:
+ * charToFind.charCodeAt();
+ * charToFind.charCodeAt(0);
+ * charToFind.charCodeAt(0, );
+ * </code></div>
+ */
   p5.SerialPort.prototype.readBytesUntil = function(charToFind) {
     console.log("Looking for: " + charToFind.charCodeAt(0));
-    //Reads from the port into a buffer of bytes up to and including a particular character. If the character isn't in the buffer, 'null' is returned. The version with without the byteBuffer parameter returns a byte array of all data up to and including the interesting byte. This is not efficient, but is easy to use. The version with the byteBuffer parameter is more memory and time efficient. It grabs the data in the buffer and puts it into the byte array passed in and returns an int value for the number of bytes read. If the byte buffer is not large enough, -1 is returned and an error is printed to the message area. If nothing is in the buffer, 0 is returned.
     var index = this.serialBuffer.indexOf(charToFind.charCodeAt(0));
     if (index !== -1) {
       // What to return
@@ -328,8 +544,21 @@
     }
   };
 
+/**
+ * Returns all the data from the buffer as a String. 
+ * This method assumes the incoming characters are ASCII. 
+ * If you want to transfer Unicode data: first, convert the String to a byte stream in the representation of your choice (i.e. UTF8 or two-byte Unicode data). 
+ * Then, send it as a byte array.
+ *
+ * @method readString
+ * @return
+ * @example
+ * 
+ *
+ *
+ * 
+ */
   p5.SerialPort.prototype.readString = function() {
-    //Returns all the data from the buffer as a String. This method assumes the incoming characters are ASCII. If you want to transfer Unicode data, first convert the String to a byte stream in the representation of your choice (i.e. UTF8 or two-byte Unicode data), and send it as a byte array.
     //var returnBuffer = this.serialBuffer;
     var stringBuffer = [];
     //console.log("serialBuffer Length: " + this.serialBuffer.length);
@@ -342,6 +571,16 @@
     return stringBuffer.join("");
   };
 
+/**
+ * Returns all of the data available as an ASCII-encoded string.
+ *
+ * @method readStringUntil
+ * @param {String} stringToFind The string to read until.
+ * @return {String} ASCII-encoded string until and not including the stringToFind.
+ * @example
+ * 
+ * 
+ */
   p5.SerialPort.prototype.readStringUntil = function(stringToFind) {
 
     var stringBuffer = [];
@@ -364,7 +603,33 @@
     return returnString;
   };
 
-  // readStringUntil("\r\n");
+
+/**
+ * Returns all of the data available as an ASCII-encoded string until a line break is encountered.
+ * 
+ * @method readLine
+ * @return {String} All of the data available as an ASCII-encoded string until a line break is encountered
+ * @example
+ * For full example: <a href="https://github.com/vanevery/p5.serialport/tree/master/examples/readAndAnimate">Link</a>
+ * You can use this with the included Arduino example called AnalogReadSerial.
+ * Works with P5 editor as the socket/serial server, version 0.5.5 or later.
+ * written 2 Oct 2015
+ * by Tom Igoe
+ * <div class='norender'><code>
+ * function gotData() {
+ *   var currentString = serial.readLine();  // read the incoming data
+ *   trim(currentString);                    // trim off trailing whitespace
+ * 
+ *   if (!currentString) return; {            // if the incoming string is empty, do no more 
+ *     console.log(currentString);
+ *     }
+ *     
+ *   if (!isNaN(currentString)) {  // make sure the string is a number (i.e. NOT Not a Number (NaN))
+ *     textXpos = currentString;   // save the currentString to use for the text position in draw()
+ *     }
+ * }
+ * </code></div>
+ */
   p5.SerialPort.prototype.readLine = function() {
     return this.readStringUntil("\r\n");
   }; 
@@ -373,12 +638,28 @@
   //p5.SerialPort.prototype.bufferUntil
   //p5.SerialPort.prototype.buffer
 
+/**
+ * Returns the number of bytes available.
+ *
+ * @method available
+ * @return {Number} The length of the serial buffer array, in terms of number of bytes in the buffer.
+ * @example
+ *
+ * */
   p5.SerialPort.prototype.available = function() {
-    //return size of buffer
     return this.serialBuffer.length;
   };
 
-  // TODO: This doesn't seem to be shortening the array
+/**
+ * // TODO: This doesn't seem to be shortening the array
+ * 
+ * Returns the last byte of data from the buffer.
+ *
+ * @method last
+ * @return {Number}
+ * @example
+ * 
+ * */
   p5.SerialPort.prototype.last = function() {
     //Returns last byte received
     var last = this.serialBuffer.pop();
@@ -386,25 +667,71 @@
     return last;
   };
 
-  // TODO: This doesn't seem to be shortening the array
+/**
+ * // TODO: This doesn't seem to be shortening the array
+ * 
+ * Returns the last byte of data from the buffer as a char.
+ *
+ * @method lastChar
+ * @example
+ * 
+ * */
   p5.SerialPort.prototype.lastChar = function() {
-    //Returns the last byte received as a char.
     return String.fromCharCode(this.last());
   };
 
-  // TODO: This isn't working
+/**
+ * // TODO: This isn't working
+ * 
+ * Clears the underlying serial buffer.
+ *
+ * @method clear
+ * @example
+ */
   p5.SerialPort.prototype.clear = function() {
     //Empty the buffer, removes all the data stored there.
     this.serialBuffer.length = 0;
   };
 
+/**
+ * Stops data communication on this port. 
+ * Use to shut the connection when you're finished with the Serial.
+ *
+ * @method stop
+ * @example
+ * 
+ */
   p5.SerialPort.prototype.stop = function() {
-    //Stops data communication on this port. Use to shut the connection when you're finished with the Serial.
-    // TODO
   };
 
+/**
+ * Tell server to close the serial port. This functions the same way as serial.on('close', portClose).
+ * 
+ * @method close
+ * @param {String} name of callback
+ * @example
+ *
+ * <div class='norender'><code>
+ * var inData;
+ * 
+ * function setup() {
+ *   serial.open(portOpen);
+ *   serial.close(portClose); 
+ * }
+ *
+ * function portOpen() {
+ *   println('The serial port is open.');
+ * }  
+ *  
+ * function portClose() {
+ *   println('The serial port closed.');
+ * }  
+ * </code>
+ * </div>
+ * 
+ */
   p5.SerialPort.prototype.close = function(cb) {
-    // Tell server to close port
+    // 
     if (typeof cb === 'function') {
       this.closeCallback = cb;
     }
@@ -414,8 +741,10 @@
     });
   };
 
-  // Register callback methods from sketch
-
+/**
+ * // Register callback methods from sketch
+ * 
+ */
   p5.SerialPort.prototype.onData = function(_callback) {
     this.on('data',_callback);
   };
