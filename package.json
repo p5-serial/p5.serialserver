@@ -22,5 +22,5 @@
     "ws": "0.8.0",
     "serialport": "1.7.4"
   },
-  "license": "LGPL"
+  "license": "GPL"
 }
