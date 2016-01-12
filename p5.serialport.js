@@ -645,8 +645,6 @@
   };
 
 /**
- * // TODO: This doesn't seem to be shortening the array
- * 
  * Returns the last byte of data from the buffer as a char.
  *
  * @method lastChar
