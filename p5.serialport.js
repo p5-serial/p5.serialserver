@@ -30,13 +30,6 @@
   // =============================================================================
 
 
-  /*
-  var serialPort = new SerialPort();
-  serialPort.open("/dev/tty-usbserial1", {
-    baudrate: 57600
-  });
-  */
-
   /**
    * Base class for a serial port. Creates an instance of the serial library and prints "hostname":"serverPort" in the console.
    *
@@ -392,18 +385,7 @@
       method: 'write',
       data: toWrite
     });
-        //this.socket.send({method:'writeByte',data:data});  ? 
-    //this.socket.send({method:'writeString',data:data})  ?
   };
-
-  /* Not Yet Implemented
-  p5.SerialPort.prototype.writeLine = function(data) {
-    this.emit({
-      method: 'writeln',
-      data: data;
-    });
-  }
-  */
   };
 
 /**
@@ -633,10 +615,6 @@
   p5.SerialPort.prototype.readLine = function() {
     return this.readStringUntil("\r\n");
   }; 
-
-  // TODO
-  //p5.SerialPort.prototype.bufferUntil
-  //p5.SerialPort.prototype.buffer
 
 /**
  * Returns the number of bytes available.
