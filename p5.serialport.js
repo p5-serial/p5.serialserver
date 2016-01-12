@@ -629,7 +629,6 @@
   };
 
 /**
- * // TODO: This doesn't seem to be shortening the array
  * 
  * Returns the last byte of data from the buffer.
  *
@@ -659,8 +658,6 @@
   };
 
 /**
- * // TODO: This isn't working
- * 
  * Clears the underlying serial buffer.
  *
  * @method clear
