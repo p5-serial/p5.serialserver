@@ -1,0 +1,8 @@
+{
+  "options": {
+  	"outdir": "./docs",
+  	"paths": "lib",
+	"exclude": "./docs/*, ./examples/*",
+	"ignorePaths": ["./examples/*"]
+  }
+}
