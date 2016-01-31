@@ -97,5 +97,5 @@ function draw() {
 ```
 
 ### Documentation
-To generate documentation, install yuidoc (``npm install -g yuidoc``) and run
+To generate documentation, install yuidoc (``npm install -g yuidocjs``) and run
 ```yuidoc -c yuidoc.json ./lib```
