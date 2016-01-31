@@ -10,7 +10,7 @@ Start the server with: ```node startserver.js```
 
 Load one of the [examples/](https://github.com/vanevery/p5.serialport/tree/master/examples) in your browser to see it in action.  (You'll likely have to change the name of the serial port that is opened.)
 
-[API documentation now available](http://vanevery.github.io/p5.serialport/docs/classes/p5.SerialPort.html)
+[API documentation now available](http://vanevery.github.io/p5.serialport/docs/classes/p5.serialport.html)
 
 The basics:
 ```javascript
