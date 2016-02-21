@@ -79,7 +79,7 @@
                 }
             ],
             "example": [
-                "\n<div class='norender'><code>\nvar portName = '/dev/cu.usbmodem1411'; //enter your portName\n\nfunction setup() {\ncreateCanvas(400, 300);\nserial = new p5.SerialPort()\nserial.open(portName);\n}\n</code></div>"
+                "\n\tvar portName = '/dev/cu.usbmodem1411'; //enter your portName\n \t\t\n\tfunction setup() {\n\t\t createCanvas(400, 300);\n\t\t serial = new p5.SerialPort()\n\t\t serial.open(portName);\n\t}"
             ]
         }
     },
@@ -95,7 +95,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 200,
+            "line": 198,
             "itemtype": "method",
             "name": "emit",
             "access": "private",
@@ -112,16 +112,16 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 216,
+            "line": 214,
             "description": "Tells you whether p5 is connected to the serial port.",
             "itemtype": "method",
             "name": "isConnected",
             "return": {
-                "description": "",
+                "description": "true or false",
                 "type": "Boolean"
             },
             "example": [
-                "\n<div class='norender'><code>\nvar serial; // variable to hold an instance of the serialport library\nvar portName = '/dev/cu.usbmodem1411';\n\nfunction setup() {\ncreateCanvas(400, 300);\nserial = new p5.SerialPort();\nserial.open(portName);\nprintln(serial.isConnected());\n}\n</code></div>"
+                "\n\t\tvar serial; // variable to hold an instance of the serialport library\n\t\tvar portName = '/dev/cu.usbmodem1411';\n\t\t\n\t\tfunction setup() {\n\t\t\tcreateCanvas(400, 300);\n\t \t\tserial = new p5.SerialPort();\n\t \t\tserial.open(portName);\n\t \t\tprintln(serial.isConnected());\n\t\t}"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -129,7 +129,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 239,
+            "line": 235,
             "description": "Lists serial ports available to the server.\nSynchronously returns cached list, asynchronously returns updated list via callback.\nMust be called within the p5 setup() function.\nDoesn't work with the p5 editor's \"Run in Browser\" mode.",
             "itemtype": "method",
             "name": "list",
@@ -138,7 +138,8 @@
                 "type": "Array"
             },
             "example": [
-                "\n<div class='norender'><code>\nfunction setup() {\ncreateCanvas(windowWidth, windowHeight);\nserial = new p5.SerialPort();\nserial.list();\nserial.open(\"/dev/cu.usbmodem1411\");\n}\n</code>\n</div>\n\nFor full example: <a href=\"https://itp.nyu.edu/physcomp/labs/labs-serial-communication/two-way-duplex-serial-communication-using-p5js/\">Link</a>\n<div class='norender'><code>\nfunction printList(portList) {\n  // portList is an array of serial port names\n  for (var i = 0; i < portList.length; i++) {\n    // Display the list the console:\n    println(i + \" \" + portList[i]);\n  }\n}\n</code>\n</div>"
+                "\n\t\tfunction setup() {\n\t\tcreateCanvas(windowWidth, windowHeight);\n\t\tserial = new p5.SerialPort();\n\t\tserial.list();\n\t\tserial.open(\"/dev/cu.usbmodem1411\");\n\t\t}\n\nFor full example: <a href=\"https://itp.nyu.edu/physcomp/labs/labs-serial-communication/two-way-duplex-serial-communication-using-p5js/\">Link</a>",
+                "\n\t\tfunction printList(portList) {\n\t\t  // portList is an array of serial port names\n\t\t  for (var i = 0; i < portList.length; i++) {\n\t\t    // Display the list the console:\n\t\t    println(i + \" \" + portList[i]);\n\t\t  }\n\t\t}"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -146,7 +147,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 282,
+            "line": 273,
             "description": "Opens the serial port to enable data flow.\nUse the {[serialOptions]} parameter to set the baudrate if it's different from the p5 default, 9600.",
             "itemtype": "method",
             "name": "open",
@@ -170,7 +171,8 @@
                 }
             ],
             "example": [
-                "\n\n<div class='norender'>\n<code>\n// Change this to the name of your arduino's serial port\nserial.open(\"/dev/cu.usbmodem1411\");\n</code></div>\n<div class='norender'>\n<code>\n// All of the following are valid:\nserial.open(portName);\nserial.open(portName, {}, onOpen);\nserial.open(portName, {baudrate: 9600}, onOpen)\n\nfunction onOpen() {\n  print('opened the serial port!');\n}\n</code></div>"
+                "\n\t\t// Change this to the name of your arduino's serial port\n\t\tserial.open(\"/dev/cu.usbmodem1411\");",
+                "\n\t\t// All of the following are valid:\n\t\tserial.open(portName);\n\t\tserial.open(portName, {}, onOpen);\n\t\tserial.open(portName, {baudrate: 9600}, onOpen)\n\t\t\n\t\tfunction onOpen() {\n\t\t  print('opened the serial port!');\n\t\t}"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -178,19 +180,20 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 335,
+            "line": 321,
             "description": "Sends a byte to a webSocket server which sends the same byte out through a serial port.",
             "itemtype": "method",
             "name": "write",
             "params": [
                 {
-                    "name": "data",
+                    "name": "Data",
                     "description": "Writes bytes, chars, ints, bytes[], and strings to the serial port.",
                     "type": "String, Number, Array"
                 }
             ],
             "example": [
-                "\nFor full example: <a href=\"https://github.com/vanevery/p5.serialport/tree/master/examples/writeExample\">Link</a>\nYou can use this with the included Arduino example called PhysicalPixel.\nWorks with P5 editor as the socket/serial server, version 0.5.5 or later.\nwritten 2 Oct 2015\nby Tom Igoe\n<div class='norender'><code>\nfunction mouseReleased() {\n  serial.write(outMessage);\n  if (outMessage === 'H') {\n    outMessage = 'L';\n  } else {\n    outMessage = 'H';\n  }\n}\n</code>\n</div>\n\nFor full example: <a href=\"https://itp.nyu.edu/physcomp/labs/labs-serial-communication/lab-serial-output-from-p5-js/\">Link</a>\n<div class='norender'><code>\n<code>\nfunction mouseDragged() {\n  // map the mouseY to a range from 0 to 255:\n  outByte = int(map(mouseY, 0, height, 0, 255));\n  // send it out the serial port:\n  serial.write(outByte);\n}\n</code>\n</div>\n"
+                "\nYou can use this with the included Arduino example called PhysicalPixel.\nWorks with P5 editor as the socket/serial server, version 0.5.5 or later.\nWritten 2 Oct 2015 by Tom Igoe. For full example: <a href=\"https://github.com/vanevery/p5.serialport/tree/master/examples/writeExample\">Link</a>\n\t\t\n\t\tfunction mouseReleased() {\n\t  \t\t  serial.write(outMessage);\n\t\t\t  if (outMessage === 'H') {\n\t\t\t    outMessage = 'L';\n\t\t\t  } else {\n\t\t\t    outMessage = 'H';\n\t\t\t  }\n\t\t}\n\nFor full example: <a href=\"https://itp.nyu.edu/physcomp/labs/labs-serial-communication/lab-serial-output-from-p5-js/\">Link</a>",
+                "\t\t\n\t\tfunction mouseDragged() {\n  \t\t  // map the mouseY to a range from 0 to 255:\n\t\t\t  outByte = int(map(mouseY, 0, height, 0, 255));\n\t\t\t  // send it out the serial port:\n\t\t\t  serial.write(outByte);\n\t\t}"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -198,7 +201,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 391,
+            "line": 368,
             "description": "Returns a number between 0 and 255 for the next byte that's waiting in the buffer. \nReturns -1 if there is no byte, although this should be avoided by first checking available() to see if data is available.",
             "itemtype": "method",
             "name": "read",
@@ -207,7 +210,8 @@
                 "type": "Number"
             },
             "example": [
-                "\n<div class='norender'><code>\nfunction serialEvent() {\ninByte = int(serial.read());\nbyteCount++;\n}\n</code>\n</div>\n\n<div class='norender'><code>\nfunction serialEvent() {\n  // read a byte from the serial port:\n  var inByte = serial.read();\n  // store it in a global variable:\n  inData = inByte;\n}\n</code>\n</div>"
+                "\n\t\tfunction serialEvent() {\n  \t\tinByte = int(serial.read());\n\t\t\tbyteCount++;\n\t\t}",
+                "\n\t\tfunction serialEvent() {\n\t  \t\t// read a byte from the serial port:\n\t\t\tvar inByte = serial.read();\n\t\t\t// store it in a global variable:\n\t\t\tinData = inByte;\n\t\t}"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -215,7 +219,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 424,
+            "line": 396,
             "description": "Returns the next byte in the buffer as a char.",
             "itemtype": "method",
             "name": "readChar",
@@ -224,7 +228,7 @@
                 "type": "String"
             },
             "example": [
-                "\n<div class='norender'><code>\nvar inData;\n\nfunction setup() {\n  // callback for when new data arrives\n  serial.on('data', serialEvent); \n  \nfunction serialEvent() {\n  // read a char from the serial port:\n  inData = serial.readChar();\n}\n</code>\n</div>"
+                "\n\t\tvar inData;\n\t\t\n\t\tfunction setup() {\n\t\t  // callback for when new data arrives\n\t\t  serial.on('data', serialEvent); \n\t\t  \n\t\tfunction serialEvent() {\n\t\t  // read a char from the serial port:\n\t\t  inData = serial.readChar();\n\t\t}"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -232,16 +236,16 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 459,
-            "description": "Returns a number between 0 and 255 for the next byte that's waiting in the buffer, and then clears the buffer of data.\nIf there's no data in the buffer initially, returns -1, although this should be avoided by first checking available() to see if data is available.",
+            "line": 427,
+            "description": "Returns a number between 0 and 255 for the next byte that's waiting in the buffer, and then clears the buffer of data. Returns -1 if there is no byte, although this should be avoided by first checking available() to see if data is available.",
             "itemtype": "method",
-            "name": "read",
+            "name": "readBytes",
             "return": {
                 "description": "Value of the byte waiting in the buffer. Returns -1 if there is no byte.",
                 "type": "Number"
             },
             "example": [
-                "\n<div class='norender'><code>\nvar inData;\n\nfunction setup() {\n  // callback for when new data arrives\n  serial.on('data', serialEvent); \n  \nfunction serialEvent() {\n  // read bytes from the serial port:\n  inData = serial.readBytes();\n}\n</code>\n</div>"
+                "\n\t\tvar inData;\n\t\t\n\t\tfunction setup() {\n\t\t  // callback for when new data arrives\n\t\t  serial.on('data', serialEvent); \n\t\t  \n\t\tfunction serialEvent() {\n\t\t  // read bytes from the serial port:\n\t\t  inData = serial.readBytes();\n\t\t}"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -249,7 +253,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 493,
+            "line": 456,
             "description": "Returns all of the data available, up to and including a particular character.\nIf the character isn't in the buffer, 'null' is returned. \nThe version without the byteBuffer parameter returns a byte array of all data up to and including the interesting byte. \nThis is not efficient, but is easy to use. \n\nThe version with the byteBuffer parameter is more efficient in terms of time and memory. \nIt grabs the data in the buffer and puts it into the byte array passed in and returns an integer value for the number of bytes read. \nIf the byte buffer is not large enough, -1 is returned and an error is printed to the message area. \nIf nothing is in the buffer, 0 is returned.",
             "itemtype": "method",
             "name": "readBytesUntil",
@@ -265,7 +269,7 @@
                 "type": "[Number]"
             },
             "example": [
-                "\n<div class='norender'><code>\n// All of the following are valid:\ncharToFind.charCodeAt();\ncharToFind.charCodeAt(0);\ncharToFind.charCodeAt(0, );\n</code></div>"
+                "\n\t\t// All of the following are valid:\n\t\tcharToFind.charCodeAt();\n\t\tcharToFind.charCodeAt(0);\n\t\tcharToFind.charCodeAt(0, );"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -273,7 +277,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 529,
+            "line": 490,
             "description": "Returns all the data from the buffer as a String. \nThis method assumes the incoming characters are ASCII. \nIf you want to transfer Unicode data: first, convert the String to a byte stream in the representation of your choice (i.e. UTF8 or two-byte Unicode data). \nThen, send it as a byte array.",
             "itemtype": "method",
             "name": "readString",
@@ -289,14 +293,14 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 556,
+            "line": 517,
             "description": "Returns all of the data available as an ASCII-encoded string.",
             "itemtype": "method",
             "name": "readStringUntil",
             "params": [
                 {
                     "name": "stringToFind",
-                    "description": "The string to read until.",
+                    "description": "String to read until.",
                     "type": "String"
                 }
             ],
@@ -305,7 +309,7 @@
                 "type": "String"
             },
             "example": [
-                "\n\n"
+                "\n\nFor full example: <a href=\"https://github.com/tigoe/p5.serialport/blob/master/examples/twoPortRead/sketch.js\">Link</a>\n\t\t \n\t\t var serial1 = new p5.SerialPort();\n\t\t var serial2 = new p5.SerialPort();\n\t\t var input1 = '';\n\t\t var input2 = '';\n\t\t\n\t\t function serialEvent(){\n\t\t \t\tdata = serial1.readStringUntil('\\r\\n');\n\t\t\t\tif (data.length > 0){\n\t\t\t\tinput1 = data;\n\t\t\t\t}\n\t\t }\n\t\t \n\t\t function serial2Event() {\n\t\t \t\tvar data = serial2.readStringUntil('\\r\\n');\n\t\t\t\tif (data.length > 0){\n\t\t\t\tinput2 = data;\n\t\t\t\t}\n\t\t }"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -313,16 +317,16 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 589,
+            "line": 569,
             "description": "Returns all of the data available as an ASCII-encoded string until a line break is encountered.",
             "itemtype": "method",
             "name": "readLine",
             "return": {
-                "description": "All of the data available as an ASCII-encoded string until a line break is encountered",
+                "description": "ASCII-encoded string",
                 "type": "String"
             },
             "example": [
-                "\nFor full example: <a href=\"https://github.com/vanevery/p5.serialport/tree/master/examples/readAndAnimate\">Link</a>\nYou can use this with the included Arduino example called AnalogReadSerial.\nWorks with P5 editor as the socket/serial server, version 0.5.5 or later.\nwritten 2 Oct 2015\nby Tom Igoe\n<div class='norender'><code>\nfunction gotData() {\n  var currentString = serial.readLine();  // read the incoming data\n  trim(currentString);                    // trim off trailing whitespace\n\n  if (!currentString) return; {            // if the incoming string is empty, do no more \n    console.log(currentString);\n    }\n    \n  if (!isNaN(currentString)) {  // make sure the string is a number (i.e. NOT Not a Number (NaN))\n    textXpos = currentString;   // save the currentString to use for the text position in draw()\n    }\n}\n</code></div>"
+                "\n\nYou can use this with the included Arduino example called AnalogReadSerial.\nWorks with P5 editor as the socket/serial server, version 0.5.5 or later.\nWritten 2 Oct 2015 by Tom Igoe. For full example: <a href=\"https://github.com/vanevery/p5.serialport/tree/master/examples/readAndAnimate\">Link</a>\n\t\t\n\t\tfunction gotData() {\n  \t\t  var currentString = serial.readLine();  // read the incoming data\n\t\t\t  trim(currentString);                    // trim off trailing whitespace\n\t\t\t\n\t\t\t  if (!currentString) return; {            // if the incoming string is empty, do no more \n\t\t\t    console.log(currentString);\n\t\t\t    }\n\t\t\t    \n\t\t\t  if (!isNaN(currentString)) {  // make sure the string is a number (i.e. NOT Not a Number (NaN))\n\t\t\t    textXpos = currentString;   // save the currentString to use for the text position in draw()\n\t\t\t    }\n\t\t\t}"
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -330,12 +334,29 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 619,
+            "line": 597,
             "description": "Returns the number of bytes available.",
             "itemtype": "method",
             "name": "available",
             "return": {
                 "description": "The length of the serial buffer array, in terms of number of bytes in the buffer.",
+                "type": "Number"
+            },
+            "example": [
+                "\n\t\tfunction draw() {\n\t\t\t// black background, white text:\n\t\t\tbackground(0);\n\t\t\tfill(255);\n\t\t\t// display the incoming serial data as a string:\n\t\t\tvar displayString = \"inByte: \" + inByte + \"\\t Byte count: \" + byteCount;\n\t\t\tdisplayString += \"  available: \" + serial.available();\n\t\t\ttext(displayString, 30, 60);\n\t\t\t}"
+            ],
+            "class": "p5.SerialPort",
+            "module": "p5.serialport",
+            "submodule": "p5.serialport"
+        },
+        {
+            "file": "lib/p5.serialport.js",
+            "line": 617,
+            "description": "Returns the last byte of data from the buffer.",
+            "itemtype": "method",
+            "name": "last",
+            "return": {
+                "description": "",
                 "type": "Number"
             },
             "example": [
@@ -347,24 +368,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 631,
-            "description": "Returns the last byte of data from the buffer.",
-            "itemtype": "method",
-            "name": "last",
-            "return": {
-                "description": "",
-                "type": "Number"
-            },
-            "example": [
-                "\n "
-            ],
-            "class": "p5.SerialPort",
-            "module": "p5.serialport",
-            "submodule": "p5.serialport"
-        },
-        {
-            "file": "lib/p5.serialport.js",
-            "line": 647,
+            "line": 632,
             "description": "Returns the last byte of data from the buffer as a char.",
             "itemtype": "method",
             "name": "lastChar",
@@ -377,7 +381,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 658,
+            "line": 643,
             "description": "Clears the underlying serial buffer.",
             "itemtype": "method",
             "name": "clear",
@@ -390,7 +394,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 669,
+            "line": 654,
             "description": "Stops data communication on this port. \nUse to shut the connection when you're finished with the Serial.",
             "itemtype": "method",
             "name": "stop",
@@ -403,7 +407,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 680,
+            "line": 665,
             "description": "Tell server to close the serial port. This functions the same way as serial.on('close', portClose).",
             "itemtype": "method",
             "name": "close",
@@ -415,7 +419,7 @@
                 }
             ],
             "example": [
-                "\n\n<div class='norender'><code>\nvar inData;\n\nfunction setup() {\n  serial.open(portOpen);\n  serial.close(portClose); \n}\n\nfunction portOpen() {\n  println('The serial port is open.');\n}  \n \nfunction portClose() {\n  println('The serial port closed.');\n}  \n</code>\n</div>\n"
+                "\n\t\t\n\t\tvar inData;\n\t\t\n\t\tfunction setup() {\n\t\t  serial.open(portOpen);\n\t\t  serial.close(portClose); \n\t\t}\n \t\n \tfunction portOpen() {\n\t\t  println('The serial port is open.');\n\t\t}  \n\t\t \n\t\tfunction portClose() {\n\t\t  println('The serial port closed.');\n\t\t}  "
             ],
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -423,7 +427,7 @@
         },
         {
             "file": "lib/p5.serialport.js",
-            "line": 717,
+            "line": 698,
             "description": "// Register callback methods from sketch",
             "class": "p5.SerialPort",
             "module": "p5.serialport",
@@ -433,7 +437,7 @@
     "warnings": [
         {
             "message": "param name missing: {[byteBuffer]}",
-            "line": " lib/p5.serialport.js:493"
+            "line": " lib/p5.serialport.js:456"
         },
         {
             "message": "Missing item type\np5.serialport\nShawn Van Every (Shawn.Van.Every@nyu.edu)\nITP/NYU\nLGPL\n\nhttps://github.com/vanevery/p5.serialport",
@@ -441,7 +445,7 @@
         },
         {
             "message": "Missing item type\n// Register callback methods from sketch",
-            "line": " lib/p5.serialport.js:717"
+            "line": " lib/p5.serialport.js:698"
         }
     ]
 }
