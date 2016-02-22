@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>p5.SerialPort</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/p5.serialport.html">p5.serialport</a></li>
+                                <li><a href="../classes/p5.SerialPort.html">p5.SerialPort</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/p5.serialport.html">p5.serialport</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1>p5.SerialPort Class</h1>
+<div class="box meta">
+
+
+        <div class="foundat">
+            Defined in: <a href="../files/lib_p5.serialport.js.html#l33"><code>lib&#x2F;p5.serialport.js:33</code></a>
+        </div>
+
+            Module: <a href="../modules/p5.serialport.html">p5.serialport</a><br>
+            Parent Module: <a href="../modules/p5.serialport.html">p5.serialport</a>
+
+</div>
+
+
+<div class="box intro">
+    <p>Base class for a serial port. Creates an instance of the serial library and prints &quot;hostname&quot;:&quot;serverPort&quot; in the console.</p>
+
+</div>
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+<div id="method_p5.SerialPort" class="method item">
+    <h3 class="name"><code>p5.SerialPort</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code class="optional">[hostname]</code>
+                </li>
+                <li class="arg">
+                        <code class="optional">[serverPort]</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l33"><code>lib&#x2F;p5.serialport.js:33</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name optional">[hostname]</code>
+                        <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+                    <div class="param-description">
+                        <p>Name of the host. Defaults to 'localhost'.</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name optional">[serverPort]</code>
+                        <span class="type">Number</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+                    <div class="param-description">
+                        <p>Port number. Defaults to 8081.</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>var portName = '/dev/cu.usbmodem1411'; //enter your portName
+    
+function setup() {
+     createCanvas(400, 300);
+     serial = new p5.SerialPort()
+     serial.open(portName);
+}</code></pre>
+
+            </div>
+        </div>
+</div>
+    </div>
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method">
+                                <a href="#method_available">available</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_clear">clear</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_close">close</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#method_emit">emit</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_isConnected">isConnected</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_last">last</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_lastChar">lastChar</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_list">list</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_open">open</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_read">read</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_readBytes">readBytes</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_readBytesUntil">readBytesUntil</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_readChar">readChar</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_readLine">readLine</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_readString">readString</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_readStringUntil">readStringUntil</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_stop">stop</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_write">write</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_available" class="method item">
+    <h3 class="name"><code>available</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l597"><code>lib&#x2F;p5.serialport.js:597</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns the number of bytes available.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Number</span>:
+                    <p>The length of the serial buffer array, in terms of number of bytes in the buffer.</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    function draw() {
+        // black background, white text:
+        background(0);
+        fill(255);
+        // display the incoming serial data as a string:
+        var displayString = &quot;inByte: &quot; + inByte + &quot;\t Byte count: &quot; + byteCount;
+        displayString += &quot;  available: &quot; + serial.available();
+        text(displayString, 30, 60);
+        }</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_clear" class="method item">
+    <h3 class="name"><code>clear</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l643"><code>lib&#x2F;p5.serialport.js:643</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Clears the underlying serial buffer.</p>
+
+    </div>
+
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                
+            </div>
+        </div>
+</div>
+<div id="method_close" class="method item">
+    <h3 class="name"><code>close</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>name</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l665"><code>lib&#x2F;p5.serialport.js:665</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Tell server to close the serial port. This functions the same way as serial.on('close', portClose).</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">name</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>of callback</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    var inData;
+    
+    function setup() {
+      serial.open(portOpen);
+      serial.close(portClose); 
+    }
+
+function portOpen() {
+      println('The serial port is open.');
+    }  
+     
+    function portClose() {
+      println('The serial port closed.');
+    }  </code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_emit" class="method item private">
+    <h3 class="name"><code>emit</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l198"><code>lib&#x2F;p5.serialport.js:198</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                
+            </div>
+        </div>
+</div>
+<div id="method_isConnected" class="method item">
+    <h3 class="name"><code>isConnected</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l214"><code>lib&#x2F;p5.serialport.js:214</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Tells you whether p5 is connected to the serial port.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Boolean</span>:
+                    <p>true or false</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    var serial; // variable to hold an instance of the serialport library
+    var portName = '/dev/cu.usbmodem1411';
+    
+    function setup() {
+        createCanvas(400, 300);
+        serial = new p5.SerialPort();
+        serial.open(portName);
+        println(serial.isConnected());
+    }</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_last" class="method item">
+    <h3 class="name"><code>last</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l617"><code>lib&#x2F;p5.serialport.js:617</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns the last byte of data from the buffer.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Number</span>:
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                
+            </div>
+        </div>
+</div>
+<div id="method_lastChar" class="method item">
+    <h3 class="name"><code>lastChar</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l632"><code>lib&#x2F;p5.serialport.js:632</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns the last byte of data from the buffer as a char.</p>
+
+    </div>
+
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                
+            </div>
+        </div>
+</div>
+<div id="method_list" class="method item">
+    <h3 class="name"><code>list</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Array</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l235"><code>lib&#x2F;p5.serialport.js:235</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Lists serial ports available to the server.
+Synchronously returns cached list, asynchronously returns updated list via callback.
+Must be called within the p5 setup() function.
+Doesn't work with the p5 editor's &quot;Run in Browser&quot; mode.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Array</span>:
+                    <p>array of available serial ports</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    function setup() {
+    createCanvas(windowWidth, windowHeight);
+    serial = new p5.SerialPort();
+    serial.list();
+    serial.open(&quot;/dev/cu.usbmodem1411&quot;);
+    }
+</code></pre>
+<p>For full example: <a href="https://itp.nyu.edu/physcomp/labs/labs-serial-communication/two-way-duplex-serial-communication-using-p5js/">Link</a></p>
+<pre class="code prettyprint"><code>    function printList(portList) {
+      // portList is an array of serial port names
+      for (var i = 0; i &lt; portList.length; i++) {
+        // Display the list the console:
+        println(i + &quot; &quot; + portList[i]);
+      }
+    }</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_open" class="method item">
+    <h3 class="name"><code>open</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>serialPort</code>
+                </li>
+                <li class="arg">
+                        <code class="optional">[serialOptions]</code>
+                </li>
+                <li class="arg">
+                        <code class="optional">[serialCallback]</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l273"><code>lib&#x2F;p5.serialport.js:273</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Opens the serial port to enable data flow.
+Use the {[serialOptions]} parameter to set the baudrate if it's different from the p5 default, 9600.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">serialPort</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>Name of the serial port, something like '/dev/cu.usbmodem1411'</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name optional">[serialOptions]</code>
+                        <span class="type">Object</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+                    <div class="param-description">
+                        <p>Object with optional options as {key: value} pairs.
+Options include 'baudrate'.</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name optional">[serialCallback]</code>
+                        <span class="type">Function</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+                    <div class="param-description">
+                        <p>Callback function when open completes</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    // Change this to the name of your arduino's serial port
+    serial.open(&quot;/dev/cu.usbmodem1411&quot;);</code></pre>
+<pre class="code prettyprint"><code>    // All of the following are valid:
+    serial.open(portName);
+    serial.open(portName, {}, onOpen);
+    serial.open(portName, {baudrate: 9600}, onOpen)
+    
+    function onOpen() {
+      print('opened the serial port!');
+    }</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_read" class="method item">
+    <h3 class="name"><code>read</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l368"><code>lib&#x2F;p5.serialport.js:368</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns a number between 0 and 255 for the next byte that's waiting in the buffer.
+Returns -1 if there is no byte, although this should be avoided by first checking available() to see if data is available.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Number</span>:
+                    <p>Value of the byte waiting in the buffer. Returns -1 if there is no byte.</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    function serialEvent() {
+    inByte = int(serial.read());
+        byteCount++;
+    }</code></pre>
+<pre class="code prettyprint"><code>    function serialEvent() {
+        // read a byte from the serial port:
+        var inByte = serial.read();
+        // store it in a global variable:
+        inData = inByte;
+    }</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_readBytes" class="method item">
+    <h3 class="name"><code>readBytes</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l427"><code>lib&#x2F;p5.serialport.js:427</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns a number between 0 and 255 for the next byte that's waiting in the buffer, and then clears the buffer of data. Returns -1 if there is no byte, although this should be avoided by first checking available() to see if data is available.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Number</span>:
+                    <p>Value of the byte waiting in the buffer. Returns -1 if there is no byte.</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    var inData;
+    
+    function setup() {
+      // callback for when new data arrives
+      serial.on('data', serialEvent); 
+      
+    function serialEvent() {
+      // read bytes from the serial port:
+      inData = serial.readBytes();
+    }</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_readBytesUntil" class="method item">
+    <h3 class="name"><code>readBytesUntil</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>UNKNOWN</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l456"><code>lib&#x2F;p5.serialport.js:456</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns all of the data available, up to and including a particular character.
+If the character isn't in the buffer, 'null' is returned.
+The version without the byteBuffer parameter returns a byte array of all data up to and including the interesting byte.
+This is not efficient, but is easy to use.</p>
+<p>The version with the byteBuffer parameter is more efficient in terms of time and memory.
+It grabs the data in the buffer and puts it into the byte array passed in and returns an integer value for the number of bytes read.
+If the byte buffer is not large enough, -1 is returned and an error is printed to the message area.
+If nothing is in the buffer, 0 is returned.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">UNKNOWN</code>
+                        <span class="type">byteBuffer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Number</span>:
+                    <p>[Number of bytes read]</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    // All of the following are valid:
+    charToFind.charCodeAt();
+    charToFind.charCodeAt(0);
+    charToFind.charCodeAt(0, );</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_readChar" class="method item">
+    <h3 class="name"><code>readChar</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l396"><code>lib&#x2F;p5.serialport.js:396</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns the next byte in the buffer as a char.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">String</span>:
+                    <p>Value of the Unicode-code unit character byte waiting in the buffer, converted from bytes. Returns -1 or 0xffff if there is no byte.</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    var inData;
+    
+    function setup() {
+      // callback for when new data arrives
+      serial.on('data', serialEvent); 
+      
+    function serialEvent() {
+      // read a char from the serial port:
+      inData = serial.readChar();
+    }</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_readLine" class="method item">
+    <h3 class="name"><code>readLine</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l569"><code>lib&#x2F;p5.serialport.js:569</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns all of the data available as an ASCII-encoded string until a line break is encountered.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">String</span>:
+                    <p>ASCII-encoded string</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>You can use this with the included Arduino example called AnalogReadSerial.
+Works with P5 editor as the socket/serial server, version 0.5.5 or later.
+Written 2 Oct 2015 by Tom Igoe. For full example: <a href="https://github.com/vanevery/p5.serialport/tree/master/examples/readAndAnimate">Link</a></p>
+<pre class="code prettyprint"><code>    function gotData() {
+      var currentString = serial.readLine();  // read the incoming data
+          trim(currentString);                    // trim off trailing whitespace
+        
+          if (!currentString) return; {            // if the incoming string is empty, do no more 
+            console.log(currentString);
+            }
+            
+          if (!isNaN(currentString)) {  // make sure the string is a number (i.e. NOT Not a Number (NaN))
+            textXpos = currentString;   // save the currentString to use for the text position in draw()
+            }
+        }</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_readString" class="method item">
+    <h3 class="name"><code>readString</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l490"><code>lib&#x2F;p5.serialport.js:490</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns all the data from the buffer as a String.
+This method assumes the incoming characters are ASCII.
+If you want to transfer Unicode data: first, convert the String to a byte stream in the representation of your choice (i.e. UTF8 or two-byte Unicode data).
+Then, send it as a byte array.</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                
+            </div>
+        </div>
+</div>
+<div id="method_readStringUntil" class="method item">
+    <h3 class="name"><code>readStringUntil</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>stringToFind</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l517"><code>lib&#x2F;p5.serialport.js:517</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns all of the data available as an ASCII-encoded string.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">stringToFind</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>String to read until.</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">String</span>:
+                    <p>ASCII-encoded string until and not including the stringToFind.</p>
+
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>For full example: <a href="https://github.com/tigoe/p5.serialport/blob/master/examples/twoPortRead/sketch.js">Link</a></p>
+<pre class="code prettyprint"><code>     var serial1 = new p5.SerialPort();
+     var serial2 = new p5.SerialPort();
+     var input1 = '';
+     var input2 = '';
+    
+     function serialEvent(){
+            data = serial1.readStringUntil('\r\n');
+            if (data.length &gt; 0){
+            input1 = data;
+            }
+     }
+     
+     function serial2Event() {
+            var data = serial2.readStringUntil('\r\n');
+            if (data.length &gt; 0){
+            input2 = data;
+            }
+     }</code></pre>
+
+            </div>
+        </div>
+</div>
+<div id="method_stop" class="method item">
+    <h3 class="name"><code>stop</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l654"><code>lib&#x2F;p5.serialport.js:654</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Stops data communication on this port.
+Use to shut the connection when you're finished with the Serial.</p>
+
+    </div>
+
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                
+            </div>
+        </div>
+</div>
+<div id="method_write" class="method item">
+    <h3 class="name"><code>write</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>Data</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_p5.serialport.js.html#l321"><code>lib&#x2F;p5.serialport.js:321</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Sends a byte to a webSocket server which sends the same byte out through a serial port.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">Data</code>
+                        <span class="type">String, Number, Array</span>
+
+
+                    <div class="param-description">
+                        <p>Writes bytes, chars, ints, bytes[], and strings to the serial port.</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p>You can use this with the included Arduino example called PhysicalPixel.
+Works with P5 editor as the socket/serial server, version 0.5.5 or later.
+Written 2 Oct 2015 by Tom Igoe. For full example: <a href="https://github.com/vanevery/p5.serialport/tree/master/examples/writeExample">Link</a></p>
+<pre class="code prettyprint"><code>    function mouseReleased() {
+          serial.write(outMessage);
+          if (outMessage === 'H') {
+            outMessage = 'L';
+          } else {
+            outMessage = 'H';
+          }
+    }
+</code></pre>
+<p>For full example: <a href="https://itp.nyu.edu/physcomp/labs/labs-serial-communication/lab-serial-output-from-p5-js/">Link</a></p>
+<pre class="code prettyprint"><code>    function mouseDragged() {
+      // map the mouseY to a range from 0 to 255:
+          outByte = int(map(mouseY, 0, height, 0, 255));
+          // send it out the serial port:
+          serial.write(outByte);
+    }</code></pre>
+
+            </div>
+        </div>
+</div>
+            </div>
+
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
