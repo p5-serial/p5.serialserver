@@ -6,6 +6,8 @@ Currently requires [Node Version 0.12.7](https://nodejs.org/en/blog/release/v0.1
 
 Connect an Arduino or other serial device to your computuer.
 
+Install the dependencies server with: ```npm install```
+
 Start the server with: ```node startserver.js```
 
 Load one of the [examples/](https://github.com/vanevery/p5.serialport/tree/master/examples) in your browser to see it in action.  (You'll likely have to change the name of the serial port that is opened.)
