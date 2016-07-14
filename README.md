@@ -10,6 +10,16 @@ Install the dependencies server with: ```npm install```
 
 Start the server with: ```node startserver.js```
 
+Alternatively, you can install the server globally via npm:
+
+```sudo npm install -g p5.serialserver```
+
+and then run it with ```p5serial```
+
+or locally:
+
+```npm install p5.serialserver``` and run it from the node_modules directory with ```node startserver.js```
+
 Load one of the [examples/](https://github.com/vanevery/p5.serialport/tree/master/examples) in your browser to see it in action.  (You'll likely have to change the name of the serial port that is opened.)
 
 [API documentation now available](http://vanevery.github.io/p5.serialport/docs/classes/p5.serialport.html)
