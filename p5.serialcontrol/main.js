@@ -38,3 +38,11 @@ app.on('ready', function() {
 var serialserver = require('p5.serialserver');
 serialserver.start();
 console.log("p5.serialserver is running");
+
+/*
+  var sp = require('serialport');
+
+  sp.list(function(err, ports) {
+    console.log(ports);
+  });
+*/

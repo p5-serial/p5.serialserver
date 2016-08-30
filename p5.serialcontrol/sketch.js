@@ -2,90 +2,129 @@
 var serial;
 var latestData = "waiting for data";  // you'll use this to write incoming data to the canvas
 
+var portText = "Select a Port:";
+var portDiv;
+var portSelect;
+var portParagraph;
+var selectedPort;
+
+var connectText = "Connect";
+var connectDiv;
+var connectButton;
+
+var closeText = "Close Connection";
+var closeDiv;
+var closeButton;
+
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+	createCanvas(1, 1);
 
-  // Instantiate our SerialPort object
-  serial = new p5.SerialPort();
+	portDiv = createDiv();
+	portParagraph = createP(portText);
+	portParagraph.parent(portDiv);
+	
+	connectDiv = createDiv("");
+	connectButton = createButton(connectText);
+	connectButton.parent(connectDiv);
+	connectButton.mousePressed(connectPressed);
+	
+	closeDiv = createDiv("");
+	closeButton = createButton(closeText);
+	closeButton.parent(closeDiv);
+	closeButton.mousePressed(closePressed);
+	
+	// Instantiate our SerialPort object
+	serial = new p5.SerialPort();
 
-  // Callback for list of ports available
-  serial.on('list', gotList);
+	// Callback for list of ports available
+	serial.on('list', gotList);
 
-  // Get a list the ports available
-  // You should have a callback defined to see the results
-  serial.list();
+	// Get a list the ports available
+	// You should have a callback defined to see the results
+	serial.list();
 
-  // Assuming our Arduino is connected, let's open the connection to it
-  // Change this to the name of your arduino's serial port
-  serial.open("/dev/cu.usbmodem1411");
+	// Here are the callbacks that you can register
 
-  // Here are the callbacks that you can register
+	// When we connect to the underlying server
+	serial.on('connected', serverConnected);
 
-  // When we connect to the underlying server
-  serial.on('connected', serverConnected);
+	// When we get a list of serial ports that are available
+	// OR
+	//serial.onList(gotList);
 
-  // When we get a list of serial ports that are available
-  // OR
-  //serial.onList(gotList);
+	// When we some data from the serial port
+	//serial.on('data', gotData);
+	// OR
+	//serial.onData(gotData);
 
-  // When we some data from the serial port
-  serial.on('data', gotData);
-  // OR
-  //serial.onData(gotData);
+	// When or if we get an error
+	serial.on('error', gotError);
+	// OR
+	//serial.onError(gotError);
 
-  // When or if we get an error
-  serial.on('error', gotError);
-  // OR
-  //serial.onError(gotError);
+	// When our serial port is opened and ready for read/write
+	serial.on('open', gotOpen);
+	// OR
+	//serial.onOpen(gotOpen);
 
-  // When our serial port is opened and ready for read/write
-  serial.on('open', gotOpen);
-  // OR
-  //serial.onOpen(gotOpen);
-
-  // Callback to get the raw data, as it comes in for handling yourself
-  //serial.on('rawdata', gotRawData);
-  // OR
-  //serial.onRawData(gotRawData);
+	// Callback to get the raw data, as it comes in for handling yourself
+	serial.on('rawdata', gotRawData);
+	// OR
+	//serial.onRawData(gotRawData);
 }
 
 // We are connected and ready to go
 function serverConnected() {
-  println("Connected to Server");
+  seriallog("Connected to Server");
 }
 
 // Got the list of ports
 function gotList(thelist) {
-  println("List of Serial Ports:");
-  // theList is an array of their names
-  for (var i = 0; i < thelist.length; i++) {
-    // Display in the console
-    println(i + " " + thelist[i]);
-  }
+	log("List of Serial Ports:");
+
+	if (portSelect) {
+		portSelect.remove();	
+	}
+ 	portSelect = createSelect();	
+	portSelect.parent(portDiv);
+
+	for (var i = 0; i < thelist.length; i++) {
+		log(i + " " + thelist[i]);
+		portSelect.option(thelist[i]);
+	}
 }
 
-// Connected to our serial device
+function connectPressed() {
+	seriallog("Here");
+	seriallog("Opening: " + portSelect.value());
+	serial.open(portSelect.value());
+}
+
+function closePressed() {
+	serial.close();
+}
+
 function gotOpen() {
-  println("Serial Port is Open");
+  seriallog("Serial Port is Open");
 }
 
 // Ut oh, here is an error, let's log it
 function gotError(theerror) {
-  println(theerror);
+  seriallog(theerror);
 }
 
 // There is data available to work with from the serial port
 function gotData() {
-  var currentString = serial.readLine();  // read the incoming string
-  trim(currentString);                    // remove any trailing whitespace
-  if (!currentString) return;             // if the string is empty, do no more
-  console.log(currentString);             // println the string
-  latestData = currentString;            // save it for the draw method
+// 	  var currentString = serial.readLine();  // read the incoming string
+// 	  trim(currentString);                    // remove any trailing whitespace
+// 	  if (!currentString) return;             // if the string is empty, do no more
+// 	  log(currentString);             // log the string
+// 	  latestData = currentString;            // save it for the draw method
 }
 
 // We got raw from the serial port
 function gotRawData(thedata) {
-  println("gotRawData" + thedata);
+  seriallog(thedata);
 }
 
 // Methods available
@@ -103,14 +142,8 @@ function gotRawData(thedata) {
 // serial.write(somevar) writes out the value of somevar to the serial device
 
 function draw() {
-  background(255,255,255);
-  fill(0,0,0);
-  text(latestData, 10, 10);
-  // Polling method
-  /*
-  if (serial.available() > 0) {
-  var data = serial.read();
-  ellipse(50,50,data,data);
 }
-*/
+
+function seriallog(txt) {
+	console.log(txt);
 }
