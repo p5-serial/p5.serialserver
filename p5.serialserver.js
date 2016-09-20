@@ -20,8 +20,24 @@ var start = function () {
 
 	var SERVER_PORT = 8081;
 
+	var https = require('https');
+	var fs =  require('fs');
+
+	var options = {
+		key: fs.readFileSync('certs/key.pem'),
+		cert: fs.readFileSync('certs/cert.pem')	
+	};
+
+	function handleIt(req, res) {
+		res.writeHead(200);
+		res.end("Serial Server Running");
+	}
+
+	var httpServer = https.createServer(options, handleIt);
+	httpServer.listen(SERVER_PORT);
+
 	var WebSocketServer = require('ws').Server;
-	wss = new WebSocketServer({port: SERVER_PORT});
+	wss = new WebSocketServer({server:httpServer});
 
 	var SerialPort = require("serialport");
 	//var serialPort = null;
