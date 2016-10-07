@@ -34,7 +34,11 @@ var start = function () {
 
 			serialPortName = serialport;
 
-			serialPort = new SerialPort.SerialPort(serialport, serialoptions, false, 
+			if (!serialoptions.hasOwnProperty('autoOpen')) {
+				serialoptions.autoOpen = false;
+			}
+
+			serialPort = new SerialPort(serialport, serialoptions, 
 				function(err) {
 					if (err) {
 						console.log(err);
@@ -51,7 +55,7 @@ var start = function () {
 			});
 
 			serialPort.on('close', function(data) {
-				logit("serialPort.on close " + data);
+				logit("serialPort.on close");
 				sendit({method: 'close', data:data});
 			});
 
@@ -104,6 +108,7 @@ var start = function () {
 					}
 				}
 			);
+			serialPort = null;
 		}
 
 		// Let's try to close a different way
@@ -121,12 +126,12 @@ var start = function () {
 		var dataToSend = JSON.stringify(toSend);
 		//console.log("sendit: " + dataToSend + " to " + clients.length + " clients");
 
-		try {
-			for (var c = 0; c < clients.length; c++) {
+		for (var c = 0; c < clients.length; c++) {
+			try {
 				clients[c].send(dataToSend);
+			} catch (e) {
+				//console.log("Error Sending: " + e);
 			}
-		} catch (e) {
-			//console.log("Error Sending: " + e);
 		}
 	};
 
@@ -212,13 +217,12 @@ var start = function () {
 				}
 			}
 
-			/*
+			
 			if (clients.length == 0) {
 				logit("clients.length == 0 checking to see if we should close serial port")
 				// Should close serial port
 				closeSerial();
 			}
-			*/
 		});
 	});
 
