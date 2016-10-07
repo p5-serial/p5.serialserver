@@ -1,6 +1,6 @@
 {
   "name": "p5.serialserver",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "An serial server for p5.js works with p5.serialport",
   "author": "Shawn Van Every <Shawn.Van.Every@nyu.edu>",
   "main": "p5.serialserver.js",
@@ -19,8 +19,8 @@
     "p5.js"
   ],
   "dependencies": {
-    "ws": "0.8.0",
-    "serialport": "3.1.2"
+    "serialport": "^4.0.3",
+    "ws": "^1.1.1"
   },
   "license": "GPL"
 }
