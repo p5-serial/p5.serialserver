@@ -1,7 +1,7 @@
 p5.serialport 
 =============
 
-A [p5.js](http://p5js.org/)library that enables communication between your p5 sketch and Arduino. 
+A [p5.js](http://p5js.org/) library that enables communication between your p5 sketch and Arduino. 
 
 What Does it Do?
 ----------------
