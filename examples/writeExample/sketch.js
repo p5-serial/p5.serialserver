@@ -1,20 +1,18 @@
 /*
 Serial write example
-
 Sends a byte to a webSocket server which sends the same byte
 out through a serial port.
-
 You can use this with the included Arduino example called PhysicalPixel.
 Works with P5 editor as the socket/serial server, version 0.5.5 or later.
-
 written 2 Oct 2015
 by Tom Igoe
 */
 
 // Declare a "SerialPort" object
 var serial;
-// fill in the name of your serial port here:
-var portName = "/dev/cu.usbmodem1411";
+
+var portName = '/dev/cu.usbmodem14131'; // fill in your serial port name here
+
 // this is the message that will be sent to the Arduino:
 var outMessage = 'H';
 
@@ -41,11 +39,11 @@ function setup() {
 
 // Got the list of ports
 function gotList(thelist) {
-  println("List of Serial Ports:");
+  console.log("List of Serial Ports:");
   // theList is an array of their names
   for (var i = 0; i < thelist.length; i++) {
     // Display in the console
-    println(i + " " + thelist[i]);
+    console.log(i + " " + thelist[i]);
   }
 }
 
