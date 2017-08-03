@@ -21,7 +21,7 @@ var start = function () {
 	var SERVER_PORT = 8081;
 
 	var WebSocketServer = require('ws').Server;
-	wss = new WebSocketServer({port: SERVER_PORT});
+	wss = new WebSocketServer({perMessageDeflate: false, port: SERVER_PORT});
 
 	var SerialPort = require("serialport");
 	//var serialPort = null;
