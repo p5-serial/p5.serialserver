@@ -1,6 +1,24 @@
 p5.serialport 
+=============
 
-A [p5.js](http://p5js.org/) library that more or less clones the [Processing Serial Library API](https://processing.org/reference/libraries/serial/index.html).  As JavaScript in a browser can not interact directly with a serial port, it includes a simple Node.js based WebSocket server that performs the actual serial communication.
+A [p5.js](http://p5js.org/) library that enables communication between your p5 sketch and Arduino. 
+
+What Does it Do?
+----------------
+
+p5.serialport more or less clones the [Processing Serial Library API](https://processing.org/reference/libraries/serial/index.html). As JavaScript in a browser can not interact directly with a serial port, this library solves this. p5.serialport comes in two flavors; one is a simple app, this is good for all skill levels and is the easiest to use; second is Node.js based WebSocket server, this is for more skilled advanced users or someone who needs heavy customization.
+
+p5.serial App
+-------------
+
+To begin download and run a [release of p5.serialcontrol](https://github.com/vanevery/p5.serialcontrol/releases). This application incorporates p5.serialserver in a GUI application for MacOS and Windows.
+
+Once you have the application launched load one of the [examples/](https://github.com/vanevery/p5.serialport/tree/master/examples) in your browser to see it in action.  
+
+* You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
+
+p5.serial Node.js
+-----------------
 
 To Use:
 
@@ -10,9 +28,12 @@ Clone or download this repo and install the dependencies with: ```npm install```
 
 Alternatively, you can install the server globally via npm with ```sudo npm install -g p5.serialserver```  and then run it with ```p5serial``` or locally with ```npm install p5.serialserver``` and run it from the node_modules directory with ```node startserver.js```
 
-Another alternative is to download and run a [release of p5.serialcontrol](https://github.com/vanevery/p5.serialcontrol/releases) which incorporates p5.serialserver in a GUI application for MacOS and Windows.
+Then load one of the [examples/](https://github.com/vanevery/p5.serialport/tree/master/examples) in your browser to see it in action.  
 
-Then load one of the [examples/](https://github.com/vanevery/p5.serialport/tree/master/examples) in your browser to see it in action.  (You'll likely have to change the name of the serial port that is opened.)
+* You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
+
+API
+---
 
 [API documentation now available](http://vanevery.github.io/p5.serialport/docs/classes/p5.serialport.html)
 
