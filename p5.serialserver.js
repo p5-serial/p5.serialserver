@@ -1,6 +1,7 @@
 /*
 	p5.serialserver.js
 */
+var SerialPort = require("serialport");
 
 var LOGGING = false;
 
@@ -22,9 +23,6 @@ var start = function () {
 
 	var WebSocketServer = require('ws').Server;
 	wss = new WebSocketServer({perMessageDeflate: false, port: SERVER_PORT});
-
-	var SerialPort = require("serialport");
-	//var serialPort = null;
 
 	var openSerial = function(serialport, serialoptions) {
 		logit("openSerial: " + serialport);
@@ -122,36 +120,32 @@ var start = function () {
 
 
 	var sendit = function(toSend) {
-
 		var dataToSend = JSON.stringify(toSend);
-		//console.log("sendit: " + dataToSend + " to " + clients.length + " clients");
-
 		for (var c = 0; c < clients.length; c++) {
 			try {
 				clients[c].send(dataToSend);
-			} catch (e) {
-				//console.log("Error Sending: " + e);
+			} catch (error) {
+				console.log("Error sending: ", error);
 			}
 		}
 	};
 
-	wss.on('connection', function(ws) {
-		logit("connection");
-
-		// We have a connection
-		//console.log("New Connection");
+	wss.on("connection", (ws) => {
+		// Push the connection into the array of clients
 		clients.push(ws);
-
+		// Create an object to hold information about the connection
+		ws.clientData = {
+			origin: ws.upgradeReq.headers['origin'],
+			id: ws.upgradeReq.headers['sec-websocket-key']
+		}
+		sendit({method: 'registerClient', data: ws.clientData})
+	
 		SerialPort.list(function (err, ports) {
 			var portNames = [];
 			ports.forEach(function(port) {
-				//console.log(port.comName);
 				portNames.push(port.comName);
-				//console.log(port.pnpId);
-				//console.log(port.manufacturer);
 			});
-
-			sendit({method:'list', data:portNames});
+			sendit({method: 'list', data: portNames});
 		});
 
 		ws.on('message', function(inmessage) {
@@ -160,16 +154,16 @@ var start = function () {
 
 			if (typeof message !== "undefined" && typeof message.method !== "undefined" && typeof message.data !== "undefined") {
 					if (message.method === "echo") {
-						//console.log("echo " + message.data);
 						sendit({method:'echo', data:message.data});
+					} else if (message.method === "registerClient") {
+						for (var c = 0; c < clients.length; c++) {
+							sendit({method: 'registerClient', data: clients[c].clientData})
+						}
 					} else if (message.method === "list") {
 						SerialPort.list(function (err, ports) {
 							var portNames = [];
 							ports.forEach(function(port) {
-								//console.log(port.comName);
 								portNames.push(port.comName);
-								//console.log(port.pnpId);
-								//console.log(port.manufacturer);
 							});
 
 							sendit({method:'list', data:portNames});
@@ -217,7 +211,6 @@ var start = function () {
 				}
 			}
 
-			
 			if (clients.length == 0) {
 				logit("clients.length == 0 checking to see if we should close serial port")
 				// Should close serial port
@@ -225,10 +218,6 @@ var start = function () {
 			}
 		});
 	});
-
-
-
-	//console.log("Starting");
 };
 
 var stop = function() {
@@ -263,14 +252,12 @@ var stop = function() {
 
 	if (wss != null) {
 		logit("wss != null so wss.close()");
-
 		wss.close();
 	}
 	
 	// Let's try to close a different way
 	if (serialPort != null && serialPort.isOpen()) {
 		logit("serialPort != null && serialPort.isOpen() is true so serialPort = null");
-
 		serialPort = null;
 	}
 }
