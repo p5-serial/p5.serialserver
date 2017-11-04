@@ -150,7 +150,6 @@ var start = function () {
 
 		ws.on('message', function(inmessage) {
 			var message = JSON.parse(inmessage);
-			//console.log("on message: " + JSON.stringify(message));
 
 			if (typeof message !== "undefined" && typeof message.method !== "undefined" && typeof message.data !== "undefined") {
 					if (message.method === "echo") {
