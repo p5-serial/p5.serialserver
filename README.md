@@ -72,7 +72,7 @@ function setup() {
 
 // We are connected and ready to go
 function serverConnected() {
-    println("We are connected!");
+    print("We are connected!");
 }
 
 // Got the list of ports
@@ -80,18 +80,18 @@ function gotList(thelist) {
   // theList is an array of their names
   for (var i = 0; i < thelist.length; i++) {
     // Display in the console
-    println(i + " " + thelist[i]);
+    print(i + " " + thelist[i]);
   }
 }
 
 // Connected to our serial device
 function gotOpen() {
-  println("Serial Port is open!");
+  print("Serial Port is open!");
 }
 
 // Ut oh, here is an error, let's log it
 function gotError(theerror) {
-  println(theerror);
+  print(theerror);
 }
 
 // There is data available to work with from the serial port
