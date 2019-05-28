@@ -27,8 +27,8 @@ var start = function () {
 	var openSerial = function(serialport, serialoptions) {
 		logit("openSerial: " + serialport);
 
-		if (serialPort == null || serialPort.isOpen() == false) {
-			logit("serialPort == null || !serialPort.isOpen()");
+		if (serialPort == null || (typeof serialPort === "object" && serialPort.isOpen == false)) {
+			logit("serialPort == null || !serialPort.isOpen");
 
 			serialPortName = serialport;
 
@@ -92,7 +92,7 @@ var start = function () {
 
 	var closeSerial = function() {
 		logit("closeSerial");
-		if (serialPort != null && serialPort.isOpen()) {
+		if (serialPort != null && typeof serialPort === "object" && serialPort.isOpen == false) {
 			logit("serialPort != null && serialPort.isOpen so close");
 			logit("serialPort.flush, drain, close");
 
@@ -110,8 +110,8 @@ var start = function () {
 		}
 
 		// Let's try to close a different way
-		if (serialPort != null && serialPort.isOpen()) {
-			logit("serialPort != null && serialPort.isOpen() is true so serialPort = null");
+		if (serialPort != null && typeof serialPort === "object" && serialPort.isOpen == false) {
+			logit("serialPort != null && serialPort.isOpen is true so serialPort = null");
 
 			serialPort = null;
 		}
@@ -222,8 +222,8 @@ var start = function () {
 var stop = function() {
 	logit("stop()");
 
-	if (serialPort != null && serialPort.isOpen()) {
-		logit("serialPort != null && serialPort.isOpen() is true");
+	if (serialPort != null && typeof serialPort === "object" && serialPort.isOpen) {
+		logit("serialPort != null && serialPort.isOpen is true");
 		logit("serialPort.flush, drain, close");
 
 		serialPort.flush();
@@ -255,8 +255,8 @@ var stop = function() {
 	}
 	
 	// Let's try to close a different way
-	if (serialPort != null && serialPort.isOpen()) {
-		logit("serialPort != null && serialPort.isOpen() is true so serialPort = null");
+	if (serialPort != null && typeof serialPort === "object" && serialPort.isOpen) {
+		logit("serialPort != null && serialPort.isOpen is true so serialPort = null");
 		serialPort = null;
 	}
 }

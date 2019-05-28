@@ -19,7 +19,7 @@
     "p5.js"
   ],
   "dependencies": {
-    "serialport": "^4.0.3",
+    "serialport": "^7.1.5",
     "ws": "^1.1.1"
   },
   "license": "GPL"
