@@ -134,11 +134,15 @@ var start = function () {
 		// Push the connection into the array of clients
 		clients.push(ws);
 		// Create an object to hold information about the connection
+
 		ws.clientData = {
+			/*
 			origin: ws.upgradeReq.headers['origin'],
 			id: ws.upgradeReq.headers['sec-websocket-key']
-		}
-		sendit({method: 'registerClient', data: ws.clientData})
+			*/
+		};
+
+		sendit({method: 'registerClient', data: ws.clientData});
 	
 		SerialPort.list(function (err, ports) {
 			var portNames = [];
