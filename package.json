@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "serialport": "^7.1.5",
-    "ws": "^1.1.1"
+    "ws": "^7.0"
   },
   "license": "GPL"
 }
