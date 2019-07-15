@@ -11,9 +11,9 @@ p5.serialport more or less clones the [Processing Serial Library API](https://pr
 p5.serial App
 -------------
 
-To begin download and run a [release of p5.serialcontrol](https://github.com/vanevery/p5.serialcontrol/releases). This application incorporates p5.serialserver in a GUI application for MacOS and Windows.
+To begin download and run a [release of p5.serialcontrol](https://github.com/p5-serial/p5.serialcontrol/releases). This application incorporates p5.serialserver in a GUI application for MacOS and Windows.
 
-Once you have the application launched load one of the [examples/](https://github.com/vanevery/p5.serialport/tree/master/examples) in your browser to see it in action.  
+Once you have the application launched load one of the [examples/](https://github.com/p5-serial/p5.serialport/tree/master/examples) in your browser to see it in action.  
 
 * You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
 
@@ -28,14 +28,14 @@ Clone or download this repo and install the dependencies with: ```npm install```
 
 Alternatively, you can install the server globally via npm with ```sudo npm install -g p5.serialserver```  and then run it with ```p5serial``` or locally with ```npm install p5.serialserver``` and run it from the node_modules directory with ```node startserver.js```
 
-Then load one of the [examples/](https://github.com/vanevery/p5.serialport/tree/master/examples) in your browser to see it in action.  
+Then load one of the [examples/](https://github.com/p5-serial/p5.serialport/tree/master/examples) in your browser to see it in action.  
 
 * You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
 
 API
 ---
 
-[API documentation now available](http://vanevery.github.io/p5.serialport/docs/classes/p5.serialport.html)
+[API documentation now available](http://p5-serial.github.io/p5.serialport/docs/classes/p5.serialport.html)
 
 The basics:
 ```javascript
