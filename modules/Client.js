@@ -13,7 +13,7 @@ module.exports = class Client{
         this.serialPorts = [];
         this.serialPortsList = [];
 
-        this.clientID = Math.floor(Math.random() * 100);
+        this.clientID = Math.random().toString(36).substr(2, 9);
 
         this.ws.clientData = {
             /*

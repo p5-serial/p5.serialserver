@@ -26,6 +26,7 @@ module.exports = class SerialPort {
 
     removeClient(client){
         this.messageListeners = this.messageListeners.filter(clientToRemove => clientToRemove !== client);
+        console.log(`removeClient - total number of ${this.messageListeners.length} clients subscribed`);
     }
 
     onMessage(msg){
@@ -71,6 +72,8 @@ module.exports = class SerialPort {
         self.serialPort.on('close', function(data){
             self.logit("serialPort.on close");
             self.onMessage({method: 'close', data: data});
+
+            self.closeSerial();
         });
 
         self.serialPort.on('error', function(data){

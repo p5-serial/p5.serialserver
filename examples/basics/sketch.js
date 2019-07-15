@@ -40,6 +40,8 @@ function setup() {
   // OR
   //serial.onOpen(gotOpen);
 
+  serial.on('close', gotClose);
+
   // Callback to get the raw data, as it comes in for handling yourself
   //serial.on('rawdata', gotRawData);
   // OR
@@ -64,6 +66,11 @@ function gotList(thelist) {
 // Connected to our serial device
 function gotOpen() {
   println("Serial Port is Open");
+}
+
+function gotClose(){
+    println("Serial Port is Closed");
+    latestData = "Serial Port is Closed";
 }
 
 // Ut oh, here is an error, let's log it

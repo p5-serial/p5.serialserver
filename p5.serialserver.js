@@ -79,6 +79,13 @@ let start = function () {
                     	let newPort = message.data.serialport;
                     	let newPortOptions = message.data.serialoptions;
 
+                    	//before opening new port, clean up array
+                    	for(let i = 0; i < serialPortsList; i++){
+                    		if(serialPortsList[i].serialPort === null){
+                    			serialPorts.splice(i, 1);
+							}
+						}
+
                     	if(serialPortsList.length > 0){
                     		//specified serial port is already opened
                     		if(serialPortsList.indexOf(newPort) > -1){
@@ -159,6 +166,8 @@ let start = function () {
 			for (let c = 0; c < clients.length; c++) {
 				if (clients[c].ws === ws) {
 					logit("removing client from array");
+
+                    serialPorts.forEach(port => port.removeClient(clients[c]));
 
 					clients.splice(c, 1);
 
