@@ -99,8 +99,6 @@ module.exports = class SerialPort {
 
         self.logit(`closeSerial for ${self.serialPortName}`);
 
-        console.log(self.serialPort.isOpen);
-
         if(self.serialPort != null && typeof self.serialPort === "object" && self.serialPort.isOpen){
             self.logit("serialPort != null && serialPort.isOpen so close");
             self.logit("serialPort.flush, drain, close");

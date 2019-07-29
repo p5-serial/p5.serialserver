@@ -46,20 +46,6 @@ let start = function () {
 			clients[c].sendit({method: 'registerClient', data: ws.clientData});
 		}
 
-		//is below part necessary?
-		// sp.list(function (err, ports) {
-		// 	logit("sending port list");
-        //
-		// 	let portNames = [];
-		// 	ports.forEach(function(port) {
-		// 		portNames.push(port.comName);
-		// 	});
-        //
-         //    for(let c = 0; c < clients.length; c++){
-         //        clients[c].sendit({method: 'list', data: portNames});
-         //    }
-		// });
-
         client.ws.on('message', function(inmessage) {
             let message = JSON.parse(inmessage);
 
@@ -129,28 +115,16 @@ let start = function () {
                 } else if(message.method === "write"){
                 	client.write(message.data);
                 } else if(message.method === "close"){
-                    // if one client closes, all serial ports will be closed for all other clients?
                     logit("message.method === close");
 
-                    //if there are no other clients using the serial port, close port
                     for(let i = 0; i < client.serialPortsList.length; i++){
-                    	let portInUse = 0;
-
-						for(let c = 0; c < clients.length; c++){
-							for(let p = 0; p < clients[c].serialPortsList.length; p++){
-								if(client.serialPortsList[i] === clients[c].serialPortsList[p]){
-									portInUse++;
-								}
-							}
-						}
-
-						if(portInUse === 0){
-							let portIndex = serialPortsList.indexOf(client.serialPortsList[i]);
-							serialPorts[portIndex].closeSerial();
-							serialPorts.splice(portIndex, 1);
-							serialPortsList.splice(portIndex, 1);
-						}
-					}
+                        let portIndex = serialPortsList.indexOf(client.serialPortsList[i]);
+                        if(serialPorts[portIndex] != null){
+                            serialPorts[portIndex].closeSerial();
+                            serialPorts.splice(portIndex, 1);
+                            serialPortsList.splice(portIndex, 1);
+                        }
+                    }
                 }
             }else{
                 console.log("Not a message I understand: " + JSON.stringify(message));
