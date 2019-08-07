@@ -1,22 +1,23 @@
 {
   "name": "p5.serialserver",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "An serial server for p5.js works with p5.serialport",
-  "author": "Shawn Van Every <Shawn.Van.Every@nyu.edu>",
+  "author": "Shawn Van Every <Shawn.Van.Every@nyu.edu>, Jiwon Shin <jiwon.shin@nyu.edu>",
   "main": "p5.serialserver.js",
   "bin": {
     "p5serial": "./startserver.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vanevery/p5.serialport"
+    "url": "https://github.com/p5-serial/p5.serialport"
   },
   "bugs": {
-    "url": "https://github.com/vanevery/p5.serialport/issues"
+    "url": "https://github.com/p5-serial/p5.serialport/issues"
   },
   "keywords": [
     "serial",
-    "p5.js"
+    "p5.js",
+    "arduino"
   ],
   "dependencies": {
     "serialport": "^7.1.5",
