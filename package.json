@@ -25,5 +25,8 @@
   "license": "GPL",
   "devDependencies": {
     "jsdoc": "^3.6.3"
+  },
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.conf.json"
   }
 }
