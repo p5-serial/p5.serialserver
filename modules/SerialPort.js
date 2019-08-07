@@ -1,6 +1,6 @@
 let sp = require("serialport");
 
-module.exports = class SerialPort {
+class SerialPort {
 
     constructor(serialport, serialoptions) {
 
@@ -22,6 +22,7 @@ module.exports = class SerialPort {
         this.messageListeners.push(client);
 
         console.log(`total number of ${this.messageListeners.length} clients subscribed`);
+        //this.onMessage({method: 'clientNumber', data: this.messageListeners.length});
     }
 
     removeClient(client){
@@ -97,6 +98,8 @@ module.exports = class SerialPort {
 
         let self = this;
 
+        //need to emit back to client that this port was forcefully closed
+
         self.logit(`closeSerial for ${self.serialPortName}`);
 
         if(self.serialPort != null && typeof self.serialPort === "object" && self.serialPort.isOpen){
@@ -113,6 +116,8 @@ module.exports = class SerialPort {
                     }
                 }
             );
+
+            self.onMessage({method: 'close', data: `${self.serialPort} is closed`});
 
             self.serialPort = null;
         }
@@ -131,6 +136,6 @@ module.exports = class SerialPort {
             console.log(mess);
         }
     }
-
-
 };
+
+module.exports = SerialPort;

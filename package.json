@@ -22,5 +22,8 @@
     "serialport": "^7.1.5",
     "ws": "^7.0"
   },
-  "license": "GPL"
+  "license": "GPL",
+  "devDependencies": {
+    "jsdoc": "^3.6.3"
+  }
 }

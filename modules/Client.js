@@ -1,9 +1,16 @@
 let sp = require('serialport');
-
 let SerialPort = require("./SerialPort");
 let WebSocketServer = require('ws').Server;
 
-module.exports = class Client{
+/**
+ * Represents a web socket client
+ */
+class Client{
+    /**
+     * create a web socket client
+     * @constructor
+     * @param {WebSocketServer} ws - Web Socket object
+     */
     constructor(ws){
         this.LOGGING = true;
 
@@ -14,23 +21,14 @@ module.exports = class Client{
         this.serialPortsList = [];
 
         this.clientID = Math.random().toString(36).substr(2, 9);
-
-        this.ws.clientData = {
-            /*
-            origin: ws.upgradeReq.headers['origin'],
-            id: ws.upgradeReq.headers['sec-websocket-key']
-            */
-        };
     }
 
+    /** echo received message back to web client */
     echo(msg){
         this.sendit({method:'echo', data: msg});
     }
 
-    registerClient(){
-        this.sendit({method: 'registerClient', data: this.ws.clientData});
-    }
-
+    /** list all available serial ports and send it to the client*/
     list(){
         let self = this;
 
@@ -89,3 +87,4 @@ module.exports = class Client{
     }
 };
 
+module.exports = Client;

@@ -9,12 +9,12 @@ by Tom Igoe
 */
 
 // Declare a "SerialPort" object
-var serial;
+let serial;
 
-var portName = '/dev/cu.usbmodem14131'; // fill in your serial port name here
+let portName = '/dev/cu.usbmodem14131'; // fill in your serial port name here
 
 // this is the message that will be sent to the Arduino:
-var outMessage = 'H';
+let outMessage = 'H';
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -41,7 +41,7 @@ function setup() {
 function gotList(thelist) {
   console.log("List of Serial Ports:");
   // theList is an array of their names
-  for (var i = 0; i < thelist.length; i++) {
+  for (let i = 0; i < thelist.length; i++) {
     // Display in the console
     console.log(i + " " + thelist[i]);
   }
@@ -49,7 +49,7 @@ function gotList(thelist) {
 
 // Called when there is data available from the serial port
 function gotData() {
-  var currentString = serial.readLine();
+  let currentString = serial.readLine();
   console.log(currentString);
 }
 

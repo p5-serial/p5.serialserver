@@ -1,6 +1,6 @@
-var serial; // variable to hold an instance of the serialport library
-var portName = '/dev/cu.usbmodem14131'; // fill in your serial port name here
-var inData; // for incoming serial data
+let serial; // variable to hold an instance of the serialport library
+let portName = '/dev/tty.usbmodem14501'; // fill in your serial port name here
+let inData; // for incoming serial data
 
 function setup() {
   createCanvas(400, 300);
@@ -21,7 +21,7 @@ function draw() {
 }
 
 function keyTyped() {
-    var outByte = key;
+    let outByte = key;
     console.log("Sending " + outByte);
     //serial.write(Number(outByte)); // Send as byte value
     serial.write(outByte); // Send as a string/char/ascii value
@@ -29,7 +29,7 @@ function keyTyped() {
 
 function serialEvent() {
   // read a byte from the serial port:
-  var inByte = serial.read();
+  let inByte = serial.read();
   println("inByte: " + inByte);
   inData = inByte;
 }

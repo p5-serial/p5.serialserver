@@ -1,6 +1,6 @@
 // Declare a "SerialPort" object
-var serial;
-var latestData = "waiting for data";  // you'll use this to write incoming data to the canvas
+let serial;
+let latestData = "waiting for data";  // you'll use this to write incoming data to the canvas
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -14,7 +14,7 @@ function setup() {
 
   // Assuming our Arduino is connected, let's open the connection to it
   // Change this to the name of your arduino's serial port
-  serial.open("/dev/tty.usbmodem14601");
+  serial.open("/dev/tty.usbmodem14501");
 
   // Here are the callbacks that you can register
   // When we connect to the underlying server
@@ -57,7 +57,7 @@ function serverConnected() {
 function gotList(thelist) {
   println("List of Serial Ports:");
   // theList is an array of their names
-  for (var i = 0; i < thelist.length; i++) {
+  for (let i = 0; i < thelist.length; i++) {
     // Display in the console
     println(i + " " + thelist[i]);
   }
@@ -80,7 +80,7 @@ function gotError(theerror) {
 
 // There is data available to work with from the serial port
 function gotData() {
-  var currentString = serial.readLine();  // read the incoming string
+  let currentString = serial.readLine();  // read the incoming string
   trim(currentString);                    // remove any trailing whitespace
   if (!currentString) return;             // if the string is empty, do no more
   console.log(currentString);             // println the string
@@ -113,7 +113,7 @@ function draw() {
   // Polling method
   /*
   if (serial.available() > 0) {
-  var data = serial.read();
+  let data = serial.read();
   ellipse(50,50,data,data);
 }
 */

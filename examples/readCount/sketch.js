@@ -6,14 +6,14 @@
   Arduino to matching baud rate)
 */
 
-var serial; // variable to hold an instance of the serialport library
-var portName = '/dev/cu.usbmodem141431'; // fill in your serial port name here
-var inData; // for incoming serial data
-var inByte;
-var byteCount = 0;
-var output = 0;
-var options = {
-  baudrate: 9600
+let serial; // variable to hold an instance of the serialport library
+let portName = '/dev/cu.usbmodem141431'; // fill in your serial port name here
+let inData; // for incoming serial data
+let inByte;
+let byteCount = 0;
+let output = 0;
+let options = {
+  baudRate: 9600
 };
 
 function setup() {
@@ -31,7 +31,7 @@ function draw() {
   background(0);
   fill(255);
   // display the incoming serial data as a string:
-  var displayString = "inByte: " + inByte + "\t Byte count: " + byteCount;
+  let displayString = "inByte: " + inByte + "\t Byte count: " + byteCount;
   displayString += "  available: " + serial.available();
   text(displayString, 30, 60);
 }

@@ -11,9 +11,9 @@ created 2 Oct 2015
 by Tom Igoe
 */
 
-var serial; // Declare a "SerialPort" object
-var menu;
-var result = '';
+let serial; // Declare a "SerialPort" object
+let menu;
+let result = '';
 
 function setup() {
   createCanvas(400, 300); // window size
@@ -36,7 +36,7 @@ function openPort() {
 }
 
 function printData() {
-  var inString = serial.readStringUntil('\r\n');
+  let inString = serial.readStringUntil('\r\n');
   trim(inString);
   if (!inString) return;
   result = inString;
@@ -45,12 +45,12 @@ function printData() {
 // Got the list of ports
 function printList(serialList) {
   menu = createSelect();
-  var title = createElement('option', 'Choose a port:');
+  let title = createElement('option', 'Choose a port:');
   menu.child(title);
   menu.position(10, 10);
   menu.changed(openPort);
-  for (var i = 0; i < serialList.length; i++) {
-    var thisOption = createElement('option', serialList[i]);
+  for (let i = 0; i < serialList.length; i++) {
+    let thisOption = createElement('option', serialList[i]);
     thisOption.value = serialList[i];
     menu.child(thisOption);
     println(i + " " + serialList[i]);

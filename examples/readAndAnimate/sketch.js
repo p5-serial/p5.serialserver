@@ -12,10 +12,10 @@ by Tom Igoe
 */
 
 // Declare a "SerialPort" object
-var serial;
+let serial;
 // fill in the name of your serial port here:
-var portName = "/dev/cu.usbmodem1411";
-var textXpos = 10;
+let portName = "/dev/cu.usbmodem1411";
+let textXpos = 10;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -42,7 +42,7 @@ function setup() {
 function gotList(thelist) {
   println("List of Serial Ports:");
   // theList is an array of their names
-  for (var i = 0; i < thelist.length; i++) {
+  for (let i = 0; i < thelist.length; i++) {
     // Display in the console
     println(i + " " + thelist[i]);
   }
@@ -50,7 +50,7 @@ function gotList(thelist) {
 
 // Called when there is data available from the serial port
 function gotData() {
-  var currentString = serial.readLine();  // read the incoming data
+  let currentString = serial.readLine();  // read the incoming data
   trim(currentString);                    // trim off trailing whitespace
   if (!currentString) return;             // if the incoming string is empty, do no more
   console.log(currentString);

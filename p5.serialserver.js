@@ -19,12 +19,14 @@ let serialPortsList = [];
 let serialPorts = [];
 let clients = [];
 
+/** console.log log messages when LOGGING == true */
 let logit = function(mess) {
 	if (LOGGING) {
 		console.log(mess);
 	}
 };
 
+/** */
 let start = function () { 
 	logit("start()");
 
@@ -42,18 +44,12 @@ let start = function () {
 
 		logit(`${clients.length} clients connected`);
 
-		for(let c = 0; c < clients.length; c++){
-			clients[c].sendit({method: 'registerClient', data: ws.clientData});
-		}
-
         client.ws.on('message', function(inmessage) {
             let message = JSON.parse(inmessage);
 
             if (typeof message !== "undefined" && typeof message.method !== "undefined" && typeof message.data !== "undefined") {
                 if(message.method === "echo"){
                     client.echo(message.data);
-                } else if(message.method === "registerClient"){
-                    client.registerClient();
                 } else if(message.method === "list"){
                 	logit("message.method === list");
                     client.list();
@@ -88,7 +84,6 @@ let start = function () {
                                     serialPorts[portIndex].addClient(client);
                                     client.openSerial(serialPorts[portIndex]);
                                     client.sendit({method: 'openserial', data : {}});
-
                                 }
 
 							}else{
