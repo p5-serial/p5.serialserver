@@ -47,7 +47,7 @@ Examples
 * Two Arduinos Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/yWTivVhtG) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/twoArduinos)
 * Write Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/RH9J9z5YG) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/writeExample)
 
-###Basic Example
+### Basic Example
 
 ```javascript
 let serial;
