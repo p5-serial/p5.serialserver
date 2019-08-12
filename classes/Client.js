@@ -1,15 +1,28 @@
+/**
+ * @fileOverview Client object that gets created when new web socket client connects to server. Maintains SerialPort objects that the client subscribes to.
+ *
+ * @author Shawn Van Every
+ * @author Jiwon Shin
+ *
+ * @requires NPM:serialport
+ * @requires NPM:ws
+ * @requires classes/SerialPort.js:SerialPort
+ * */
+
 let sp = require('serialport');
 let SerialPort = require("./SerialPort");
 let WebSocketServer = require('ws').Server;
 
 /**
- * Represents a web socket client
+ * Represents a web socket client. Maintains {@link SerialPort SerialPort} objects that the client subscribes to.
  */
 class Client{
     /**
      * create a web socket client
      * @constructor
-     * @param {WebSocketServer} ws - Web Socket object
+     * @param {ws} ws - Web socket object
+     * @property {SerialPort[]} serialPorts - list of subscribed {@link SerialPort SerialPort} objects
+     * @property {string[]} serialPortsList - list of string names of subscribed {@link SerialPort SerialPort} objects. Used for checking whether duplicate serial port is requested to open.
      */
     constructor(ws){
         this.LOGGING = true;
@@ -19,8 +32,6 @@ class Client{
         //list of serial ports that this client has opened
         this.serialPorts = [];
         this.serialPortsList = [];
-
-        this.clientID = Math.random().toString(36).substr(2, 9);
     }
 
     /** echo received message back to web client */
@@ -42,23 +53,28 @@ class Client{
         })
     }
 
+    /**
+     * add opened SerialPort object and its name
+     * @param {SerialPort} port - SerialPort object opened by client
+     * */
     openSerial(port){
         this.serialPortsList.push(port.serialPortName);
         this.serialPorts.push(port);
-
-        // this.serialPorts.forEach(port => port.onMessage = (msg) => {
-        //     console.log(this.clientID + " message received");
-        //
-        //     this.sendit(msg);
-        // });
     }
 
+    /**
+     * write received data to subscribed serial ports.
+     * @param {String} msg - received string data from client
+     * */
     write(msg){
         for(let i = 0; i < this.serialPorts.length; i++){
             this.serialPorts[i].serialPort.write(msg);
         }
     }
 
+    /**
+     * close client connection. Set serialPorts and serialPortsList array to null.
+     */
     close(){
         //this needs to be updated per port
         //also with client-side library
@@ -67,15 +83,23 @@ class Client{
 
         //close message via sendit?
         //close ws?
-        this.sendit()
+        //this.sendit()
     }
 
+    /**
+     * console.log log messages when LOGGING == true
+     * @function logit
+     * @param {String} mess - String to log when LOGGING == true*/
     logit(mess){
         if(this.LOGGING){
             console.log(mess);
         }
     }
 
+    /**
+     * send data via websocket to the client
+     * @param {Object} toSend - JSON object received to be sent. Contains message method and data.
+     */
     sendit(toSend){
         let dataToSend = JSON.stringify(toSend);
 
@@ -88,3 +112,4 @@ class Client{
 };
 
 module.exports = Client;
+

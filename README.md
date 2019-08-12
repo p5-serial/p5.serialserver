@@ -13,7 +13,7 @@ p5.serial App
 
 To begin download and run a [release of p5.serialcontrol](https://github.com/p5-serial/p5.serialcontrol/releases). This application incorporates p5.serialserver in a GUI application for MacOS and Windows.
 
-Once you have the application launched load one of the [examples/](https://github.com/p5-serial/p5.serialport/tree/master/examples) in your browser to see it in action.  
+Once you have the application launched load one of the [examples](#examples) in your browser to see it in action.  
 
 * You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
 
@@ -28,25 +28,36 @@ Clone or download this repo and install the dependencies with: ```npm install```
 
 Alternatively, you can install the server globally via npm with ```sudo npm install -g p5.serialserver```  and then run it with ```p5serial``` or locally with ```npm install p5.serialserver``` and run it from the node_modules directory with ```node startserver.js```
 
-Then load one of the [examples/](https://github.com/p5-serial/p5.serialport/tree/master/examples) in your browser to see it in action.  
+Then load one of the [examples](#examples) in your browser to see it in action.  
 
 * You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
 
-API
+[API](https://p5-serial.github.io/)
 ---
 
-[API documentation now available](http://p5-serial.github.io/p5.serialport/docs/classes/p5.serialport.html)
+Examples
+-------
 
-The basics:
+* Basic Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/-xa-lIH3Y) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/basics)
+* Echo Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/hirvh8hZ-) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/echo)
+* Echo (with serial options) Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/dG0tw9Vv6) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/echo2)
+* Make Port Menu Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/WBH01aWdB) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/makePortMenu)
+* Read and Animate Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/rfrtcdrJd) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/readAndAnimate)
+* Read Count Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/g7xhJIO27) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/readCount)
+* Two Arduinos Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/yWTivVhtG) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/twoArduinos)
+* Write Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/RH9J9z5YG) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/writeExample)
+
+###Basic Example
+
 ```javascript
-var serial;
+let serial;
 
 function setup() {
   // Instantiate our SerialPort object
   serial = new p5.SerialPort();
 
   // Let's list the ports available
-  var portlist = serial.list();
+  let portlist = serial.list();
 
   // Assuming our Arduino is connected, let's open the connection to it
   // Change this to the name of your arduino's serial port
@@ -78,7 +89,7 @@ function serverConnected() {
 // Got the list of ports
 function gotList(thelist) {
   // theList is an array of their names
-  for (var i = 0; i < thelist.length; i++) {
+  for (let i = 0; i < thelist.length; i++) {
     // Display in the console
     print(i + " " + thelist[i]);
   }
@@ -96,7 +107,7 @@ function gotError(theerror) {
 
 // There is data available to work with from the serial port
 function gotData() {
-  var currentString = serial.readStringUntil("\r\n");
+  let currentString = serial.readStringUntil("\r\n");
   console.log(currentString);
 }
 
@@ -116,13 +127,14 @@ function draw() {
   // Polling method
 /*
   if (serial.available() > 0) {
-    var data = serial.read();
+    let data = serial.read();
     ellipse(50,50,data,data);
   }
 */
 }
 ```
 
-### Documentation
-To generate documentation, install yuidoc (``npm install -g yuidocjs``) and run
-```yuidoc -c yuidoc.json ./lib```
+Documentation
+---------
+To generate documentation, install jsdoc (``npm install -g jsdoc``) and run
+```npm run doc```

@@ -1,7 +1,30 @@
+/**
+ * @fileOverview SerialPort class that gets created when new serial port is opened. Maintains list of connected Client objects to forward data received from the serial port.
+ *
+ * @author Shawn Van Every
+ * @author Jiwon Shin
+ *
+ * @requires NPM:serialport
+ * */
+
 let sp = require("serialport");
 
+/**
+ * Represents a serialport object. Maintains an array of {@link Client Client} objects subscribed to the serial port.
+ * @see https://www.npmjs.com/package/serialport
+ * */
 class SerialPort {
 
+    /**
+     * creates a SerialPort object
+     * @constructor
+     * @param {serialport} serialport - serialport object
+     * @param {Object} serialoptions - JSON object of options for the serialport object
+     * @property {Boolean} LOGGING - sets whether to console.log detailed information
+     * @property {String} serialPortName - name of the connected serialport
+     * @property {Object} serialOptions - JSON array of options for the serialport
+     * @property {Client[]} messageListeners - array of subscribed {@link Client Client} objects
+     * */
     constructor(serialport, serialoptions) {
 
         this.LOGGING = true;
@@ -18,6 +41,10 @@ class SerialPort {
         this.logit(`initialize with serial port ${this.serialPortName}`);
     }
 
+    /**
+     * add a web client to messageListeners array
+     * @param {Client} client - {@link Client Client} object subscribing to the SerialPort
+     * */
     addClient(client){
         this.messageListeners.push(client);
 
@@ -25,29 +52,27 @@ class SerialPort {
         //this.onMessage({method: 'clientNumber', data: this.messageListeners.length});
     }
 
+    /**
+     * remove client from messageListeners array to unsubscribe client
+     * @param {Client} client - {@link Client Client} object unsubscribing to the SerialPort
+     * */
     removeClient(client){
         this.messageListeners = this.messageListeners.filter(clientToRemove => clientToRemove !== client);
         console.log(`removeClient - total number of ${this.messageListeners.length} clients subscribed`);
     }
 
+    /**
+     * Forwards message emitted by SerialPort events to the susbscribed clients in the messageListeners array
+     * @param {Object} msg - JSON object containing message method and data
+     * */
     onMessage(msg){
         this.messageListeners.forEach(client => client.sendit(msg));
     }
 
-    //below necessary?
-    // list() {
-    //     sp.list(function (err, ports) {
-    //         let portNames = [];
-    //
-    //         ports.forEach(function (port) {
-    //             portNames.push(port.comName);
-    //         });
-    //
-    //         this.onMessage({method: 'list', data: portNames});
-    //     });
-    // }
-
-
+    /**
+     * Opens SerialPort of serialPortName with serialOptions.
+     * Sets serialport event listeners of method 'data', 'close' and 'error' and sends messages to the client via onMessage function
+     * */
     openSerial(){
        let self = this;
 
@@ -94,6 +119,9 @@ class SerialPort {
         });
     }
 
+    /**
+     * closes the serialport connection and sends message to the connected clients that the serialport is closed.
+     * */
     closeSerial(){
 
         let self = this;
@@ -131,6 +159,10 @@ class SerialPort {
         self.logit("serialPort closed");
     }
 
+    /**
+     * console.log log messages when LOGGING == true
+     * @function logit
+     * @param {String} mess - String to log when LOGGING == true*/
     logit(mess){
         if(this.LOGGING){
             console.log(mess);

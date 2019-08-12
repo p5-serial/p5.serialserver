@@ -53,6 +53,6 @@ function printList(serialList) {
     let thisOption = createElement('option', serialList[i]);
     thisOption.value = serialList[i];
     menu.child(thisOption);
-    println(i + " " + serialList[i]);
+    print(i + " " + serialList[i]);
   }
 }

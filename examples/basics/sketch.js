@@ -50,32 +50,32 @@ function setup() {
 
 // We are connected and ready to go
 function serverConnected() {
-  println("Connected to Server");
+  print("Connected to Server");
 }
 
 // Got the list of ports
 function gotList(thelist) {
-  println("List of Serial Ports:");
+  print("List of Serial Ports:");
   // theList is an array of their names
   for (let i = 0; i < thelist.length; i++) {
     // Display in the console
-    println(i + " " + thelist[i]);
+    print(i + " " + thelist[i]);
   }
 }
 
 // Connected to our serial device
 function gotOpen() {
-  println("Serial Port is Open");
+  print("Serial Port is Open");
 }
 
 function gotClose(){
-    println("Serial Port is Closed");
+    print("Serial Port is Closed");
     latestData = "Serial Port is Closed";
 }
 
 // Ut oh, here is an error, let's log it
 function gotError(theerror) {
-  println(theerror);
+  print(theerror);
 }
 
 // There is data available to work with from the serial port
@@ -83,13 +83,13 @@ function gotData() {
   let currentString = serial.readLine();  // read the incoming string
   trim(currentString);                    // remove any trailing whitespace
   if (!currentString) return;             // if the string is empty, do no more
-  console.log(currentString);             // println the string
+  console.log(currentString);             // print the string
   latestData = currentString;            // save it for the draw method
 }
 
 // We got raw from the serial port
 function gotRawData(thedata) {
-  println("gotRawData" + thedata);
+  print("gotRawData" + thedata);
 }
 
 // Methods available

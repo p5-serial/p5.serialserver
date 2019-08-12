@@ -40,11 +40,11 @@ function setup() {
 
 // Got the list of ports
 function gotList(thelist) {
-  println("List of Serial Ports:");
+  print("List of Serial Ports:");
   // theList is an array of their names
   for (let i = 0; i < thelist.length; i++) {
     // Display in the console
-    println(i + " " + thelist[i]);
+    print(i + " " + thelist[i]);
   }
 }
 

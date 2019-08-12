@@ -1,40 +1,72 @@
-/*
-	p5.serialserver.js
+/**
+ * @fileOverview Sets up web socket server and handles client connections by creating and deleting Client objects and SerialPort objects
+ *
+ * @author Shawn Van Every
+ * @author Jiwon Shin
+ *
+ * @requires	classes/Client.js:Client
+ * @requires 	classes/SerialPort.js:SerialPort
+ * @requires 	NPM:ws
 */
 
-/*
-Client: p5.serial module for web clients
- */
+let Client = require("./classes/Client");
+let SerialPort = require("./classes/SerialPort");
 
-let Client = require("./modules/Client");
-let SerialPort = require("./modules/SerialPort");
-
+/**
+ * Variable to decide whether to console.log detailed messages
+ * @type {Boolean}
+ * */
 let LOGGING = true;
-
+/**
+ * Web socket server. Initialized in start() function.
+ * @type {ws}
+ * */
 let wss = null;
 
-//array of serial port strings
+/**
+ * Array of all opened serial port names in string.
+ * @type {String[]}
+ */
 let serialPortsList = [];
-//array of SerialPort objects
+/**
+ * Array of all opened {@link SerialPort SerialPort} objects.
+ * @type {SerialPort[]}
+ * */
 let serialPorts = [];
+/**
+ * Array of all connected {@link Client Client} objects.
+ * @type {Client[]}
+ * */
 let clients = [];
 
-/** console.log log messages when LOGGING == true */
+/**
+ * console.log log messages when LOGGING == true
+ * @function logit
+ * @param {String} mess - String to log when LOGGING == true*/
 let logit = function(mess) {
 	if (LOGGING) {
 		console.log(mess);
 	}
 };
 
-/** */
-let start = function () { 
+/**
+ * @function start
+ * @desc Initialize web socket server at port 8081. Initialize web socket clients on connection by creating a {@link Client Client} object and create a (@link SerialPort SerialPort} object after determining that it has not been opened already. Initialize web socket client message events.
+ * @param {Number} port - port number used to open web socket server.
+ * */
+
+/**
+ * @event Client#message
+ * @param {Object} inmessage - Type of message emitted from {@link Client Client}. Defined message types are: echo, list, openserial, write, close and error. Undefined message types are treated as error messages
+ * */
+let start = function (port) {
 	logit("start()");
 
-	//make this also customizable on the serialcontrol panel?
-	let SERVER_PORT = 8081;
+	let SERVER_PORT = port;
 
 	let WebSocketServer = require('ws').Server;
 	wss = new WebSocketServer({perMessageDeflate: false, port: SERVER_PORT});
+
 
 	wss.on("connection", (ws) => {
         // Push the connection into the array of clients
@@ -160,6 +192,11 @@ let start = function () {
 	});
 };
 
+
+/**
+ * @function stop
+ * @desc Stops web socket server after closing all {@link SerialPort SerialPort} connections and {@link Client Client} connections
+ * */
 let stop = function() {
 	logit("stop()");
 

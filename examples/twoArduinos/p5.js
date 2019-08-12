@@ -10170,7 +10170,7 @@
                 file: 'src/image/filters.js',
                 line: 3,
                 description:
-                  '<p>This module defines the filters for use with image buffers.</p>\n<p>This module is basically a collection of functions stored in an object\nas opposed to modules. The functions are destructive, modifying\nthe passed in canvas rather than creating a copy.</p>\n<p>Generally speaking users of this module will use the Filters.apply method\non a canvas to create an effect.</p>\n<p>A number of functions are borrowed/adapted from\n<a href="http://www.html5rocks.com/en/tutorials/canvas/imagefilters/">http://www.html5rocks.com/en/tutorials/canvas/imagefilters/</a>\nor the java processing implementation.</p>\n',
+                  '<p>This module defines the filters for use with image buffers.</p>\n<p>This module is basically a collection of functions stored in an object\nas opposed to classes. The functions are destructive, modifying\nthe passed in canvas rather than creating a copy.</p>\n<p>Generally speaking users of this module will use the Filters.apply method\non a canvas to create an effect.</p>\n<p>A number of functions are borrowed/adapted from\n<a href="http://www.html5rocks.com/en/tutorials/canvas/imagefilters/">http://www.html5rocks.com/en/tutorials/canvas/imagefilters/</a>\nor the java processing implementation.</p>\n',
                 class: 'p5',
                 module: 'Events'
               },
@@ -28654,7 +28654,7 @@
               },
               {
                 message:
-                  'Missing item type\nThis module defines the filters for use with image buffers.\n\nThis module is basically a collection of functions stored in an object\nas opposed to modules. The functions are destructive, modifying\nthe passed in canvas rather than creating a copy.\n\nGenerally speaking users of this module will use the Filters.apply method\non a canvas to create an effect.\n\nA number of functions are borrowed/adapted from\nhttp://www.html5rocks.com/en/tutorials/canvas/imagefilters/\nor the java processing implementation.',
+                  'Missing item type\nThis module defines the filters for use with image buffers.\n\nThis module is basically a collection of functions stored in an object\nas opposed to classes. The functions are destructive, modifying\nthe passed in canvas rather than creating a copy.\n\nGenerally speaking users of this module will use the Filters.apply method\non a canvas to create an effect.\n\nA number of functions are borrowed/adapted from\nhttp://www.html5rocks.com/en/tutorials/canvas/imagefilters/\nor the java processing implementation.',
                 line: ' src/image/filters.js:3'
               },
               {
@@ -65629,7 +65629,7 @@
            * This module defines the filters for use with image buffers.
            *
            * This module is basically a collection of functions stored in an object
-           * as opposed to modules. The functions are destructive, modifying
+           * as opposed to classes. The functions are destructive, modifying
            * the passed in canvas rather than creating a copy.
            *
            * Generally speaking users of this module will use the Filters.apply method

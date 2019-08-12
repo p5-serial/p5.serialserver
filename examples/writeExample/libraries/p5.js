@@ -17111,7 +17111,7 @@ module.exports = p5;
  * This module defines the filters for use with image buffers.
  *
  * This module is basically a collection of functions stored in an object
- * as opposed to modules. The functions are destructive, modifying
+ * as opposed to classes. The functions are destructive, modifying
  * the passed in canvas rather than creating a copy.
  *
  * Generally speaking users of this module will use the Filters.apply method

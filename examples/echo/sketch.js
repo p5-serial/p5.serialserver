@@ -30,10 +30,10 @@ function keyTyped() {
 function serialEvent() {
   // read a byte from the serial port:
   let inByte = serial.read();
-  println("inByte: " + inByte);
+  print("inByte: " + inByte);
   inData = inByte;
 }
 
 function serialError(err) {
-  println('Something went wrong with the serial port. ' + err);
+  print('Something went wrong with the serial port. ' + err);
 }

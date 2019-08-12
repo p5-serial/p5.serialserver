@@ -46,8 +46,8 @@ function serialEvent() {
   // read a byte from the serial port:
   inByte = int(serial.read());
   if (inByte !== output) {
-    println("Error: received " + inByte + " but sent " + output);
-    println("byte count: " + byteCount);
+    print("Error: received " + inByte + " but sent " + output);
+    print("byte count: " + byteCount);
   }
   byteCount++;
   output = (inByte + 1) % 256; // modulo 256 to keep value 0-255
@@ -55,5 +55,5 @@ function serialEvent() {
 }
 
 function serialError(err) {
-  println('Something went wrong with the serial port. ' + err);
+  print('Something went wrong with the serial port. ' + err);
 }
