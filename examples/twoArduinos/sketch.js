@@ -1,3 +1,8 @@
+/*
+Example of using multiple serial ports in one sketch.
+
+By Jiwon Shin
+*/
 // Declare a "SerialPort" object
 let serialOne, serialTwo;
 let latestDataOne = "waiting for data";

@@ -45,6 +45,7 @@ Examples
 * Read and Animate Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/rfrtcdrJd) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/readAndAnimate)
 * Read Count Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/g7xhJIO27) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/readCount)
 * Two Arduinos Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/yWTivVhtG) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/twoArduinos)
+* Two Arduinos Array Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/Yod6LK05J) | [github repo]()
 * Write Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/RH9J9z5YG) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/writeExample)
 
 ### Basic Example
