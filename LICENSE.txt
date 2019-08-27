@@ -1,4 +1,4 @@
-Copyright (c) 2015, 2016 Shawn Van Every <Shawn.Van.Every@nyu.edu>, Tom Igoe <tom.igoe@nyu.edu>, Jen Kagan <jen.kagan@nyu.edu>
+Copyright (c) 2015, 2016, 2017, 2018, 2019 Shawn Van Every <Shawn.Van.Every@nyu.edu>, Tom Igoe <tom.igoe@nyu.edu>, Jen Kagan <jen.kagan@nyu.edu>, Jiwon Shin <jiwon.shin@nyu.edu>
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
