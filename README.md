@@ -32,6 +32,17 @@ Then load one of the [examples](#examples) in your browser to see it in action.
 
 * You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
 
+Getting Started
+--------------
+
+After running either the [p5.serialcontrol application](https://github.com/p5-serial/p5.serialcontrol/releases) or p5.serialserver, you need to include the client side library in your html file. You can download the [p5.serialport.js client library](https://github.com/p5-serial/p5.serialport/blob/master/lib/p5.serialport.js) and include this as a script tag as below:
+
+``` <script language="javascript" type="text/javascript" src="p5.serialport.js"> ```
+
+or, you can use a CDN link available via [jsdelivr](https://www.jsdelivr.com/):
+
+``` <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.28/lib/p5.serialport.js">```
+
 [API](https://p5-serial.github.io/)
 ---
 
@@ -39,6 +50,7 @@ Examples
 -------
 
 * Basic Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/-xa-lIH3Y) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/basics)
+* Basic Example with CDN link: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/fSzu2NePT) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/basics-cdn)
 * Echo Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/hirvh8hZ-) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/echo)
 * Echo (with serial options) Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/dG0tw9Vv6) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/echo2)
 * Make Port Menu Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/WBH01aWdB) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/makePortMenu)
