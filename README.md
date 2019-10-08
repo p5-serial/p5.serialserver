@@ -41,7 +41,7 @@ After running either the [p5.serialcontrol application](https://github.com/p5-se
 
 or, you can use a CDN link available via [jsdelivr](https://www.jsdelivr.com/):
 
-``` <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.28/lib/p5.serialport.js">```
+``` <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.28/lib/p5.serialport.js"></script>```
 
 [API](https://p5-serial.github.io/)
 ---
