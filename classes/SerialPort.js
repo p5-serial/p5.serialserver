@@ -99,6 +99,15 @@ class SerialPort {
             self.logit("serialPort.on close");
             self.onMessage({method: 'close', data: data});
 
+            for(let i = 0; i < self.messageListeners.length; i++){
+                let serialIndex = self.messageListeners[i].serialPortsList.indexOf(self.serialPortName);
+
+                console.log("need to take out " + self.serialPortName + " from client at index " + serialIndex);
+
+                self.messageListeners[i].serialPorts.splice(serialIndex, 1);
+                self.messageListeners[i].serialPortsList.splice(serialIndex, 1);
+            }
+
             self.closeSerial();
         });
 
