@@ -49,16 +49,16 @@ or, you can use a CDN link available via [jsdelivr](https://www.jsdelivr.com/):
 Examples
 -------
 
-* Basic Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/-xa-lIH3Y) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/basics)
-* Basic Example with CDN link: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/fSzu2NePT) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/basics-cdn)
-* Echo Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/hirvh8hZ-) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/echo)
-* Echo (with serial options) Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/dG0tw9Vv6) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/echo2)
-* Make Port Menu Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/WBH01aWdB) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/makePortMenu)
-* Read and Animate Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/rfrtcdrJd) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/readAndAnimate)
-* Read Count Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/g7xhJIO27) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/readCount)
-* Two Arduinos Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/yWTivVhtG) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/twoArduinos)
-* Two Arduinos Array Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/Yod6LK05J) | [github repo]()
-* Write Example: [p5 web editor](https://editor.p5js.org/p5-serial/sketches/RH9J9z5YG) | [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/writeExample)
+* [Basic example](/examples/basics/)
+* [Basic example with CDN link](/examples/basics-cdn/)
+* [Echo example](/examples/echo/)
+* [Echo with serial options example](/examples/echo2/)
+* [Make port menu example](/examples/makePortMenu/)
+* [Read and animate example](/examples/readAndAnimate/)
+* [Read count example](/examples/readCount/)
+* [Two Arduinos example](/examples/twoArduinos/)
+* [Two Arduinos array example](/examples/twoArduinosArray/)
+* [Write example](/examples/writeExample/)
 
 ### Basic Example
 
