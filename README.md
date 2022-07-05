@@ -50,16 +50,15 @@ Examples
 -------
 
 * [Basic example](/examples/basics/)
-* Basic Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/basics)
-* Basic Example with CDN link: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/basics-cdn)
-* Echo Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/echo)
-* Echo (with serial options) Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/echo2)
-* Make Port Menu Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/makePortMenu)
-* Read and Animate Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/readAndAnimate)
-* Read Count Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/readCount)
-* Two Arduinos Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/main/examples/twoArduinosArray)
-* Two Arduinos Array Example: [github repo]()
-* Write Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/writeExample)
+* [Basic example with CDN link](/examples/basics-cdn/)
+* [Echo example](/examples/echo/)
+* [Echo with serial options example](/examples/echo2/)
+* [Make port menu example](/examples/makePortMenu/)
+* [Read and animate example](/examples/readAndAnimate/)
+* [Read count example](/examples/readCount/)
+* [Two Arduinos example](/examples/twoArduinos/)
+* [Two Arduinos array example](/examples/twoArduinosArray/)
+* [Write example](/examples/writeExample/)
 
 ### Basic Example
 
