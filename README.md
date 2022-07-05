@@ -1,24 +1,22 @@
-p5.serialport 
-=============
+# p5.serialport
 
-A [p5.js](http://p5js.org/) library that enables communication between your p5 sketch and Arduino (or another serial enabled device). 
+p5.serialport is a [p5.js](https://p5js.org/) library that enables communication between your p5.js sketch and Arduino microcontroller (or another serial enabled device).
 
-What Does it Do?
-----------------
+## What does it do?
 
-p5.serialport more or less clones the [Processing Serial Library API](https://processing.org/reference/libraries/serial/index.html). As JavaScript in a browser can not interact directly with a serial port, this library solves this. p5.serialport comes in two flavors; one is a simple app, this is good for all skill levels and is the easiest to use; second is Node.js based WebSocket server, this is for more skilled advanced users or someone who needs heavy customization.
+p5.serialport more or less clones the [Processing Serial Library API](https://processing.org/reference/libraries/serial/index.html). As JavaScript in a browser can not interact directly with a serial port, this library solves this.
 
-p5.serial App
--------------
+p5.serialport comes in two flavors; one is a simple app, this is good for all skill levels and is the easiest to use; another one is Node.js based WebSocket server, this is for more skilled advanced users or someone who needs heavy customization.
 
-To begin download and run a [release of p5.serialcontrol](https://github.com/p5-serial/p5.serialcontrol/releases). This application incorporates p5.serialserver in a GUI application for MacOS and Windows.
+## p5.serial App
+
+To begin download and run a release of p5.serialcontrol, available at https://github.com/p5-serial/p5.serialcontrol/releases. This application incorporates p5.serialserver in a GUI application for MacOS and Windows.
 
 Once you have the application launched load one of the [examples](#examples) in your browser to see it in action.  
 
 * You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
 
-p5.serial Node.js
------------------
+# p5.serial Node.js
 
 To Use:
 
