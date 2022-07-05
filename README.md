@@ -49,6 +49,7 @@ or, you can use a CDN link available via [jsdelivr](https://www.jsdelivr.com/):
 Examples
 -------
 
+* [Basic example](/examples/basics/)
 * Basic Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/basics)
 * Basic Example with CDN link: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/basics-cdn)
 * Echo Example: [github repo](https://github.com/p5-serial/p5.serialport/tree/master/examples/echo)
