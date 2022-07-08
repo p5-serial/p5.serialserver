@@ -1,6 +1,9 @@
 # Apple
 .DS_Store
 
+# JSDoc
+docs/
+
 # node.js
 node_modules/*
 
