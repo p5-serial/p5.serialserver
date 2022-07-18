@@ -5,8 +5,15 @@ let latestData = "waiting for data"; // you'll use this to write incoming data t
 // change this to the name of your Arduino's serial port
 let namePort = "/dev/tty.usbmodem14501";
 
+let input;
+let button;
+
 function setup() {
   createCanvas(100, 100);
+
+  input = createInput(namePort);
+  button = createButton("update port");
+  button.mousePressed(updatePort);
 
   // Instantiate our SerialPort object
   serial = new p5.SerialPort();
@@ -111,10 +118,6 @@ function gotRawData(thedata) {
 function draw() {
   background(255);
   fill(0, 0, 0);
-  let input = createInput(namePort);
-  let button = createButton("update port");
-  button.mousePressed(updatePort);
-  // text(namePort, 10, 10);
   text(latestData, 10, 10);
   // Polling method
   /*
