@@ -82,11 +82,16 @@ function gotError(theerror) {
 
 // There is data available to work with from the serial port
 function gotData() {
-  let currentString = serial.readLine(); // read the incoming string
-  trim(currentString); // remove any trailing whitespace
-  if (!currentString) return; // if the string is empty, do no more
-  console.log(currentString); // print the string
-  latestData = currentString; // save it for the draw method
+  // read the incoming string
+  let currentString = serial.readLine();
+  // remove any trailing whitespace
+  trim(currentString);
+  // if the string is empty, do no more
+  if (!currentString) return;
+  // print the string
+  console.log(currentString);
+  // save it for the draw method
+  latestData = currentString;
 }
 
 // We got raw from the serial port
