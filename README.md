@@ -44,7 +44,7 @@ or, you can use a CDN link available via [jsdelivr](https://www.jsdelivr.com/), 
 
 ` <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5.serialserver@VERSION/lib/p5.serialport.js"></script>`
 
-## [API](https://p5-serial.github.io/docs)
+## API available at [./docs/](./docs/)
 
 ## Examples
 
