@@ -6,7 +6,7 @@ let latestData = "waiting for data"; // you'll use this to write incoming data t
 let namePort = "/dev/tty.usbmodem14501";
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(100, 100);
 
   // Instantiate our SerialPort object
   serial = new p5.SerialPort();
@@ -109,10 +109,13 @@ function gotRawData(thedata) {
 // serial.write(somevar) writes out the value of somevar to the serial device
 
 function draw() {
-  background(255, 255, 255);
+  background(255);
   fill(0, 0, 0);
-  text(namePort, 10, 100);
-  text(latestData, 10, 100);
+  let input = createInput(namePort);
+  let button = createButton("update port");
+  button.mousePressed(updatePort);
+  // text(namePort, 10, 10);
+  text(latestData, 10, 10);
   // Polling method
   /*
   if (serial.available() > 0) {
@@ -120,4 +123,8 @@ function draw() {
   ellipse(50,50,data,data);
 }
 */
+}
+
+function updatePort() {
+  namePort = input.value();
 }
