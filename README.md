@@ -48,16 +48,16 @@ or, you can use a CDN link available via [jsdelivr](https://www.jsdelivr.com/), 
 
 ## Examples
 
-- [Basic example](/examples/basics/)
-- [Basic example with CDN link](/examples/basics-cdn/)
-- [Echo example](/examples/echo/)
-- [Echo with serial options example](/examples/echo2/)
-- [Make port menu example](/examples/makePortMenu/)
-- [Read and animate example](/examples/readAndAnimate/)
-- [Read count example](/examples/readCount/)
-- [Two Arduinos example](/examples/twoArduinos/)
-- [Two Arduinos array example](/examples/twoArduinosArray/)
-- [Write example](/examples/writeExample/)
+- [Basic example](./examples/basics/)
+- [Basic example with CDN link](./examples/basics-cdn/)
+- [Echo example](./examples/echo/)
+- [Echo with serial options example](./examples/echo2/)
+- [Make port menu example](./examples/makePortMenu/)
+- [Read and animate example](./examples/readAndAnimate/)
+- [Read count example](./examples/readCount/)
+- [Two Arduinos example](./examples/twoArduinos/)
+- [Two Arduinos array example](./examples/twoArduinosArray/)
+- [Write example](./examples/writeExample/)
 
 ### Basic Example
 
