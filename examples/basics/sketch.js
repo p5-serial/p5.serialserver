@@ -1,14 +1,16 @@
-// Declare a "SerialPort" object
+// declare a variable for p5.SerialPort object
 let serial;
-let latestData = "waiting for data";  // you'll use this to write incoming data to the canvas
+
+// declare variable for latest data
+let latestData = "waiting for data";
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  // Instantiate our SerialPort object
+  // instantiate the SerialPort objects
   serial = new p5.SerialPort();
 
-  // Get a list the ports available
+  // get a list the ports available
   // You should have a callback defined to see the results
   serial.list();
 
@@ -18,29 +20,29 @@ function setup() {
 
   // Here are the callbacks that you can register
   // When we connect to the underlying server
-  serial.on('connected', serverConnected);
+  serial.on("connected", serverConnected);
 
   // When we get a list of serial ports that are available
-  serial.on('list', gotList);
+  serial.on("list", gotList);
   // OR
   //serial.onList(gotList);
 
   // When we some data from the serial port
-  serial.on('data', gotData);
+  serial.on("data", gotData);
   // OR
   //serial.onData(gotData);
 
   // When or if we get an error
-  serial.on('error', gotError);
+  serial.on("error", gotError);
   // OR
   //serial.onError(gotError);
 
   // When our serial port is opened and ready for read/write
-  serial.on('open', gotOpen);
+  serial.on("open", gotOpen);
   // OR
   //serial.onOpen(gotOpen);
 
-  serial.on('close', gotClose);
+  serial.on("close", gotClose);
 
   // Callback to get the raw data, as it comes in for handling yourself
   //serial.on('rawdata', gotRawData);
@@ -68,9 +70,9 @@ function gotOpen() {
   print("Serial Port is Open");
 }
 
-function gotClose(){
-    print("Serial Port is Closed");
-    latestData = "Serial Port is Closed";
+function gotClose() {
+  print("Serial Port is Closed");
+  latestData = "Serial Port is Closed";
 }
 
 // Ut oh, here is an error, let's log it
@@ -80,11 +82,11 @@ function gotError(theerror) {
 
 // There is data available to work with from the serial port
 function gotData() {
-  let currentString = serial.readLine();  // read the incoming string
-  trim(currentString);                    // remove any trailing whitespace
-  if (!currentString) return;             // if the string is empty, do no more
-  console.log(currentString);             // print the string
-  latestData = currentString;            // save it for the draw method
+  let currentString = serial.readLine(); // read the incoming string
+  trim(currentString); // remove any trailing whitespace
+  if (!currentString) return; // if the string is empty, do no more
+  console.log(currentString); // print the string
+  latestData = currentString; // save it for the draw method
 }
 
 // We got raw from the serial port
@@ -107,8 +109,8 @@ function gotRawData(thedata) {
 // serial.write(somevar) writes out the value of somevar to the serial device
 
 function draw() {
-  background(255,255,255);
-  fill(0,0,0);
+  background(255, 255, 255);
+  fill(0, 0, 0);
   text(latestData, 10, 10);
   // Polling method
   /*
