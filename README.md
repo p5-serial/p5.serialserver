@@ -48,16 +48,21 @@ or, you can use a CDN link available via [jsdelivr](https://www.jsdelivr.com/), 
 
 ## Examples
 
-- [Basic example](./examples/basics/)
-- [Basic example with CDN link](./examples/basics-cdn/)
-- [Echo example](./examples/echo/)
-- [Echo with serial options example](./examples/echo2/)
-- [Make port menu example](./examples/makePortMenu/)
-- [Read and animate example](./examples/readAndAnimate/)
-- [Read count example](./examples/readCount/)
-- [Two Arduinos example](./examples/twoArduinos/)
-- [Two Arduinos array example](./examples/twoArduinosArray/)
-- [Write example](./examples/writeExample/)
+The examples for this library are hosted on the [./examples](./examples/) folder.
+
+The [00-shared](./examples/00-shared/) is a special folder, used for storing the assets that are used by all the other examples, including JavaScript libraries and CSS files. It also has its own index.html file and sketch.js file that can be used as templates for creating and contributing new examples.
+
+- [00-shared](./examples/00-shared/)
+- [01-basics](./examples/01-basics/)
+- [02-basics-cdn](./examples/02-basics-cdn/)
+- [03-echo](./examples/03-echo/)
+- [04-echo2](./examples/04-echo2/)
+- [05-makePortMenu](./examples/05-makePortMenu/)
+- [06-readAndAnimate](./examples/06-readAndAnimate/)
+- [07-readCount](./examples/07-readCount/)
+- [08-twoArduinos](./examples/08-twoArduinos/)
+- [09-twoArduinosArray](./examples/09-twoArduinosArray/)
+- [10-writeExample/](./examples/10-writeExample/)
 
 ### Basic Example
 
