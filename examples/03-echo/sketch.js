@@ -17,20 +17,20 @@ function draw() {
   background(0);
   fill(255);
   // display the incoming serial data as a string:
-  text("incoming value: " + inData, 30, 30);
+  text('incoming value: ' + inData, 30, 30);
 }
 
 function keyTyped() {
-    let outByte = key;
-    console.log("Sending " + outByte);
-    //serial.write(Number(outByte)); // Send as byte value
-    serial.write(outByte); // Send as a string/char/ascii value
+  let outByte = key;
+  console.log('Sending ' + outByte);
+  //serial.write(Number(outByte)); // Send as byte value
+  serial.write(outByte); // Send as a string/char/ascii value
 }
 
 function serialEvent() {
   // read a byte from the serial port:
   let inByte = serial.read();
-  print("inByte: " + inByte);
+  print('inByte: ' + inByte);
   inData = inByte;
 }
 
