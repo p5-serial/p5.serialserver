@@ -38,11 +38,11 @@ Then load one of the [examples](#examples) in your browser to see it in action.
 
 After running either the [p5.serialcontrol application](https://github.com/p5-serial/p5.serialcontrol/releases) or p5.serialserver, you need to include the client side library in your html file. You can download the p5.serialport.js client library available at https://github.com/p5-serial/p5.serialport/blob/main/lib/p5.serialport.js and include this as a script tag as below:
 
-`<script language="javascript" type="text/javascript" src="p5.serialport.js">`
+`<script src="p5.serialport.js">`
 
 or, you can use a CDN link available via [jsdelivr](https://www.jsdelivr.com/), where you have to replace VERSION with the one you want to use:
 
-` <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5.serialserver@VERSION/lib/p5.serialport.js"></script>`
+` <script src="https://cdn.jsdelivr.net/npm/p5.serialserver@VERSION/lib/p5.serialport.js"></script>`
 
 ## API available at [./docs/](./docs/)
 
