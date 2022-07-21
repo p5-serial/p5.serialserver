@@ -9,9 +9,9 @@
  * @requires classes/SerialPort.js:SerialPort
  * */
 
-let sp = require("serialport");
-let SerialPort = require("./SerialPort");
-let WebSocketServer = require("ws").Server;
+let sp = require('serialport');
+let SerialPort = require('./SerialPort');
+let WebSocketServer = require('ws').Server;
 
 /**
  * Represents a web socket client. Maintains {@link SerialPort SerialPort} objects that the client subscribes to.
@@ -36,7 +36,7 @@ class Client {
 
   /** echo received message back to web client */
   echo(msg) {
-    this.sendit({ method: "echo", data: msg });
+    this.sendit({ method: 'echo', data: msg });
   }
 
   /** list all available serial ports and send it to the client*/
@@ -49,7 +49,7 @@ class Client {
         portNames.push(port.comName);
       });
 
-      self.sendit({ method: "list", data: portNames });
+      self.sendit({ method: 'list', data: portNames });
     });
   }
 
@@ -106,7 +106,7 @@ class Client {
     try {
       this.ws.send(dataToSend);
     } catch (error) {
-      console.log("Error sending: ", error);
+      console.log('Error sending: ', error);
     }
   }
 }
