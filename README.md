@@ -2,9 +2,11 @@
 
 ## About
 
+NOTICE: during August 2022 we are migrating from having one repository, to having two: one for the library p5.serialport.js, and one for the server p5.serialserver.js.
+
 This repository is part of the p5-serial project, created in 2015 at [New York University](https://www.nyu.edu/)'s [Interactive Telecommunications Program](https://tisch.nyu.edu/itp) by [Shawn van Every](https://github.com/vanevery/), [Jen Kagan](https://github.com/kaganjd), and [Tom Igoe](https://github.com/tigoe). For more info please visit the repository at https://github.com/p5-serial/p5.serial.github.io/
 
-p5.serialport is a [p5.js](https://p5js.org/) library that enables communication between your p5.js sketch and Arduino microcontroller (or another serial enabled device).
+p5.serialserver is a [p5.js](https://p5js.org/) library that enables communication between your p5.js sketch and Arduino microcontroller (or another serial enabled device).
 
 ## What does it do?
 
