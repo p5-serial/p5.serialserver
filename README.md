@@ -1,10 +1,12 @@
-# p5.serialport
+# p5.serialserver
 
 ## About
 
+NOTICE: during August 2022 we are migrating from having one repository, to having two: one for the library p5.serialport.js, and one for the server p5.serialserver.js.
+
 This repository is part of the p5-serial project, created in 2015 at [New York University](https://www.nyu.edu/)'s [Interactive Telecommunications Program](https://tisch.nyu.edu/itp) by [Shawn van Every](https://github.com/vanevery/), [Jen Kagan](https://github.com/kaganjd), and [Tom Igoe](https://github.com/tigoe). For more info please visit the repository at https://github.com/p5-serial/p5.serial.github.io/
 
-p5.serialport is a [p5.js](https://p5js.org/) library that enables communication between your p5.js sketch and Arduino microcontroller (or another serial enabled device).
+p5.serialserver is a [p5.js](https://p5js.org/) library that enables communication between your p5.js sketch and Arduino microcontroller (or another serial enabled device).
 
 ## What does it do?
 
@@ -62,29 +64,29 @@ function setup() {
 
   // Assuming our Arduino is connected, let's open the connection to it
   // Change this to the name of your arduino's serial port
-  serial.open("/dev/cu.usbmodem1421");
+  serial.open('/dev/cu.usbmodem1421');
 
   // Register some callbacks
 
   // When we connect to the underlying server
-  serial.on("connected", serverConnected);
+  serial.on('connected', serverConnected);
 
   // When we get a list of serial ports that are available
-  serial.on("list", gotList);
+  serial.on('list', gotList);
 
   // When we some data from the serial port
-  serial.on("data", gotData);
+  serial.on('data', gotData);
 
   // When or if we get an error
-  serial.on("error", gotError);
+  serial.on('error', gotError);
 
   // When our serial port is opened and ready for read/write
-  serial.on("open", gotOpen);
+  serial.on('open', gotOpen);
 }
 
 // We are connected and ready to go
 function serverConnected() {
-  print("We are connected!");
+  print('We are connected!');
 }
 
 // Got the list of ports
@@ -92,13 +94,13 @@ function gotList(thelist) {
   // theList is an array of their names
   for (let i = 0; i < thelist.length; i++) {
     // Display in the console
-    print(i + " " + thelist[i]);
+    print(i + ' ' + thelist[i]);
   }
 }
 
 // Connected to our serial device
 function gotOpen() {
-  print("Serial Port is open!");
+  print('Serial Port is open!');
 }
 
 // Ut oh, here is an error, let's log it
@@ -108,7 +110,7 @@ function gotError(theerror) {
 
 // There is data available to work with from the serial port
 function gotData() {
-  let currentString = serial.readStringUntil("\r\n");
+  let currentString = serial.readStringUntil('\r\n');
   console.log(currentString);
 }
 
