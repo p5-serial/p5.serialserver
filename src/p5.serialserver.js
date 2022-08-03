@@ -14,17 +14,14 @@ class p5SerialServer {
     // Array of all connected Client objects
     this.clients = [];
   }
-}
 
-/**
- * console.log log messages when LOGGING == true
- * @function logit
- * @param {String} mess - String to log when LOGGING == true*/
-let logit = function (mess) {
-  if (LOGGING) {
-    console.log(mess);
+  // console.log messages when logging is true
+  logit(mess) {
+    if (this.logging) {
+      console.log(mess);
+    }
   }
-};
+}
 
 /**
  * @function start
