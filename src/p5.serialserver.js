@@ -145,7 +145,7 @@ class p5SerialServer {
         }
       });
 
-      // check if this is called if browser cvlosed
+      // check if this is called if browser closed
       // needs to be explicitly closed
       // other clients need to receive broadcast that it was closed
       this.wss.on('close', function () {
