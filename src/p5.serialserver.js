@@ -63,11 +63,11 @@ class p5SerialServer {
           if (message.method === 'echo') {
             client.echo(message.data);
           } else if (message.method === 'list') {
-            logit('message.method === list');
+            this.logit('message.method === list');
             client.list();
           } else if (message.method === 'openserial') {
             // HEREIAM
-            logit('message.method === openserial');
+            this.logit('message.method === openserial');
 
             if (typeof message.data.serialport === 'string') {
               let newPort = message.data.serialport;
@@ -90,7 +90,9 @@ class p5SerialServer {
                       method: 'error',
                       data: 'Already open',
                     });
-                    logit(`serialPort ${newPort} is already open`);
+                    this.logit(
+                      `serialPort ${newPort} is already open`,
+                    );
                     client.sendit({ method: 'openserial', data: {} });
                     // end of  if (client.serialPortsList.indexOf(newPort) > -1)
                   } else {
@@ -123,7 +125,7 @@ class p5SerialServer {
                 client.openSerial(newSerialPort);
               }
             } else {
-              logit("user didn't specify a port to open");
+              this.logit("user didn't specify a port to open");
               client.sendit({
                 method: 'error',
                 data: 'you must specify a serial port to open',
@@ -132,7 +134,7 @@ class p5SerialServer {
           } else if (message.method === 'write') {
             client.write(message.data);
           } else if (message.method === 'close') {
-            logit('message.method === close');
+            this.logit('message.method === close');
 
             for (let i = 0; i < client.serialPortsList.length; i++) {
               let portIndex = this.serialPortsList.indexOf(
@@ -156,18 +158,20 @@ class p5SerialServer {
       // needs to be explicitly closed
       // other clients need to receive broadcast that it was closed
       this.wss.on('close', function () {
-        logit(`ws.on close - ${this.clients.length} client left`);
+        this.logit(
+          `ws.on close - ${this.clients.length} client left`,
+        );
 
         for (let c = 0; c < this.clients.length; c++) {
           if (this.clients[c].ws === ws) {
-            logit('removing client from array');
+            this.logit('removing client from array');
 
             this.serialPorts.forEach((port) =>
               port.removeClient(this.clients[c]),
             );
 
             this.clients.splice(c, 1);
-            logit(
+            this.logit(
               `clients.splice - ${this.clients.length} clients left`,
             );
             break;
@@ -175,7 +179,7 @@ class p5SerialServer {
         }
 
         if (this.clients.length == 0) {
-          logit(
+          this.logit(
             `clients.length == 0 checking to see if we should close serial port`,
           );
 
@@ -191,68 +195,63 @@ class p5SerialServer {
     });
   }
 
-  stop() {}
-}
+  // Stops web socket server after closing all
+  // SerialPort connections and Client connections
+  stop() {
+    this.logit('stop');
 
-/**
- * @function stop
- * @desc Stops web socket server after closing all {@link SerialPort SerialPort} connections and {@link Client Client} connections
- * */
-let stop = function () {
-  logit('stop()');
+    for (let i = 0; i < this.serialPorts.length; i++) {
+      if (
+        this.serialPorts[i].serialPort !== null &&
+        typeof this.serialPorts[i].serialPort === 'object' &&
+        this.serialPorts[i].serialPort.isOpen
+      ) {
+        this.logit('serialPort != null && serialPort.isOpen is true');
+        this.logit('serialPort.flush, drain, close');
 
-  for (let i = 0; i < serialPorts.length; i++) {
-    if (
-      serialPorts[i].serialPort != null &&
-      typeof serialPorts[i].serialPort === 'object' &&
-      serialPorts[i].serialPort.isOpen
-    ) {
-      logit('serialPort != null && serialPort.isOpen is true');
-      logit('serialPort.flush, drain, close');
+        this.serialPorts[i].serialPort.flush();
+        this.serialPorts[i].serialPort.drain();
+        this.serialPorts[i].serialPort.close(function (error) {
+          if (error) {
+            console.log('serial close error: ' + error);
+          }
+        });
 
-      serialPorts[i].serialPort.flush();
-      serialPorts[i].serialPort.drain();
-      serialPorts[i].serialPort.close(function (error) {
-        if (error) {
-          console.log('Serial Close Error: ' + error);
-        }
-      });
-
-      serialPorts.splice(i, 1);
-      serialPortsList.splice(i, 1);
-    }
-  }
-
-  try {
-    for (let c = 0; c < clients.length; c++) {
-      if (clients[c] != null) {
-        logit('clients[' + c + '] != null, close');
-
-        clients[c].ws.close();
+        this.serialPorts.splice(i, 1);
+        this.serialPortsList.splice(i, 1);
       }
     }
-  } catch (e) {
-    console.log('Client Close Error: ' + e);
-  }
 
-  if (wss != null) {
-    logit('wss != null so wss.close()');
-    wss.close();
-  }
+    try {
+      for (let c = 0; c < this.clients.length; c++) {
+        if (this.clients[c] !== null) {
+          this.logit('clients[' + c + '] !== null, close');
+          this.clients[c].ws.close();
+        }
+      }
+    } catch (e) {
+      console.log('client close error: ' + e);
+    }
 
-  // Let's try to close a different way
-  for (let i = 0; i < serialPorts.length; i++) {
-    if (
-      serialPorts[i].serialPort != null &&
-      typeof serialPorts[i].serialPort === 'object' &&
-      serialPorts[i].serialPort.isOpen
-    ) {
-      logit(
-        'serialPort != null && serialPort.isOpen is true so serialPort = null',
-      );
-      serialPorts[i].serialPort = null;
+    if (this.wss !== null) {
+      this.logit('wss != null so wss.close()');
+      this.wss.close();
+    }
+
+    // let's try to close a different way
+    for (let i = 0; i < this.serialPorts.length; i++) {
+      if (
+        this.serialPorts[i].serialPort != null &&
+        typeof this.serialPorts[i].serialPort === 'object' &&
+        this.serialPorts[i].serialPort.isOpen
+      ) {
+        this.logit(
+          'serialPort != null && serialPort.isOpen is true so serialPort = null',
+        );
+        this.serialPorts[i].serialPort = null;
+      }
     }
   }
-};
+}
 
 module.exports = p5SerialServer;
