@@ -1,16 +1,5 @@
-/**
- * @fileOverview Sets up web socket server and handles client connections by creating and deleting Client objects and SerialPort objects
- *
- * @author Shawn Van Every
- * @author Jiwon Shin
- *
- * @requires	classes/Client.js:Client
- * @requires 	classes/SerialPort.js:SerialPort
- * @requires 	NPM:ws
- */
-
-let Client = require('./classes/Client');
-let SerialPort = require('./classes/SerialPort');
+const Client = require('./Client.js');
+const SerialPort = require('./SerialPort.js');
 
 /**
  * Variable to decide whether to console.log detailed messages
@@ -276,5 +265,4 @@ let stop = function () {
   }
 };
 
-module.exports.start = start;
-module.exports.stop = stop;
+module.exports = p5SerialServer;
