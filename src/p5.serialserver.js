@@ -27,6 +27,13 @@ class p5SerialServer {
   // after determining that it has not been opened already
   // initialize web socket client message events
   // port parameter:  port number used to open web socket server
+
+  // @event Client#message
+  // @param {Object} inmessage -
+  // Type of message emitted from { @link Client Client }.
+  // Defined message types are: echo, list, openserial, write, close and error.
+  // Undefined message types are treated as error messages
+
   start(port) {
     this.logit('start()');
 
@@ -183,13 +190,9 @@ class p5SerialServer {
       });
     });
   }
-}
 
-// @event Client#message
-// @param {Object} inmessage -
-// Type of message emitted from { @link Client Client }.
-// Defined message types are: echo, list, openserial, write, close and error.
-// Undefined message types are treated as error messages
+  stop() {}
+}
 
 /**
  * @function stop
