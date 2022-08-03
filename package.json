@@ -3,10 +3,7 @@
   "version": "0.0.33",
   "description": "A serial server for with p5.serialport.js",
   "author": "Shawn Van Every <Shawn.Van.Every@nyu.edu>, Jiwon Shin <jiwon.shin@nyu.edu>",
-  "main": "./lib/p5.serialserver.js",
-  "bin": {
-    "p5serial": "./startserver.js"
-  },
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/p5-serial/p5.serialserver"
@@ -25,9 +22,14 @@
   },
   "license": "GPL",
   "devDependencies": {
-    "jsdoc": "^3.6.3"
+    "babel-minify": "^0.5.2",
+    "browserify": "^17.0.0",
+    "jsdoc": "^3.6.3",
+    "watchify": "^4.0.0"
   },
   "scripts": {
-    "doc": "jsdoc -c jsdoc.conf.json"
+    "doc": "jsdoc -c jsdoc.conf.json",
+    "build": "browserify src/index.js -s p5.serialserver -r | minify > dist/p5.serialserver.min.js",
+    "watch": "watchify src/index.js -s p5.serialserver -o dist/p5.serialserver.js"
   }
 }
