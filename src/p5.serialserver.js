@@ -1,16 +1,14 @@
 const Client = require('./Client.js');
 const SerialPort = require('./SerialPort.js');
 
-/**
- * Variable to decide whether to console.log detailed messages
- * @type {Boolean}
- * */
-let LOGGING = true;
-/**
- * Web socket server. Initialized in start() function.
- * @type {ws}
- * */
-let wss = null;
+class p5SerialServer {
+  constructor() {
+    // variable to decide whether to console.log detailed messages
+    this.logging = true;
+    // web socket server. Initialized in start() function.
+    this.wss = null;
+  }
+}
 
 /**
  * Array of all opened serial port names in string.
