@@ -5,26 +5,16 @@ class p5SerialServer {
   constructor() {
     // variable to decide whether to console.log detailed messages
     this.logging = true;
-    // web socket server. Initialized in start() function.
+    // web socket server. Initialized in start() function
     this.wss = null;
+    // array of all opened serial port names in string
+    this.serialPortsList = [];
+    // array of all opened SerialPort objects
+    this.serialPorts = [];
+    // Array of all connected Client objects
+    this.clients = [];
   }
 }
-
-/**
- * Array of all opened serial port names in string.
- * @type {String[]}
- */
-let serialPortsList = [];
-/**
- * Array of all opened {@link SerialPort SerialPort} objects.
- * @type {SerialPort[]}
- * */
-let serialPorts = [];
-/**
- * Array of all connected {@link Client Client} objects.
- * @type {Client[]}
- * */
-let clients = [];
 
 /**
  * console.log log messages when LOGGING == true
