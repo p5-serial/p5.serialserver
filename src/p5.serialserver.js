@@ -21,29 +21,33 @@ class p5SerialServer {
       console.log(mess);
     }
   }
+  // initialize web socket server at port 8081.
+  // initialize web socket clients on connection by creating
+  // a Client object and create a SerialPort object
+  // after determining that it has not been opened already
+  // initialize web socket client message events
+  // port parameter:  port number used to open web socket server
+  start(port) {
+    this.logit('start()');
+
+    let serverPort = port;
+    let WebSocketServer = require('ws').Server;
+    this.wss = new WebSocketServer({
+      perMessageDeflate: false,
+      port: serverPort,
+    });
+
+    // here ends start(port) function
+  }
 }
 
-/**
- * @function start
- * @desc Initialize web socket server at port 8081. Initialize web socket clients on connection by creating a {@link Client Client} object and create a (@link SerialPort SerialPort} object after determining that it has not been opened already. Initialize web socket client message events.
- * @param {Number} port - port number used to open web socket server.
- * */
+// @event Client#message
+// @param {Object} inmessage -
+// Type of message emitted from { @link Client Client }.
+// Defined message types are: echo, list, openserial, write, close and error.
+// Undefined message types are treated as error messages
 
-/**
- * @event Client#message
- * @param {Object} inmessage - Type of message emitted from {@link Client Client}. Defined message types are: echo, list, openserial, write, close and error. Undefined message types are treated as error messages
- * */
 let start = function (port) {
-  logit('start()');
-
-  let SERVER_PORT = port;
-
-  let WebSocketServer = require('ws').Server;
-  wss = new WebSocketServer({
-    perMessageDeflate: false,
-    port: SERVER_PORT,
-  });
-
   wss.on('connection', (ws) => {
     // Push the connection into the array of clients
     let client = new Client(ws);
