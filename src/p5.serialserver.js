@@ -115,8 +115,6 @@ class p5SerialServer {
                 newSerialPort.addClient(client);
                 client.openSerial(newSerialPort);
               }
-
-              // here ends if (typeof message.data.serialport === 'string')
             } else {
               logit("user didn't specify a port to open");
               client.sendit({
@@ -124,7 +122,6 @@ class p5SerialServer {
                 data: 'you must specify a serial port to open',
               });
             }
-            // here ends else if (message.method === 'openserial')
           } else if (message.method === 'write') {
             client.write(message.data);
           } else if (message.method === 'close') {
@@ -141,14 +138,11 @@ class p5SerialServer {
               }
             }
           }
-
-          // here ends if (3x typeof)
         } else {
           console.log(
             'not a message I understand: ' + JSON.stringify(message),
           );
         }
-        // here ends client.ws.on('message')
       });
 
       // check if this is called if browser cvlosed
@@ -187,11 +181,7 @@ class p5SerialServer {
           this.serialPortsList = [];
         }
       });
-
-      // here ends this.wss.on('connection')
     });
-
-    // here ends start(port) function
   }
 }
 
