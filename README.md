@@ -2,17 +2,13 @@
 
 ## About
 
-NOTICE: during August 2022 we are migrating from having one repository, to having two: one for the library p5.serialport.js, and one for the server p5.serialserver.js.
-
-This repository is part of the p5-serial project, created in 2015 at [New York University](https://www.nyu.edu/)'s [Interactive Telecommunications Program](https://tisch.nyu.edu/itp) by [Shawn van Every](https://github.com/vanevery/), [Jen Kagan](https://github.com/kaganjd), and [Tom Igoe](https://github.com/tigoe). For more info please visit the repository at https://github.com/p5-serial/p5.serial.github.io/
+This repository is part of the p5-serial project, for more info please visit https://github.com/p5-serial/p5.serial.github.io/
 
 p5.serialserver is a [p5.js](https://p5js.org/) library that enables communication between your p5.js sketch and Arduino microcontroller (or another serial enabled device).
 
 ## What does it do?
 
-p5.serialport more or less clones the [Processing Serial Library API](https://processing.org/reference/libraries/serial/index.html). As JavaScript in a browser can not interact directly with a serial port, this library solves this.
-
-p5.serialport comes in two flavors; one is a simple app, this is good for all skill levels and is the easiest to use; another one is Node.js based WebSocket server, this is for more skilled advanced users or someone who needs heavy customization.
+p5.serialserver comes in two flavors; one is a simple app, this is good for all skill levels and is the easiest to use; another one is Node.js based WebSocket server, this is for more skilled advanced users or someone who needs heavy customization.
 
 ## p5.serial App
 
@@ -34,7 +30,7 @@ Alternatively, you can install the server globally via npm with `sudo npm instal
 
 Then load one of the [examples](#examples) in your browser to see it in action.
 
-- You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
+You'll likely have to change the name of the serial port in the examples to the one your Arduino is using.
 
 ## Getting Started
 
@@ -136,8 +132,3 @@ function draw() {
 */
 }
 ```
-
-## Documentation
-
-To generate documentation, install jsdoc (`npm install -g jsdoc`) and run
-`npm run doc`
