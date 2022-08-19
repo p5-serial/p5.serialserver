@@ -1,6 +1,6 @@
 const sp = require('serialport');
-const SerialPort = require('./SerialPort');
-const WebSocketServer = require('ws').Server;
+const SerialPort = require('./SerialPort.js');
+const Server = require('ws').Server;
 
 class Client {
   constructor(ws) {

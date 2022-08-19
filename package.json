@@ -1,9 +1,12 @@
 {
   "name": "p5.serialserver",
-  "version": "0.0.33",
-  "description": "A serial server for with p5.serialport.js",
+  "version": "0.0.34",
+  "description": "A serial server for p5.serialport.js",
   "author": "Shawn Van Every <Shawn.Van.Every@nyu.edu>, Jiwon Shin <jiwon.shin@nyu.edu>",
-  "main": "src/index.js",
+  "main": "./src/p5.serialserver.js",
+  "bin": {
+    "p5serial": "./startserver.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/p5-serial/p5.serialserver"
