@@ -1,15 +1,12 @@
-#!/usr/bin/env node
+const p5SerialServer = require('./src/p5.serialserver.js');
 
-/**
- * @fileOverview start p5.serialserver by calling start() function in {@link p5.serialserver.js p5.serialserver.js}
- *
- * @author Shawn Van Every
- * @author Jiwon Shin
- *
- * @requires 	p5.serialserver.js
- */
+p5SerialServer.start(8081);
 
-let serialserver = require('./p5.serialserver');
-serialserver.start(8081);
+console.log('p5.serialserver is running!');
 
-console.log('p5.serialserver is running');
+// theServer = new p5SerialServer();
+
+// console.log(theServer);
+// theServer.start(8081);
+
+// console.log('p5.serialserver is running');
