@@ -10,7 +10,9 @@
  * */
 
 let sp = require('serialport');
+const { autoDetect } = require('@serialport/bindings-cpp');
 let SerialPort = require('./SerialPort');
+
 let WebSocketServer = require('ws').Server;
 
 /**
@@ -43,12 +45,18 @@ class Client {
   list() {
     let self = this;
 
+    sp.list().then((ports) => console.log(ports.length));
+
+    // this line broke with the upgrade from SerialPort 7.x to 8.x
     sp.list(function (err, ports) {
       let portNames = [];
       ports.forEach(function (port) {
-        portNames.push(port.comName);
+        // according to https://serialport.io/docs/guide-upgrade
+        // comName has been renamed path, so this line
+        // portNames.push(port.comName);
+        // should now be this
+        portNames.push(port.path);
       });
-
       self.sendit({ method: 'list', data: portNames });
     });
   }
