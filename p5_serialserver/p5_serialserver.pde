@@ -1,5 +1,3 @@
-int value;
-
 int now;
 int deltaTime = 5000;
 

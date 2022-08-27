@@ -38,9 +38,12 @@ void setupColors() {
 }
 
 void setupControlP5() {
-  textSize(textSizeParagraph);
+  
   cp5 = new ControlP5(this);
-  List theList = Arrays.asList(portList);
+  
+  
+  // retrieve portList
+  List portsList = Arrays.asList(portsArray);
 
   // add a scrollable list
   cp5.addScrollableList("select port")
@@ -48,7 +51,7 @@ void setupControlP5() {
     .setSize(200, 100)
     .setBarHeight(20)
     .setItemHeight(10)
-    .addItems(theList);
+    .addItems(portsList);
 }
 
 void drawText() {
