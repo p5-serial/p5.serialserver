@@ -1,21 +1,13 @@
-// import Processing Serial library
-import processing.serial.*;
-// import Websockets library
-import websockets.*;
-
 int value;
 
 int now;
 int deltaTime = 5000;
 
 void setup() {
-  
+
   // create canvas
   size(500, 500);
-  
-  setupColors();
-  setupText();
-  
+
   printSerialList();
 
   portName = Serial.list()[portNumber];
@@ -23,13 +15,19 @@ void setup() {
   port = new Serial(this, portName, baudRate);
 
   server = new WebsocketServer(this, serverPort, "/");
+
+  setupColors();
+  setupText();
+  setupControlP5();
+  
+  findLocalIP();
 }
 
 void draw () {
-  
+
   drawBackground();
   drawText();
-  
+
   portRead();
 
   if (millis() > now + deltaTime ) {
