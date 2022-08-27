@@ -1,4 +1,4 @@
-String[] portList;
+String[] portsArray;
 
 int baudRate = 9600;
 
@@ -6,6 +6,7 @@ Serial port;
 int portNumber = 2;
 String portName;
 
+int value;
 
 int getBaudRate() {
   return baudRate;
@@ -17,12 +18,12 @@ void setBaudRate(int newBaudRate) {
 
 // function to print serial port list
 void printSerialList() {
-  portList = new String[Serial.list().length];
+  portsArray = new String[Serial.list().length];
   for (int i = 0; i < Serial.list().length; i++) {
-    portList[i] = Serial.list()[i];
+    portsArray[i] = Serial.list()[i];
   }
 
-  printArray(portList);
+  printArray(portsArray);
 }
 
 int getPortNumber() {
