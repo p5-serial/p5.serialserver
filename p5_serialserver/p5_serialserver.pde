@@ -2,6 +2,8 @@
 import processing.serial.*;
 // import Websockets library
 import websockets.*;
+// import ControlP5 library
+import controlP5.*;
 
 int value;
 

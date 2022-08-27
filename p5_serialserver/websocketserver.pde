@@ -1,5 +1,5 @@
 WebsocketServer server;
-int serverPort = 8081;
+int serverPort = 8080;
 
 void websocketServerEvent(String msg) {
   println(msg);
