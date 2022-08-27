@@ -6,4 +6,4 @@ String versionNumber = "v0.0.1";
 // programmed on an Apple M1 Pro Macbook
 // running macOS Monterey 12.5.1
 // designed and implemented
-// for 2022 Processing Fellow montoyamoraga
+// by 2022 Processing Fellow montoyamoraga
