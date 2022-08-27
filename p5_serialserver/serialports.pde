@@ -32,3 +32,9 @@ int getPortNumber() {
 void setPortNumber(int  newPortNumber) {
   portNumber = newPortNumber;
 }
+
+void portRead() {
+  if (port.available() > 0) {
+    value = port.read();
+  }
+}
