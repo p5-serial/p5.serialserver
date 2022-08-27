@@ -1,6 +1,6 @@
 // p5_serialserver.pde
 // august 2022
-// v0.0.1
+String versionNumber = "v0.0.1";
 // built with Processing 4.0.1
 // and libraries Serial and Websockets
 // programmed on an Apple M1 Pro Macbook

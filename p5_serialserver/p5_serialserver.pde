@@ -13,7 +13,7 @@ void setup() {
   // create canvas
   size(500, 500);
   
-  setupBackground();
+  setupColors();
   setupText();
   
   printSerialList();
