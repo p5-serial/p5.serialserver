@@ -8,7 +8,6 @@ void setup() {
   // create canvas
   size(500, 500);
 
-
   printSerialList();
 
   portName = Serial.list()[portNumber];
@@ -20,6 +19,8 @@ void setup() {
   setupColors();
   setupText();
   setupControlP5();
+  
+  findLocalIP();
 }
 
 void draw () {

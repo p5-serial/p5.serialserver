@@ -24,8 +24,8 @@ ControlP5 cp5;
 // setup functions
 
 void setupText() {
-  mattone32 = createFont("Mattone-150-32.vlw", 32);
-  mattone16 = createFont("Mattone-150-16.vlw", 16);
+  mattone32 = loadFont("Mattone-150-32.vlw");
+  mattone16 = loadFont("Mattone-150-16.vlw");
   textAlign(LEFT, CENTER);
   paddingX = paddingXPercentage * width/100;
   paddingY = paddingYPercentage * height/100;
@@ -44,7 +44,7 @@ void setupControlP5() {
 
   // add a scrollable list
   cp5.addScrollableList("select port")
-    .setPosition(paddingX, 53*height/100)
+    .setPosition(paddingX, 59*height/100)
     .setSize(200, 100)
     .setBarHeight(20)
     .setItemHeight(10)
@@ -68,19 +68,20 @@ void drawText() {
   fill(gray);
   textFont(mattone16);
   textSize(textSizeParagraph);
-  text("your public IP address is: " + addressIP, paddingX, 5 * paddingY);
-  text("your websocket port is: " + serverPort, paddingX, 6 * paddingY);
+  text("your public IP address is: " + publicIP, paddingX, 5 * paddingY);
+  text("your local IP address is: " + localIP, paddingX, 6 * paddingY);
+  text("your websocket port is: " + serverPort, paddingX, 7 * paddingY);
 
   fill(yellow);
   textFont(mattone32);
   textSize(textSizeTitle);
-  text("info serial", paddingX, 8 * paddingY);
+  text("info serial", paddingX, 9 * paddingY);
 
   fill(gray);
   textFont(mattone16);
   textSize(textSizeParagraph);
-  text("current port: ", paddingX, 10 * paddingY);
-  text("port status: ", paddingX, 11 * paddingY);
+  text("current port: ", paddingX, 11 * paddingY);
+  text("port status: ", paddingX, 12 * paddingY);
 }
 
 void drawBackground() {
@@ -89,5 +90,5 @@ void drawBackground() {
 
 void dropdown(int n) {
   // request the selected item based on index n
-  println(n, cp5.get(ScrollableList.class, "ports").getItem(n));
+  println(n, cp5.get(ScrollableList.class, "select port").getItem(n));
 }
