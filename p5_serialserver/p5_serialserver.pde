@@ -13,11 +13,10 @@ void setup() {
   // create canvas
   size(500, 500);
   
-  // setup text
+  setupBackground();
   setupText();
   
   printSerialList();
-  
 
   portName = Serial.list()[portNumber];
 
@@ -27,22 +26,14 @@ void setup() {
 }
 
 void draw () {
-
-  background(0);
-
+  
+  drawBackground();
   drawText();
-
-  if (port.available() > 0) {
-    value = port.read();
-  }
+  
+  portRead();
 
   if (millis() > now + deltaTime ) {
     server.sendMessage("0");
     now = millis();
   }
-}
-
-
-void websocketServerEvent(String msg) {
-  println(msg);
 }
