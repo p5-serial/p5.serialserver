@@ -6,11 +6,14 @@ Serial port;
 int portNumber = 2;
 String portName;
 
+String portStatus = "";
+
 int value;
 
 void selectPort(int n) {
   portName = portsArray[n];
   port = new Serial(this, portName, baudRate);
+  portStatus = "open";
 }
 
 int getBaudRate() {

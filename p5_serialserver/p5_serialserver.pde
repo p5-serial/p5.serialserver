@@ -9,9 +9,6 @@ void setup() {
   printSerialList();
 
   portName = "none";
-  // Serial.list()[portNumber];
-
-  //port = new Serial(this, portName, baudRate);
 
   server = new WebsocketServer(this, serverPort, "/");
 

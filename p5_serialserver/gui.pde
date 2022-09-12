@@ -82,14 +82,9 @@ void drawText() {
   textFont(mattone16);
   textSize(textSizeParagraph);
   text("current port: " + portName, paddingX, 11 * paddingY);
-  text("port status: ", paddingX, 12 * paddingY);
+  text("port status: " + portStatus, paddingX, 12 * paddingY);
 }
 
 void drawBackground() {
   background(black);
-}
-
-void dropdown(int n) {
-  // request the selected item based on index n
-  println(n, cp5.get(ScrollableList.class, "select port").getItem(n));
 }
