@@ -8,16 +8,17 @@ void setup() {
 
   printSerialList();
 
-  portName = Serial.list()[portNumber];
+  portName = "none";
+  // Serial.list()[portNumber];
 
-  port = new Serial(this, portName, baudRate);
+  //port = new Serial(this, portName, baudRate);
 
   server = new WebsocketServer(this, serverPort, "/");
 
   setupColors();
   setupText();
   setupControlP5();
-  
+
   findLocalIP();
 }
 
@@ -26,7 +27,10 @@ void draw () {
   drawBackground();
   drawText();
 
-  portRead();
+  if (portName != "none") {
+    portRead();
+  }
+
 
   if (millis() > now + deltaTime ) {
     server.sendMessage("0");
