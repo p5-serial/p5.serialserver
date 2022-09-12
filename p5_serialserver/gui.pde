@@ -41,12 +41,11 @@ void setupControlP5() {
   
   cp5 = new ControlP5(this);
   
-  
   // retrieve portList
   List portsList = Arrays.asList(portsArray);
 
   // add a scrollable list
-  cp5.addScrollableList("select port")
+  cp5.addScrollableList("selectPort")
     .setPosition(paddingX, 59*height/100)
     .setSize(200, 100)
     .setBarHeight(20)
@@ -61,7 +60,6 @@ void drawText() {
   textSize(textSizeTitle);
   text("p5_serialserver " + versionNumber, paddingX, 1 * paddingY);
   text("since 2015 at NYU ITP", paddingX, 2 * paddingY);
-
 
   fill(yellow);
   textFont(mattone32);
@@ -83,7 +81,7 @@ void drawText() {
   fill(gray);
   textFont(mattone16);
   textSize(textSizeParagraph);
-  text("current port: ", paddingX, 11 * paddingY);
+  text("current port: " + portName, paddingX, 11 * paddingY);
   text("port status: ", paddingX, 12 * paddingY);
 }
 

@@ -8,6 +8,11 @@ String portName;
 
 int value;
 
+void selectPort(int n) {
+  portName = portsArray[n];
+  port = new Serial(this, portName, baudRate);
+}
+
 int getBaudRate() {
   return baudRate;
 }
