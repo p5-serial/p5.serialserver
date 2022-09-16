@@ -20,8 +20,7 @@
     "arduino"
   ],
   "dependencies": {
-    "@serialport/bindings-cpp": "^10.7.0",
-    "serialport": "^10.4.0",
+    "serialport": "^9.2.8",
     "ws": "^7.0"
   },
   "license": "GPL",
