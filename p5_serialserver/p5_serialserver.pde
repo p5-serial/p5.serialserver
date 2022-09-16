@@ -15,7 +15,6 @@ void setup() {
   setupColors();
   setupText();
   setupControlP5();
-
   findLocalIP();
 }
 
