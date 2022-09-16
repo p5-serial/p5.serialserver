@@ -47,5 +47,5 @@ void portRead() {
     value = port.read();
   }
   
-  println(value);
+  //println(value);
 }
