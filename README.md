@@ -23,7 +23,7 @@ In order to follow these steps:
 ### Processing version
 
 1. Install the latest Processing app, available at [https://processing.org/](https://processing.org/).
-2. Navigate to the [p5_serialserver/](./p5_serialserver/) folder on this repository and open the file [p5_serialserver.pde](./p5_serialserver/p5_serialserver.pde) with the Processing app.
+2. Navigate to the p5_serialserver/ folder on this repository and open the file p5_serialserver.pde with the Processing app.
 3. Run this app and follow the instructions on it.
 
 ## Use
