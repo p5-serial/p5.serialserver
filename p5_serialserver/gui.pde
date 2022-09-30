@@ -46,7 +46,7 @@ void setupControlP5() {
 
   // add a scrollable list
   cp5.addScrollableList("selectPort")
-    .setPosition(paddingX, 59*height/100)
+    .setPosition(paddingX, 52*height/100)
     .setSize(200, 100)
     .setBarHeight(20)
     .setItemHeight(10)
@@ -69,20 +69,19 @@ void drawText() {
   fill(gray);
   textFont(mattone16);
   textSize(textSizeParagraph);
-  text("your public IP address is: " + publicIP, paddingX, 5 * paddingY);
-  text("your local IP address is: " + localIP, paddingX, 6 * paddingY);
-  text("your websocket port is: " + serverPort, paddingX, 7 * paddingY);
+  text("your local IP address is: " + localIP, paddingX, 5 * paddingY);
+  text("your websocket port is: " + serverPort, paddingX, 6 * paddingY);
 
   fill(yellow);
   textFont(mattone32);
   textSize(textSizeTitle);
-  text("info serial", paddingX, 9 * paddingY);
+  text("info serial", paddingX, 8 * paddingY);
 
   fill(gray);
   textFont(mattone16);
   textSize(textSizeParagraph);
-  text("current port: " + portName, paddingX, 11 * paddingY);
-  text("port status: " + portStatus, paddingX, 12 * paddingY);
+  text("current port: " + portName, paddingX, 10 * paddingY);
+  text("port status: " + portStatus, paddingX, 11 * paddingY);
 }
 
 void drawBackground() {

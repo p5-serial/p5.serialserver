@@ -18,9 +18,5 @@ void webSocketServerEvent(String msg) {
   
 }
 
-
-
-
-// TODO: method for stopping web socket server after closing all serialport connections
-
-//
+// TODO: method for stopping web socket server
+// after closing all serialport connections
