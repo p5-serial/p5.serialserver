@@ -1,64 +1,33 @@
-/**
- * @fileOverview Sets up web socket server and handles client connections by creating and deleting Client objects and SerialPort objects
- *
- * @author Shawn Van Every
- * @author Jiwon Shin
- *
- * @requires	classes/Client.js:Client
- * @requires 	classes/SerialPort.js:SerialPort
- * @requires 	NPM:ws
- */
-
 let Client = require('./Client.js');
 let SerialPort = require('./SerialPort.js');
 
-/**
- * Variable to decide whether to console.log detailed messages
- * @type {Boolean}
- * */
+// variable to decide whether to console.log detailed messages
 let LOGGING = true;
-/**
- * Web socket server. Initialized in start() function.
- * @type {ws}
- * */
+
+// web socket server. initialized in start() function
 let wss = null;
 
-/**
- * Array of all opened serial port names in string.
- * @type {String[]}
- */
+// array of all opened serial port names in string
 let serialPortsList = [];
-/**
- * Array of all opened {@link SerialPort SerialPort} objects.
- * @type {SerialPort[]}
- * */
+
+// array of all opened SerialPort objects
 let serialPorts = [];
-/**
- * Array of all connected {@link Client Client} objects.
- * @type {Client[]}
- * */
+
+// array of all connected Client objects
 let clients = [];
 
-/**
- * console.log log messages when LOGGING == true
- * @function logit
- * @param {String} mess - String to log when LOGGING == true*/
+// console.log log messages when LOGGING == true
 let logit = function (mess) {
   if (LOGGING) {
     console.log(mess);
   }
 };
 
-/**
- * @function start
- * @desc Initialize web socket server at port 8081. Initialize web socket clients on connection by creating a {@link Client Client} object and create a (@link SerialPort SerialPort} object after determining that it has not been opened already. Initialize web socket client message events.
- * @param {Number} port - port number used to open web socket server.
- * */
-
-/**
- * @event Client#message
- * @param {Object} inmessage - Type of message emitted from {@link Client Client}. Defined message types are: echo, list, openserial, write, close and error. Undefined message types are treated as error messages
- * */
+// initialize web socket server at port 8081.
+// initialize web socket clients on connection by creating
+// a Client object and create a SerialPort object
+// after determining that it has not been opened already.
+// initialize web socket client message events.
 let start = function (port) {
   logit('start()');
 
@@ -71,11 +40,10 @@ let start = function (port) {
   });
 
   wss.on('connection', (ws) => {
-    // Push the connection into the array of clients
+    // push the connection into the array of clients
     let client = new Client(ws);
     clients.push(client);
-    // Create an object to hold information about the connection
-
+    // create an object to hold information about the connection
     logit(`${clients.length} clients connected`);
 
     client.ws.on('message', function (inmessage) {
@@ -98,7 +66,7 @@ let start = function (port) {
             let newPort = message.data.serialport;
             let newPortOptions = message.data.serialoptions;
 
-            //before opening new port, clean up array
+            // before opening new port, clean up array
             for (let i = 0; i < serialPortsList; i++) {
               if (serialPortsList[i].serialPort === null) {
                 serialPorts.splice(i, 1);
@@ -106,7 +74,7 @@ let start = function (port) {
             }
 
             if (serialPortsList.length > 0) {
-              //specified serial port is already opened
+              // specified serial port is already opened
               if (serialPortsList.indexOf(newPort) > -1) {
                 let portIndex = serialPortsList.indexOf(newPort);
 
@@ -177,9 +145,9 @@ let start = function (port) {
       }
     });
 
-    //check if this is called if browser closed
-    //needs to be explicitly closed
-    //other clients need to receive broadcast that it was closed
+    // check if this is called if browser closed
+    // needs to be explicitly closed
+    // other clients need to receive broadcast that it was closed
     ws.on('close', function () {
       logit(`ws.on close - ${clients.length} client left`);
 
@@ -215,10 +183,7 @@ let start = function (port) {
   });
 };
 
-/**
- * @function stop
- * @desc Stops web socket server after closing all {@link SerialPort SerialPort} connections and {@link Client Client} connections
- * */
+// stops web socket server after closing all SerialPort and Client connections
 let stop = function () {
   logit('stop()');
 
@@ -261,7 +226,7 @@ let stop = function () {
     wss.close();
   }
 
-  // Let's try to close a different way
+  // let's try to close a different way
   for (let i = 0; i < serialPorts.length; i++) {
     if (
       serialPorts[i].serialPort != null &&

@@ -4,14 +4,14 @@
 // the byte will alternate between the values 1 and 0
 // between each send it waits the specified time
 
-//int baudRate = 9600;
-//int waitTime = 1000;
+// int baudRate = 9600;
+// int waitTime = 1000;
 
 //byte info;
 
 
 //void setup() {
-//  Serial.begin(baudRate);
+  // Serial.begin(baudRate);
 //}
 
 //void loop() {
