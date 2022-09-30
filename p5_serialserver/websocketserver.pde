@@ -1,4 +1,8 @@
+
+// variable for websocket server
 WebsocketServer server;
+
+// variable for port
 int serverPort = 8081;
 
 void webSocketServerEvent(String msg) {
