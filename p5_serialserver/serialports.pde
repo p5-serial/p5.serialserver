@@ -45,7 +45,7 @@ void setPortNumber(int  newPortNumber) {
 void portRead() {
   if (port.available() > 0) {
     value = port.read();
+    println(value);
   }
   
-  //println(value);
 }
