@@ -1,9 +1,3 @@
-import java.net.NetworkInterface;
-import java.net.InetAddress;
-import java.net.SocketException;
-
-// TODO: only talk about IP
-String publicIP = "TODO";
 String localIP = "TODO.TODO.TODO.TODO";
 
 void findLocalIP() {
