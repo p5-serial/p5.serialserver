@@ -4,7 +4,7 @@
 
 p5.serialserver is a [p5.js](https://p5js.org/) library that enables communication between your p5.js sketch and a serial enabled device, for example, an Arduino microcontroller.
 
-This repository is part of the p5-serial project, for more info please visit [https://github.com/p5-serial/p5.serial.github.io/](https://github.com/p5-serial/p5.serial.github.io/).
+This repository is part of the p5-serial project, for more info please visit [https://github.com/p5-serial/p5-serial.github.io/](https://github.com/p5-serial/p5-serial.github.io/).
 
 ## Installation
 
@@ -34,4 +34,4 @@ For this you need to use the companion library p5.serialport available at [https
 
 ## Contributions
 
-Info about contributing is available at the main repository of this organization: [https://github.com/p5-serial/p5.serial.github.io/](https://github.com/p5-serial/p5.serial.github.io/).
+Info about contributing is available at the main repository of this organization: [https://github.com/p5-serial/p5-serial.github.io/](https://github.com/p5-serial/p5-serial.github.io/).
